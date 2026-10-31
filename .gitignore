@@ -7,3 +7,6 @@ desktop.ini
 *.log
 tmp/
 node_modules/
+
+# Owner working files (not part of the published site)
+Siddhant_Pardeshi_ZAI_Portfolio_Master_Prompt.txt
