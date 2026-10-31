@@ -1,0 +1,143 @@
+/* ============================================================
+   HANDFX overlay — immersive webcam particle experience.
+   Ink stage, glass HUD, site-colored particles.
+   ============================================================ */
+
+.handfx {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  background: #0d0e11;
+  color: var(--text-light);
+  overflow: hidden;
+  border-radius: 0;
+}
+.handfx::backdrop { background: #0d0e11; }
+
+.handfx__stage { position: absolute; inset: 0; }
+.handfx__stage canvas { width: 100%; height: 100%; display: block; }
+
+.handfx__top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) clamp(1rem, 3vw, 2rem) 0.8rem;
+  background: linear-gradient(180deg, rgba(13, 14, 17, 0.88), rgba(13, 14, 17, 0));
+  pointer-events: none;
+}
+.handfx__top > * { pointer-events: auto; }
+.handfx__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin: 0;
+}
+.handfx__top h3 { font-size: 1.3rem; margin-top: 0.2rem; }
+.handfx__top-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+.handfx__privacy {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--line-light-strong);
+  border-radius: var(--r-pill);
+  padding: 0.35rem 0.8rem;
+  color: var(--text-light-muted);
+  cursor: help;
+}
+
+.handfx__preview {
+  position: absolute;
+  left: clamp(0.8rem, 2vw, 1.6rem);
+  bottom: calc(6.6rem + env(safe-area-inset-bottom, 0px));
+  width: 148px;
+  aspect-ratio: 4 / 3;
+  border: 2px solid var(--line-light-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.handfx__preview video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirrored, like a mirror should be */
+  opacity: 0.85;
+}
+.handfx__live {
+  position: absolute;
+  top: 6px; left: 6px;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  background: rgba(13, 14, 17, 0.75);
+  color: var(--lime);
+  border-radius: var(--r-pill);
+  padding: 0.14rem 0.5rem;
+}
+.handfx__preview--demo video { display: none; }
+.handfx__preview--demo { border-style: dashed; }
+
+.handfx__bottom {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem clamp(1rem, 3vw, 2rem) calc(1rem + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(0deg, rgba(13, 14, 17, 0.92), rgba(13, 14, 17, 0));
+}
+.handfx__status {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  text-align: center;
+  min-height: 1.5em;
+}
+.handfx__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+.handfx__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1.5px solid var(--line-light-strong);
+  background: rgba(31, 33, 40, 0.72);
+  border-radius: var(--r-pill);
+  padding: 0.32rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+.handfx__legend .g { font-size: 1rem; line-height: 1; }
+
+@media (max-width: 640px) {
+  .handfx__preview { width: 104px; bottom: calc(8.2rem + env(safe-area-inset-bottom, 0px)); }
+  .handfx__legend li { font-size: 0.72rem; padding: 0.28rem 0.65rem; }
+  .handfx__privacy { display: none; }
+  .handfx__top h3 { font-size: 1.05rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handfx__stage canvas { opacity: 0.92; }
+}

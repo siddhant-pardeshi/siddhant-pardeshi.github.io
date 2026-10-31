@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/byte.css">
+<link rel="stylesheet" href="css/handfx.css">
 <link rel="stylesheet" href="css/print.css">
 <script type="application/ld+json">
 {
@@ -149,6 +150,7 @@
         </div>
         <div class="scene-actions">
           <button class="btn btn--small btn--lime" type="button" id="trace-btn">Trace a request ⚡</button>
+          <button class="btn btn--small btn--ghost" type="button" data-handfx-open aria-label="Open the hand-tracked particles experience — uses your webcam, processed on-device only">Hand control ✋</button>
           <span class="tag-note">Hover the nodes for their role</span>
         </div>
         <p class="trace-status" id="trace-status" aria-live="polite">Press <strong>Trace a request</strong> and follow one request through the system — the same pattern my projects are built on.</p>
@@ -762,6 +764,7 @@
       <li><button type="button" data-byte-action="github">Explore GitHub</button></li>
       <li><button type="button" data-byte-action="resume">View resume</button></li>
       <li><button type="button" data-byte-action="contact">Contact Siddhant</button></li>
+      <li><button type="button" data-byte-action="handfx">Play with hand-tracked particles ✋</button></li>
       <li><button type="button" data-byte-action="tour">Take a quick tour ⚡</button></li>
     </ul>
     <div class="byte-menu__foot">
@@ -820,12 +823,42 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<dialog class="handfx" id="handfx-overlay" aria-label="Hand-tracked particles experience">
+  <div class="handfx__stage">
+    <canvas id="handfx-canvas" aria-hidden="true"></canvas>
+  </div>
+  <header class="handfx__top">
+    <div>
+      <p class="handfx__eyebrow">Interactive illustration · webcam edition</p>
+      <h3>Hand-tracked particles</h3>
+    </div>
+    <div class="handfx__top-actions">
+      <span class="handfx__privacy" title="The camera feed is processed entirely on your device by MediaPipe. Nothing is recorded, stored, or uploaded — closing this stops the camera immediately.">On-device only 🔒</span>
+      <button class="btn btn--small btn--lime" type="button" data-handfx-close>Close ✕</button>
+    </div>
+  </header>
+  <div class="handfx__preview" id="handfx-preview" aria-hidden="true">
+    <video id="handfx-video" playsinline muted></video>
+    <span class="handfx__live">LIVE</span>
+  </div>
+  <footer class="handfx__bottom">
+    <p class="handfx__status" id="handfx-status" role="status" aria-live="polite">Starting…</p>
+    <ul class="handfx__legend" aria-label="Gesture guide">
+      <li><span class="g" aria-hidden="true">🤚</span> Hover — portal ring</li>
+      <li><span class="g" aria-hidden="true">✋</span> Open — burst &amp; scatter</li>
+      <li><span class="g" aria-hidden="true">✊</span> Fist — swirl sphere</li>
+      <li><span class="g" aria-hidden="true">✌️</span> Victory — signal stream</li>
+    </ul>
+  </footer>
+</dialog>
+
 <script src="js/content.js"></script>
 <script src="js/byte.js"></script>
 <script src="js/sims.js"></script>
 <script src="js/skills.js"></script>
 <script src="js/gallery.js"></script>
 <script src="js/posts.js"></script>
+<script src="js/handfx.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

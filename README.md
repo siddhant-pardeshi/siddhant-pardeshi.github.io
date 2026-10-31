@@ -117,6 +117,30 @@ Motion (Full / Reduced / Off — follows OS preference until changed) and Sound 
 opt-in) live in the ⚙ nav control. Byte can be hidden and restored from the same panel.
 Ctrl/Cmd+K opens the command palette anywhere.
 
+## 7b. Hand-tracked particles (webcam feature)
+
+An opt-in, full-screen experience (hero → "Hand control ✋", Byte's menu, or Ctrl+K):
+your hand drives a particle swarm — portal ring follows the palm, open hand bursts
+it apart, a fist collapses it into a swirling sphere, ✌️ streams particles from
+the fingertips.
+
+**Privacy:** the camera is requested only when the overlay opens, and MediaPipe
+HandLandmarker (WASM, loaded from jsDelivr) processes every frame **on-device**.
+Nothing is recorded, stored, or uploaded — closing the overlay stops the camera
+immediately.
+
+**Behavior details:**
+- ~6 MB engine + model download happens on first open, then is browser-cached.
+- Works on phones (front camera) and desktops over HTTPS.
+- Permission denied / no camera / offline → clear inline messages; the rest of
+  the site is unaffected.
+- Motion setting "Reduced" halves the particle count; "Off" disables the entry
+  point with an explanatory toast.
+- Dev check: open `?handfx-test=1` to run the overlay with a synthetic hand
+  (no camera, no model) — useful for demos and automated testing.
+- Tuning knobs live at the top of `js/handfx.js` (colors, particle target count,
+  gesture thresholds in `classify()`).
+
 ## 8. Facts policy (please keep following it)
 
 The site deliberately makes no unsupported claims: the hackathon result stays a **team** result,

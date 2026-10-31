@@ -220,6 +220,7 @@
       { label: "Open GitHub profile", hint: "External", run: function () { window.open(window.CONTENT.site.github, "_blank", "noopener"); } },
       { label: "Open LinkedIn profile", hint: "External", run: function () { window.open(window.CONTENT.site.linkedin, "_blank", "noopener"); } },
       { label: "Take the Byte tour", hint: "Tour", run: function () { startTour(); } },
+      { label: "Hand-tracked particles (webcam)", hint: "Experience", run: function () { if (window.HandFX) window.HandFX.open(); } },
       { label: "Experience settings", hint: "Settings", run: function () { openSettings(); } }
     ];
     var filtered = items, activeIdx = 0;
@@ -322,6 +323,21 @@
     });
   }
 
+  /* ---------------- Hand-tracked particles ---------------- */
+  function initHandFX() {
+    if (!window.HandFX) return;
+    $$("[data-handfx-open]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (HandFX.isSupported()) HandFX.open();
+        else toast("Hand control needs a camera and a secure connection, so it's unavailable right now.");
+      });
+    });
+    /* hide the entry point entirely where the platform can't support it */
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      $$("[data-handfx-open]").forEach(function (b) { b.hidden = true; });
+    }
+  }
+
   /* ---------------- Tour ---------------- */
   var tourSteps = [
     { sel: "#top", title: "The signal starts here", text: "This playground traces one idea: a request travels from UI to API to data and back. Press “Trace a request” to watch it." },
@@ -405,6 +421,7 @@
           case "github": window.open(C.site.github, "_blank", "noopener"); break;
           case "resume": window.open(C.site.resume.path, "_blank", "noopener"); break;
           case "contact": location.hash = "#contact"; break;
+          case "handfx": if (window.HandFX) window.HandFX.open(); break;
           case "tour": startTour(); break;
         }
         if (window.Byte) window.Byte.SoundFX.play("pop");
@@ -496,6 +513,7 @@
     initByteMenu();
     initSnapshotCheck();
     initHideByte();
+    initHandFX();
     initPolish();
     initAvailability();
     if (window.SkillsView) SkillsView.init();
