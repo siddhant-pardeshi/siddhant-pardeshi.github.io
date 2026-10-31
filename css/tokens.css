@@ -1,0 +1,89 @@
+/* ============================================================
+   THE BUILDER'S PLAYGROUND — design tokens
+   Owner: Siddhant Pardeshi · Identity: editorial + tactile +
+   futuristic · Signal metaphor: lime pulse through the system.
+   ============================================================ */
+
+:root {
+  /* Palette */
+  --ink: #101114;
+  --ink-2: #17181d;
+  --ink-3: #1f2128;
+  --paper: #f6f4ee;
+  --paper-2: #efece2;
+  --paper-3: #e6e2d4;
+  --lime: #d9ff43;
+  --lime-soft: #e9ff8a;
+  --violet: #4b57ff;
+  --violet-2: #7c85ff;
+  --violet-ink: #3742c9;
+  --apricot: #ffa86b;
+  --apricot-2: #e8823f;
+  --cream: #f2efe6;
+
+  /* Text */
+  --text-dark: #101114;            /* on paper */
+  --text-dark-muted: #545863;      /* on paper, AA */
+  --text-light: #f2efe6;           /* on ink */
+  --text-light-muted: #a9adb9;     /* on ink, AA */
+
+  /* Lines & surfaces */
+  --line-dark: rgba(16, 17, 20, 0.16);
+  --line-dark-strong: rgba(16, 17, 20, 0.32);
+  --line-light: rgba(242, 239, 230, 0.18);
+  --line-light-strong: rgba(242, 239, 230, 0.34);
+
+  --shadow-s: 0 1px 2px rgba(16, 17, 20, 0.06), 0 2px 8px rgba(16, 17, 20, 0.07);
+  --shadow-m: 0 2px 6px rgba(16, 17, 20, 0.08), 0 10px 28px rgba(16, 17, 20, 0.12);
+  --shadow-l: 0 6px 16px rgba(16, 17, 20, 0.10), 0 24px 60px rgba(16, 17, 20, 0.18);
+
+  /* Type */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --fs-hero: clamp(2.7rem, 7.2vw, 5.4rem);
+  --fs-h2: clamp(1.9rem, 4vw, 3.1rem);
+  --fs-h3: clamp(1.25rem, 2.2vw, 1.7rem);
+  --fs-body: clamp(1rem, 0.96rem + 0.3vw, 1.11rem);
+  --fs-small: 0.9rem;
+  --fs-micro: 0.74rem;
+
+  /* Shape */
+  --r-s: 10px;
+  --r-m: 16px;
+  --r-l: 26px;
+  --r-pill: 999px;
+
+  /* Space */
+  --gutter: clamp(1.1rem, 4vw, 2.5rem);
+  --section-y: clamp(4rem, 9vw, 7.5rem);
+  --container: 1200px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.45, 0.5, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-slow: 700ms;
+
+  /* Z scale */
+  --z-nav: 60;
+  --z-dock: 55;
+  --z-overlay: 80;
+  --z-toast: 90;
+
+  color-scheme: light;
+}
+
+/* Motion preference: JS may set data-motion="reduced"|"off" on <html>.
+   Default follows the OS via media query in base.css. */
+html[data-motion="reduced"] {
+  --t-fast: 1ms;
+  --t-med: 1ms;
+  --t-slow: 1ms;
+}
+html[data-motion="off"] {
+  --t-fast: 1ms;
+  --t-med: 1ms;
+  --t-slow: 1ms;
+}

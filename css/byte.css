@@ -1,0 +1,126 @@
+/* ============================================================
+   BYTE — the capybara guide.
+   Illustration styling, breathing, blinking, wave, states.
+   All decorative motion is disabled for reduced motion.
+   ============================================================ */
+
+.byte-svg { overflow: visible; }
+
+.byte-body-g { transform-origin: 100px 178px; }
+.byte--breath .byte-body-g { animation: byte-breath 3.6s ease-in-out infinite; }
+@keyframes byte-breath {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  50% { transform: scaleY(1.022) scaleX(0.994); }
+}
+
+.byte-eyes-g { transform-origin: 100px 96px; }
+.byte--blink .byte-eyes-g { animation: byte-blink 220ms ease-in-out; }
+@keyframes byte-blink { 40% { transform: scaleY(0.08); } }
+
+/* state: eyes closed (sleepy / happy squint) */
+.byte--eyes-closed .byte-eye-open { opacity: 0; }
+.byte--eyes-closed .byte-eye-shut { opacity: 1; }
+.byte-eye-open { transition: opacity 120ms; }
+.byte-eye-shut { opacity: 0; }
+
+/* happy squint arcs + display face */
+.byte--happy .byte-eye-open { opacity: 0; }
+.byte--happy .byte-eye-happy { opacity: 1; }
+.byte-eye-happy { opacity: 0; }
+
+/* surprised */
+.byte--surprised .byte-eye-pupil { transform: scale(1.25); transform-origin: center; transform-box: fill-box; }
+
+/* cheeks glow on happy */
+.byte--happy .byte-cheek { opacity: 0.85; }
+.byte-cheek { transition: opacity 200ms; }
+
+/* Wave paw */
+.byte-paw-wave { transform-origin: 138px 150px; transform-box: view-box; }
+.byte--wave .byte-paw-wave { animation: byte-wave 0.55s var(--ease-spring) 2; }
+@keyframes byte-wave {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(-58deg); }
+  70% { transform: rotate(-30deg); }
+}
+
+/* Celebration bounce */
+.byte--celebrate .byte-body-g { animation: byte-bounce 0.62s var(--ease-spring) 2; }
+@keyframes byte-bounce {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  35% { transform: translateY(-14px) scaleY(1.04); }
+  70% { transform: translateY(0) scaleY(0.96); }
+}
+
+/* Surprise hop */
+.byte--surprised .byte-body-g { animation: byte-hop 0.4s var(--ease-spring) 1; }
+@keyframes byte-hop { 50% { transform: translateY(-7px); } }
+
+/* Thinking — chest display dots pulse */
+.byte--thinking .byte-display-dot { animation: byte-dot 900ms ease-in-out infinite; }
+.byte--thinking .byte-display-dot:nth-of-type(2) { animation-delay: 150ms; }
+.byte--thinking .byte-display-dot:nth-of-type(3) { animation-delay: 300ms; }
+@keyframes byte-dot { 50% { opacity: 0.25; } }
+
+/* Sleepy Zzz */
+.byte-zzz { opacity: 0; }
+.byte--sleepy .byte-zzz { opacity: 1; animation: byte-zzz 2.6s ease-in-out infinite; }
+.byte--sleepy .byte-eyes-g { animation: none; }
+@keyframes byte-zzz { 50% { transform: translateY(4px); } }
+
+/* Hearts / sparkles burst */
+.byte-burst { opacity: 0; }
+.byte-burst.is-on { animation: byte-burst 900ms var(--ease-out) forwards; }
+@keyframes byte-burst {
+  0% { opacity: 0; transform: translateY(6px) scale(0.5); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.15); }
+}
+
+/* Display text swap */
+.byte-display-face { transition: opacity 150ms; }
+.byte-display-face[hidden] { display: none; }
+
+/* Builder hat (projects) */
+.byte-hat { opacity: 0; transform: translateY(6px); transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out); }
+.byte--hat .byte-hat { opacity: 1; transform: none; }
+
+/* Motion off/reduced — static poses only */
+@media (prefers-reduced-motion: reduce) {
+  .byte--breath .byte-body-g, .byte--blink .byte-eyes-g,
+  .byte--wave .byte-paw-wave, .byte--celebrate .byte-body-g,
+  .byte--surprised .byte-body-g, .byte--thinking .byte-display-dot,
+  .byte--sleepy .byte-zzz, .byte-burst.is-on { animation: none !important; }
+}
+html[data-motion="reduced"] .byte--breath .byte-body-g,
+html[data-motion="reduced"] .byte--blink .byte-eyes-g,
+html[data-motion="reduced"] .byte--wave .byte-paw-wave,
+html[data-motion="reduced"] .byte--celebrate .byte-body-g,
+html[data-motion="reduced"] .byte--surprised .byte-body-g,
+html[data-motion="reduced"] .byte--thinking .byte-display-dot,
+html[data-motion="reduced"] .byte--sleepy .byte-zzz,
+html[data-motion="reduced"] .byte-burst.is-on,
+html[data-motion="off"] .byte--breath .byte-body-g,
+html[data-motion="off"] .byte--blink .byte-eyes-g,
+html[data-motion="off"] .byte--wave .byte-paw-wave,
+html[data-motion="off"] .byte--celebrate .byte-body-g,
+html[data-motion="off"] .byte--surprised .byte-body-g,
+html[data-motion="off"] .byte--thinking .byte-display-dot,
+html[data-motion="off"] .byte--sleepy .byte-zzz,
+html[data-motion="off"] .byte-burst.is-on { animation: none !important; }
+
+/* Footer bridge scene */
+.bridge-g { opacity: 0; }
+.bridge--built .bridge-g { opacity: 1; transition: opacity 400ms var(--ease-out); }
+.bridge-plank { opacity: 0; transform-origin: center; transform-box: fill-box; }
+.bridge--built .bridge-plank { animation: plank-in 380ms var(--ease-spring) forwards; animation-delay: calc(var(--i) * 130ms); }
+@keyframes plank-in {
+  from { opacity: 0; transform: translateY(-18px) rotate(-8deg); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bridge-plank { opacity: 1 !important; animation: none !important; }
+  .bridge-g { opacity: 1 !important; }
+}
+html[data-motion="reduced"] .bridge-plank, html[data-motion="off"] .bridge-plank { opacity: 1 !important; animation: none !important; }
+html[data-motion="reduced"] .bridge-g, html[data-motion="off"] .bridge-g { opacity: 1 !important; }

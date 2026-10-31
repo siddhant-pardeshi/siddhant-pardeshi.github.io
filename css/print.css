@@ -1,0 +1,55 @@
+/* ============================================================
+   Print — clean recruiter profile. No mascot, no dark walls,
+   no decorative spacing. Optimized for paper.
+   ============================================================ */
+
+@media print {
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --lime: #fff;
+    --violet: #000;
+    --line-dark: #999;
+    --line-dark-strong: #666;
+  }
+
+  * { box-shadow: none !important; text-shadow: none !important; animation: none !important; transition: none !important; }
+
+  body { background: #fff; color: #000; font-size: 11.5pt; line-height: 1.45; }
+  body::after { display: none; }
+
+  .site-nav, .byte-dock, .byte-speech, .byte-menu, .settings-menu,
+  .palette, .tour-card, .toast, .mobile-menu,
+  .skip-link, .footer-bridge, .no-print, .sim__controls, .btn,
+  .nav-progress, .gallery-filters, .print-hidden { display: none !important; }
+
+  .section { padding: 14pt 0 !important; }
+  .container { width: 100%; }
+
+  h1 { font-size: 22pt; }
+  h2 { font-size: 15pt; border-bottom: 1.5pt solid #000; padding-bottom: 3pt; margin-bottom: 8pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: #000; text-decoration: none; }
+  /* Show URLs after link text for evidence */
+  .print-url::after { content: " (" attr(href) ")"; font-size: 8.5pt; color: #444; word-break: break-all; }
+
+  .spotlight__card, .project-panel--ink, .ach-hero,
+  .section--ink, .site-footer, .edu-card, .contact-line {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1.5pt solid #000 !important;
+  }
+  .ach-hero { box-shadow: none !important; }
+  .muted, .text-light-muted { color: #333 !important; }
+
+  .case[hidden] { display: block !important; }
+  .case { border-top: 1pt solid #999; }
+
+  .page-break { break-before: page; }
+  .avoid-break { break-inside: avoid; }
+
+  .recruiter-headline { font-size: 24pt; }
+  .recruiter-contactline { font-size: 10.5pt; }
+}

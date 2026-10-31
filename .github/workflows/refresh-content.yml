@@ -1,0 +1,51 @@
+name: Refresh content (GitHub repository stats)
+
+on:
+  schedule:
+    # Every 15 minutes, deliberately off the top of the hour.
+    # GitHub may delay scheduled runs — this is periodic freshness, not an SLA.
+    - cron: "13,28,43,58 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-content
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch public repository metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: siddhant-pardeshi
+        run: node scripts/fetch-github-data.mjs
+
+      - name: Commit snapshot only when repository data actually changed
+        id: commit
+        run: |
+          git config user.name "content-sync-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/github-snapshot.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No meaningful repository change — snapshot untouched (no redeploy)."
+          else
+            git commit -m "chore(data): refresh GitHub repository snapshot"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push snapshot
+        if: steps.commit.outputs.changed == 'true'
+        run: git push

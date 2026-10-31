@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { margin: 0; width: 1200px; height: 630px; overflow: hidden; font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif; background: #101114; color: #F2EFE6; }
+  .wrap { position: relative; width: 1200px; height: 630px; padding: 64px 72px; box-sizing: border-box; }
+  .mono { position: absolute; top: 56px; right: 64px; width: 84px; height: 84px; background: #D9FF43; color: #101114; border-radius: 22px; display: grid; place-items: center; font-weight: 700; font-size: 34px; transform: rotate(6deg); border: 3px solid #101114; box-shadow: 0 0 0 3px #F2EFE6; }
+  .eyebrow { color: #D9FF43; letter-spacing: 0.22em; font-size: 20px; font-weight: 700; }
+  h1 { font-size: 84px; line-height: 1.04; margin: 28px 0 0; letter-spacing: -0.02em; }
+  .accent { color: #7C85FF; }
+  .sub { margin-top: 30px; font-family: "Inter", system-ui, sans-serif; font-size: 25px; color: #A9ADB9; max-width: 760px; line-height: 1.5; }
+  .chips { position: absolute; left: 72px; bottom: 62px; display: flex; gap: 14px; }
+  .chip { border: 2px solid #F2EFE6; opacity: 0.9; border-radius: 999px; padding: 10px 22px; font-size: 20px; font-weight: 600; }
+  .chip.lime { background: #D9FF43; color: #101114; border-color: #D9FF43; }
+  svg.byte { position: absolute; right: 60px; bottom: 30px; width: 240px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mono">SP</div>
+  <div class="eyebrow">SIDDHANT PARDESHI / SOFTWARE DEVELOPER</div>
+  <h1>I build the logic.<br>You <span class="accent">feel</span> the experience.</h1>
+  <p class="sub">Full-stack Java · Spring Boot · MySQL · React — with playable architecture walkthroughs and a capybara guide named Byte.</p>
+  <div class="chips">
+    <span class="chip lime">4th overall · Metro Hackathon</span>
+    <span class="chip">GATE 2025</span>
+    <span class="chip">CGPA 8.13/10</span>
+  </div>
+  <svg class="byte" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="100" cy="184" rx="66" ry="9" fill="#000" opacity="0.35"/>
+    <path d="M30,128 C30,92 52,72 88,68 C120,65 142,72 158,84 C168,92 172,102 172,116 C172,150 168,176 156,180 L44,180 C32,176 30,150 30,128 Z" fill="#E9A566" stroke="#101114" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="66" cy="74" rx="12" ry="9" transform="rotate(-18 66 74)" fill="#C9814C" stroke="#101114" stroke-width="4"/>
+    <ellipse cx="110" cy="67" rx="12" ry="9" transform="rotate(-6 110 67)" fill="#C9814C" stroke="#101114" stroke-width="4"/>
+    <circle cx="86" cy="97" r="6" fill="#101114"/><circle cx="88.4" cy="94.8" r="1.9" fill="#fff"/>
+    <circle cx="126" cy="93" r="6" fill="#101114"/><circle cx="128.4" cy="90.8" r="1.9" fill="#fff"/>
+    <rect x="152" y="94" width="17" height="11" rx="5.5" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+    <path d="M150,116 q7,6 14,1" fill="none" stroke="#101114" stroke-width="3" stroke-linecap="round"/>
+    <rect x="84" y="126" width="46" height="42" rx="11" fill="#101114" stroke="#D9FF43" stroke-width="3.5"/>
+    <rect x="91" y="133" width="32" height="28" rx="7" fill="#1d2027"/>
+    <path d="M100,141 l-6,6 6,6 M114,141 l6,6 -6,6 M109,139 l-4,16" fill="none" stroke="#D9FF43" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="46" y="166" width="24" height="15" rx="7.5" fill="#E9A566" stroke="#101114" stroke-width="4"/>
+    <rect x="84" y="169" width="24" height="15" rx="7.5" fill="#E9A566" stroke="#101114" stroke-width="4"/>
+    <rect x="118" y="169" width="24" height="15" rx="7.5" fill="#E9A566" stroke="#101114" stroke-width="4"/>
+    <rect x="140" y="160" width="25" height="16" rx="8" fill="#F0B273" stroke="#101114" stroke-width="4"/>
+  </svg>
+</div>
+</body>
+</html>

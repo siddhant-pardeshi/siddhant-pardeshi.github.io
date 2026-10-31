@@ -1,0 +1,9 @@
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Logs / temp
+*.log
+tmp/
+node_modules/
