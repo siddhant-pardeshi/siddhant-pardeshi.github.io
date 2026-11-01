@@ -536,6 +536,20 @@
     window.addEventListener("load", function () { setTimeout(sweep, 400); });
   }
 
+  /* ---------------- Hero polaroid → photo viewer ---------------- */
+  function initHeroPhotos() {
+    $$("[data-open-photo]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (window.GalleryView && window.GalleryView.openById) {
+          window.GalleryView.openById(b.getAttribute("data-open-photo"));
+          window.SoundPop && window.SoundPop();
+        } else {
+          location.hash = "#gallery";
+        }
+      });
+    });
+  }
+
   /* ---------------- Byte section awareness ---------------- */
   function initByteSectionAwareness() {
     var ids = ["top", "work", "skills", "achievements", "gallery", "posts", "about", "contact"];
@@ -623,6 +637,7 @@
     initCountUp();
     initRevealFailsafe();
     initByteSectionAwareness();
+    initHeroPhotos();
     /* re-wrap headlines that get revealed later is unnecessary —
        the observer adds is-revealed to the whole .section-head */
     initAvailability();

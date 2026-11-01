@@ -23,6 +23,7 @@ const h = process.argv[5] || "900";
 const p = spawn(chrome, [
   "--headless=new", "--disable-gpu",
   "--user-data-dir=" + require("os").tmpdir() + "/sp-shot-" + Date.now(),
+  "--force-prefers-reduced-motion",
   "--window-size=" + w + "," + h,
   "--screenshot=" + out,
   "--virtual-time-budget=9000",

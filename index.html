@@ -129,8 +129,17 @@
     </div>
 
     <div class="hero__scene">
+      <button class="hero-polaroid" type="button" data-open-photo="p-02" aria-label="That's Siddhant — open the photo viewer">
+        <span class="hp-stack" aria-hidden="false">
+          <span class="hp-layer hp-back2" aria-hidden="true"><img src="assets/portrait/formal-03-art-wall.jpg" alt="" loading="eager" decoding="async"></span>
+          <span class="hp-layer hp-back" aria-hidden="true"><img src="assets/portrait/formal-04-wood-panel.jpg" alt="" loading="eager" decoding="async"></span>
+          <span class="hp-layer hp-front"><img src="assets/portrait/formal-02-waterfall-wall.jpg" alt="Siddhant Pardeshi in formal attire, standing by a textured waterfall wall" loading="eager" decoding="async"></span>
+        </span>
+        <span class="hp-caption" aria-hidden="true"><strong>Siddhant Pardeshi</strong><span class="tag-note">Pune · Software Developer</span></span>
+        <span class="hp-sticker" aria-hidden="true">That's me ✦</span>
+      </button>
+      <div class="hero__byte" id="hero-byte"></div>
       <div class="scene-card">
-        <span class="scene-card__label">Interactive illustration</span>
         <div class="node-map" id="node-map">
           <svg viewBox="0 0 400 190" aria-hidden="false" role="group" aria-label="A small system diagram: UI node, API node and DATA node connected by a route">
             <path class="trace-path" d="M66,138 C 130,138 130,74 200,74 S 270,138 334,138" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" opacity="0.5"/>
@@ -155,11 +164,10 @@
         <div class="scene-actions">
           <button class="btn btn--small btn--lime" type="button" id="trace-btn">Trace a request ⚡</button>
           <button class="btn btn--small btn--ghost" type="button" data-handfx-open aria-label="Open the hand-tracked particles experience — uses your webcam, processed on-device only">Hand control ✋</button>
-          <span class="tag-note">Hover the nodes for their role</span>
+          <span class="tag-note">Interactive illustration · hover the nodes</span>
         </div>
         <p class="trace-status" id="trace-status" aria-live="polite">Press <strong>Trace a request</strong> and follow one request through the system — the same pattern my projects are built on.</p>
       </div>
-      <div class="hero__byte" id="hero-byte"></div>
     </div>
   </div>
 </section>

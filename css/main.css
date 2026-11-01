@@ -92,14 +92,103 @@
 .scene-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
 
 .hero__scene { position: relative; padding-bottom: 64px; }
-.hero__byte { position: absolute; left: -6px; bottom: -58px; z-index: 2; filter: drop-shadow(0 4px 10px rgba(16,17,20,0.18)); }
-.hero__byte svg.byte-svg { width: min(180px, 42%); }
+.hero__byte { position: absolute; right: -8px; top: 118px; z-index: 3; filter: drop-shadow(0 4px 10px rgba(16,17,20,0.18)); }
+.hero__byte svg.byte-svg { width: min(150px, 36%); }
+
+/* ---- hero polaroid deck: professional photos, first screen ---- */
+.hero-polaroid {
+  position: relative;
+  display: block;
+  width: min(262px, 74%);
+  margin: 0 6px -40px auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  z-index: 2;
+  rotate: 2deg;
+  animation: polaroid-in 750ms var(--ease-out) 450ms both;
+}
+.hp-stack { position: relative; display: block; aspect-ratio: 5 / 5.4; animation: hp-bob 6.5s ease-in-out infinite; }
+.hp-layer {
+  position: absolute; inset: 0;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--paper-2);
+  box-shadow: 6px 8px 0 rgba(16, 17, 20, 0.88);
+  transition: transform 380ms var(--ease-spring), box-shadow 300ms var(--ease-out);
+}
+.hp-layer img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hp-layer.hp-back { transform: rotate(5deg) translate(12px, -4px); }
+.hp-layer.hp-back2 { transform: rotate(-6deg) translate(-10px, -8px); box-shadow: 4px 5px 0 rgba(16, 17, 20, 0.55); }
+.hp-front::after {
+  content: "";
+  position: absolute; top: -30%; bottom: -30%; left: -45%; width: 34%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-160%) rotate(8deg);
+  transition: transform 700ms var(--ease-out);
+  pointer-events: none;
+}
+.hp-caption {
+  position: relative;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem;
+  margin-top: 0.75rem;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 0.45rem 0.8rem;
+  box-shadow: 4px 4px 0 var(--lime);
+  rotate: -1deg;
+  transition: rotate 300ms var(--ease-out);
+}
+.hp-caption strong { font-family: var(--font-display); font-size: 0.9rem; }
+.hp-sticker {
+  position: absolute; top: -14px; right: -16px;
+  background: var(--lime);
+  border: 2px solid var(--ink);
+  border-radius: var(--r-pill);
+  padding: 0.3rem 0.75rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
+  rotate: 7deg;
+  box-shadow: 3px 3px 0 rgba(16, 17, 20, 0.85);
+  z-index: 2;
+}
+@keyframes polaroid-in {
+  from { opacity: 0; transform: translateY(36px) rotate(-8deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@keyframes hp-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero-polaroid:hover .hp-back, .hero-polaroid:focus-visible .hp-back {
+    transform: rotate(11deg) translate(26px, -8px);
+  }
+  .hero-polaroid:hover .hp-back2, .hero-polaroid:focus-visible .hp-back2 {
+    transform: rotate(-12deg) translate(-22px, -12px);
+  }
+  .hero-polaroid:hover .hp-front, .hero-polaroid:focus-visible .hp-front {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 10px 12px 0 var(--lime);
+  }
+  .hero-polaroid:hover .hp-front::after, .hero-polaroid:focus-visible .hp-front::after {
+    transform: translateX(520%) rotate(8deg);
+  }
+  .hero-polaroid:hover .hp-caption { rotate: 0deg; }
+}
+.hero-polaroid:active .hp-front { transform: scale(0.98); }
+.hero-polaroid:focus-visible { outline: 3px solid var(--violet); outline-offset: 4px; border-radius: 18px; }
 
 @media (max-width: 900px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__scene { order: -1; max-width: 560px; padding-bottom: 50px; margin-bottom: 34px; }
-  .hero__byte { left: -4px; bottom: -42px; }
-  .hero__byte svg.byte-svg { width: 108px; }
+  .hero__scene { order: -1; max-width: 560px; padding-bottom: 46px; margin-bottom: 30px; }
+  .hero-polaroid { width: 208px; margin: 0 4px -30px auto; }
+  .hp-stack { aspect-ratio: 5 / 5.2; }
+  .hero__byte { right: -2px; top: 96px; }
+  .hero__byte svg.byte-svg { width: 96px; }
 }
 
 /* ============ LINKEDIN SPOTLIGHT ============ */
@@ -768,6 +857,17 @@
 
 /* Snapshot refresh pulse for stats */
 .stat-refresh-note { font-size: 0.78rem; opacity: 0.65; margin-top: 0.6rem; }
+
+/* reduced motion: polaroid deck holds still */
+@media (prefers-reduced-motion: reduce) {
+  .hero-polaroid, .hp-stack { animation: none !important; }
+  .hp-layer, .hp-caption, .hp-front::after { transition: none !important; }
+  .hero-polaroid:hover .hp-front::after { transform: translateX(-160%) rotate(8deg); }
+}
+html[data-motion="reduced"] .hero-polaroid, html[data-motion="off"] .hero-polaroid,
+html[data-motion="reduced"] .hp-stack, html[data-motion="off"] .hp-stack { animation: none !important; }
+html[data-motion="reduced"] .hp-layer, html[data-motion="off"] .hp-layer,
+html[data-motion="reduced"] .hp-caption, html[data-motion="off"] .hp-caption { transition: none !important; }
 
 /* ============================================================
    THE BOLD LAYER — kinetic ticker, word reveals, choreography

@@ -57,6 +57,18 @@ evals.push(["boot: ticker bands = 2", `document.querySelectorAll('.ticker').leng
 evals.push(["boot: hero floaters = 4", `document.querySelectorAll('.hero-floater').length`]);
 evals.push(["boot: headlines word-wrapped", `document.querySelectorAll('.section-head h2 .wline').length > 10`]);
 evals.push(["boot: count-up target present", `!!document.querySelector('[data-count="8.13"]')`]);
+evals.push(["hero: polaroid deck present + opens lightbox", `(async () => {
+  const deck = document.querySelector('.hero-polaroid');
+  if (!deck) return 'no deck';
+  deck.click();
+  await new Promise(r => setTimeout(r, 200));
+  const lb = document.getElementById('lightbox');
+  const opened = lb.open;
+  const hasImg = !!lb.querySelector('.lightbox__stage img');
+  lb.close();
+  await new Promise(r => setTimeout(r, 80));
+  return opened + '|' + hasImg;
+})()`, v => v === 'true|true']);
 evals.push(["byte: click hero → reacts", `(async () => {
   const el = document.querySelector('#hero-byte .byte-instance');
   el.dispatchEvent(new MouseEvent('click', {bubbles: true}));

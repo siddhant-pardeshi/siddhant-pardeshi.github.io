@@ -242,6 +242,18 @@
     /* the lightbox scales photos up cleanly */
     var st = lightbox.querySelector(".lightbox__stage");
     if (st) st.classList.add("lightbox__stage--photo");
+
+    /* public: open any item by id (hero polaroid deck uses this) */
+    api.openById = function (id) {
+      var item = C.galleryItems.find(function (g) { return g.id === id; });
+      if (!item) return;
+      shown = C.galleryItems.slice();
+      currentIdx = Math.max(0, shown.indexOf(item));
+      lastFocus = document.activeElement;
+      renderLightbox();
+      lightbox.showModal();
+      btnClose.focus();
+    };
   }
 
   function esc(s) {
@@ -250,5 +262,6 @@
     });
   }
 
-  window.GalleryView = { init: init };
+  var api = { init: init, openById: null };
+  window.GalleryView = api;
 })();
