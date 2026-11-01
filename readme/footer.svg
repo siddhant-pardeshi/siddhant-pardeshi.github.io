@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif">
+  <style>
+    .thx { fill:#F2EFE6; font-size:30px; font-weight:700; text-anchor:middle }
+    .lnk { fill:#D9FF43; font-size:17px; font-weight:700; text-anchor:middle }
+    .blk { fill:#4B57FF; rx:8 }
+    .blkt { fill:#F6F4EE; font-size:15px; font-weight:700; text-anchor:middle; font-family:monospace }
+    .plank { fill:#D9FF43; stroke:#101114; stroke-width:2.5; opacity:0; animation: plank 9s var(--ease, ease-out) infinite; transform: translateY(-40px) }
+    @keyframes plank {
+      0% { opacity:0; transform: translateY(-46px) rotate(-8deg) }
+      8%,92% { opacity:1; transform: translateY(0) rotate(0) }
+      100% { opacity:0; transform: translateY(0) }
+    }
+    .bytex { animation: walk 9s ease-in-out infinite; transform: translate(-320px,0) }
+    @keyframes walk {
+      0%,10% { transform: translate(-330px,0) }
+      46% { transform: translate(0px,0) }
+      60% { transform: translate(0px,0) }
+      80% { transform: translate(0px,0) }
+      100% { transform: translate(330px,0) }
+    }
+    .paww { animation: pw 9s ease-in-out infinite; transform-origin: 156px 122px }
+    @keyframes pw { 0%,55% { transform: rotate(0) } 62%,76% { transform: rotate(-58deg) } 82% { transform: rotate(-20deg) } 88%,100% { transform: rotate(-58deg) } }
+    .heartf { animation: hfl 9s ease-in-out infinite; opacity:0 }
+    @keyframes hfl { 0%,60% { opacity:0; transform: translateY(10px) } 68% { opacity:1 } 80%,100% { opacity:0; transform: translateY(-26px) } }
+  </style>
+  <rect width="1200" height="300" fill="#101114"/>
+  <text class="thx" x="600" y="64">Thanks for scrolling. <tspan fill="#D9FF43">Now go build something useful.</tspan></text>
+  <text class="lnk" x="600" y="104">⭐ Star the repo · 🌐 View the live site · 🤝 Connect on LinkedIn</text>
+
+  <rect class="blk" x="80" y="150" width="56" height="44" rx="8"/>
+  <text class="blkt" x="108" y="178">{ }</text>
+  <rect class="blk" x="1064" y="150" width="56" height="44" rx="8"/>
+  <text class="blkt" x="1092" y="178">; ;</text>
+
+  <g>
+    <rect class="plank" style="animation-delay:.15s" x="150" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:.35s" x="234" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:.55s" x="318" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:.75s" x="402" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:.95s" x="486" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:1.15s" x="570" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:1.35s" x="654" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:1.55s" x="738" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:1.75s" x="822" y="162" width="66" height="12" rx="4"/>
+    <rect class="plank" style="animation-delay:1.95s" x="906" y="162" width="66" height="12" rx="4"/>
+  </g>
+
+  <g class="bytex" transform="translate(600 96)">
+    <ellipse cx="60" cy="80" rx="44" ry="6" fill="#F6F4EE" opacity=".08"/>
+    <path d="M18 56 C18 34 30 22 52 20 C72 18.5 84 22 92 29 C97 33.5 99 39 99 46 C99 62 97 74 91 76 L29 76 C22 74 18 66 18 56 Z" fill="#E9A566" stroke="#101114" stroke-width="3" stroke-linejoin="round"/>
+    <g><ellipse cx="34" cy="20" rx="7.5" ry="5.6" transform="rotate(-18 34 20)" fill="#C9814C" stroke="#101114" stroke-width="2.6"/><ellipse cx="60" cy="16" rx="7.5" ry="5.6" transform="rotate(-6 60 16)" fill="#C9814C" stroke="#101114" stroke-width="2.6"/></g>
+    <g><circle cx="46" cy="42" r="3.8" fill="#101114"/><circle cx="70" cy="40" r="3.8" fill="#101114"/><circle cx="47.6" cy="40.6" r="1.2" fill="#fff"/><circle cx="71.6" cy="38.6" r="1.2" fill="#fff"/></g>
+    <rect x="84" y="42" width="10" height="6.5" rx="3.2" fill="#2a1c12" stroke="#101114" stroke-width="1.6"/>
+    <rect x="42" y="52" width="28" height="24" rx="7" fill="#101114" stroke="#D9FF43" stroke-width="2.4"/>
+    <g fill="none" stroke="#D9FF43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M51 60 l-4 4 4 4 M61 60 l4 4 -4 4 M57 58 l-2.6 10"/></g>
+    <rect x="24" y="70" width="15" height="9" rx="4.5" fill="#E9A566" stroke="#101114" stroke-width="2.6"/>
+    <rect x="48" y="73" width="15" height="9" rx="4.5" fill="#E9A566" stroke="#101114" stroke-width="2.6"/>
+    <rect x="70" y="73" width="15" height="9" rx="4.5" fill="#E9A566" stroke="#101114" stroke-width="2.6"/>
+    <g class="paww"><rect x="86" y="66" width="16" height="10" rx="5" fill="#F0B273" stroke="#101114" stroke-width="2.6"/></g>
+    <path class="heartf" d="M118 30 c-4,-3.4 -7,-6 -7,-8.8 a3.8,3.8 0 0 1 7,-1.5 a3.8,3.8 0 0 1 7,1.5 c0,2.8 -3,5.4 -7,8.8 z" fill="#FF7A6B"/>
+  </g>
+
+  <text x="600" y="262" text-anchor="middle" fill="#545863" font-size="13">© 2026 Siddhant Pardeshi · hand-built in Pune, with a capybara named Byte · no frameworks were harmed</text>
+</svg>

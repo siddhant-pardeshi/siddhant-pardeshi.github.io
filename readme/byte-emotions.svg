@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif">
+  <style>
+    .cell-bg { fill:#17181d; stroke:#2a2c35; }
+    .lbl { fill:#A9ADB9; font-size:14px; font-weight:600; text-anchor:middle }
+    .body { fill:#E9A566; stroke:#101114; stroke-width:3.5; stroke-linejoin:round }
+    .ear { fill:#C9814C; stroke:#101114; stroke-width:3 }
+    .eye { fill:#101114 } .glint { fill:#fff }
+    .disp-b { fill:#101114; stroke:#D9FF43; stroke-width:2.6 } .disp-s { fill:#1d2027 }
+    .lime { fill:#D9FF43 } .pk { stroke:#101114; stroke-width:3 } .pawc { fill:#F0B273 }
+    .idle-e { animation: blk 3.8s ease-in-out infinite; transform-origin: 46px 88px }
+    @keyframes blk { 0%,91%,100% { transform: scaleY(1) } 94% { transform: scaleY(.1) } }
+    .wave-p { animation: wv 1.8s ease-in-out infinite; transform-origin: 152px 118px }
+    @keyframes wv { 0%,100% { transform: rotate(0) } 35% { transform: rotate(-62deg) } 60% { transform: rotate(-26deg) } }
+    .he { animation: hb 1s ease-in-out infinite; transform-origin: center; transform-box: fill-box }
+    @keyframes hb { 50% { transform: scale(1.3) } }
+    .hf { animation: hf 2.2s ease-out infinite; opacity:0 }
+    .hf.b { animation-delay: 1.1s }
+    @keyframes hf { 0% { opacity:0; transform: translateY(10px) } 30% { opacity:1 } 100% { opacity:0; transform: translateY(-26px) } }
+    .sw { animation: swr 1.2s linear infinite; transform-origin: 46px 88px }
+    @keyframes swr { to { transform: rotate(360deg) } }
+    .dzb { animation: dz 1s ease-in-out infinite; transform-origin: 100px 140px }
+    @keyframes dz { 0%,100% { transform: rotate(0) } 25% { transform: rotate(-6deg) } 75% { transform: rotate(6deg) } }
+    .exc { animation: boing 1.1s ease-in-out infinite; transform-origin: 100px 150px }
+    @keyframes boing { 0%,100% { transform: translateY(0) } 35% { transform: translateY(-12px) } 65% { transform: translateY(0) scaleY(.94) } }
+    .cf { animation: cf 1.6s ease-out infinite; opacity:0 }
+    .cf.c2 { animation-delay:.5s } .cf.c3 { animation-delay:1s }
+    @keyframes cf { 0% { opacity:0; transform: translateY(8px) scale(.4) } 30% { opacity:1 } 100% { opacity:0; transform: translateY(-30px) scale(1.1) } }
+    .zz { animation: zf 2.4s ease-in-out infinite; opacity:0 }
+    .zz.z2 { animation-delay:.8s } .zz.z3 { animation-delay:1.6s }
+    @keyframes zf { 0% { opacity:0; transform: translateY(6px) } 30% { opacity:1 } 100% { opacity:0; transform: translateY(-18px) } }
+    .dnc { animation: dnc .9s ease-in-out infinite; transform-origin: 100px 145px }
+    @keyframes dnc { 0%,100% { transform: rotate(-7deg) } 50% { transform: rotate(7deg) translateY(-8px) } }
+    .nt { animation: nt 1.2s ease-out infinite; opacity:0 }
+    .nt.n2 { animation-delay:.4s } .nt.n3 { animation-delay:.8s }
+    @keyframes nt { 0% { opacity:0; transform: translateY(6px) } 35% { opacity:1 } 100% { opacity:0; transform: translateY(-16px) } }
+  </style>
+
+  <rect width="980" height="520" fill="#101114"/>
+  <text x="490" y="42" text-anchor="middle" fill="#F2EFE6" font-size="24" font-weight="700">Byte reacts to everything — <tspan fill="#D9FF43">12 emotions</tspan>, petting, even a secret dance.</text>
+
+  <!-- CELL TEMPLATE x0,y0 -->
+  <!-- 1 idle -->
+  <g transform="translate(10 62)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g class="idle-e"><circle class="eye" cx="72" cy="86" r="5"/><circle class="eye" cx="106" cy="83" r="5"/><circle class="glint" cx="74" cy="84" r="1.6"/><circle class="glint" cx="108" cy="81" r="1.6"/></g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <path d="M120 99 q5 4 10 1" fill="none" stroke="#101114" stroke-width="2.2" stroke-linecap="round"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <g fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M79 112 l-4.5 4.5 4.5 4.5 M89 112 l4.5 4.5 -4.5 4.5 M85 110 l-2.8 11"/></g>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+    </g>
+    <text class="lbl" x="115" y="202">idle · breathing + blinking</text>
+  </g>
+  <!-- 2 wave -->
+  <g transform="translate(250 62)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g><path d="M66 90 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/><path d="M100 87 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/></g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <path d="M120 99 q5 4 10 1" fill="none" stroke="#101114" stroke-width="2.2" stroke-linecap="round"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <g><path d="M79 112 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M89 112 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M80 121 q8 6 16 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/></g>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <g class="wave-p"><rect x="128" y="118" width="19" height="12" rx="6" class="pawc" stroke="#101114" stroke-width="3"/></g>
+    </g>
+    <text class="lbl" x="115" y="202">greeting · waves at you</text>
+  </g>
+  <!-- 3 love -->
+  <g transform="translate(490 62)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g fill="#FF6B8F" stroke="#101114" stroke-width="2">
+        <path class="he" d="M72 92 c-4,-3.4 -7,-6 -7,-8.8 a3.8,3.8 0 0 1 7,-1.5 a3.8,3.8 0 0 1 7,1.5 c0,2.8 -3,5.4 -7,8.8 z"/>
+        <path class="he" d="M106 89 c-4,-3.4 -7,-6 -7,-8.8 a3.8,3.8 0 0 1 7,-1.5 a3.8,3.8 0 0 1 7,1.5 c0,2.8 -3,5.4 -7,8.8 z"/>
+      </g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <path d="M120 99 q5 4 10 1" fill="none" stroke="#101114" stroke-width="2.2" stroke-linecap="round"/>
+      <ellipse cx="66" cy="100" rx="6" ry="3.8" fill="#FF9E7D" opacity=".9"/><ellipse cx="118" cy="98" rx="6" ry="3.8" fill="#FF9E7D" opacity=".9"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <path class="lime" d="M84 122 c-4.6,-3.8 -8,-6.7 -8,-9.9 a4.3,4.3 0 0 1 8,-1.7 a4.3,4.3 0 0 1 8,1.7 c0,3.2 -3.4,6.1 -8,9.9 z"/>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <path class="hf" d="M40 46 c-4,-3.4 -7,-6 -7,-8.8 a3.8,3.8 0 0 1 7,-1.5 a3.8,3.8 0 0 1 7,1.5 c0,2.8 -3,5.4 -7,8.8 z" fill="#FF7A6B"/>
+      <path class="hf b" d="M160 42 c-4,-3.4 -7,-6 -7,-8.8 a3.8,3.8 0 0 1 7,-1.5 a3.8,3.8 0 0 1 7,1.5 c0,2.8 -3,5.4 -7,8.8 z" fill="#FF7A6B"/>
+    </g>
+    <text class="lbl" x="115" y="202">love · rub him side to side</text>
+  </g>
+  <!-- 4 dizzy -->
+  <g transform="translate(730 62)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g class="dzb" transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g fill="none" stroke="#101114" stroke-width="2.6" stroke-linecap="round">
+        <g class="sw"><path d="M66 86 c3,-4.4 8,-2.6 7,1.8 c-1,3.6 -6,3.6 -6,-1 c0,-5.4 7,-7.2 10.5,-2.6"/></g>
+        <g class="sw" style="animation-delay:.15s"><path d="M100 83 c3,-4.4 8,-2.6 7,1.8 c-1,3.6 -6,3.6 -6,-1 c0,-5.4 7,-7.2 10.5,-2.6"/></g>
+      </g>
+      <ellipse cx="122" y="0" cy="84" width="0" height="0" fill="none"/>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <ellipse cx="129" cy="100" rx="3.6" ry="4.4" fill="#7a4a2b" stroke="#101114" stroke-width="2"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <g><path d="M79 114 q4 4 8 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M89 114 q4 4 8 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><circle cx="84" cy="121" r="2.8" fill="none" stroke="#D9FF43" stroke-width="2"/></g>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+    </g>
+    <text class="lbl" x="115" y="202">dizzy · tap him 3 times fast</text>
+  </g>
+  <!-- 5 excited -->
+  <g transform="translate(10 312)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 24)">
+      <g class="exc">
+        <ellipse cx="100" cy="164" rx="56" ry="7" fill="#000" opacity=".3"/>
+        <path class="body" d="M42 100 C42 68 60 50 90 47 C117 45 133 50 144 59 C151 65 154 72 154 82 C154 102 151 120 143 122 L57 122 C48 120 42 108 42 100 Z"/>
+        <g><ellipse class="ear" cx="62" cy="48" rx="10" ry="7.5" transform="rotate(-18 62 48)"/><ellipse class="ear" cx="92" cy="43" rx="10" ry="7.5" transform="rotate(-6 92 43)"/></g>
+        <g><circle class="eye" cx="72" cy="78" r="5"/><circle class="eye" cx="106" cy="75" r="5"/><circle class="glint" cx="74" cy="76" r="1.6"/><circle class="glint" cx="108" cy="73" r="1.6"/></g>
+        <path d="M118 94 q6 8 13 0 z" fill="#7a4a2b" stroke="#101114" stroke-width="2.4" stroke-linejoin="round"/>
+        <rect class="disp-b" x="66" y="92" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="97" width="26" height="22" rx="5"/>
+        <g><path d="M79 104 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M89 104 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M80 113 q8 6 16 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/></g>
+        <rect x="46" y="118" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+        <rect x="76" y="121" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+        <rect x="104" y="121" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      </g>
+    </g>
+    <text class="lbl" x="115" y="202">excited · double-tap</text>
+  </g>
+  <!-- 6 celebrate -->
+  <g transform="translate(250 312)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g><path d="M66 90 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/><path d="M100 87 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/></g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <path class="lime" d="M84 122 c-4.6,-3.8 -8,-6.7 -8,-9.9 a4.3,4.3 0 0 1 8,-1.7 a4.3,4.3 0 0 1 8,1.7 c0,3.2 -3.4,6.1 -8,9.9 z"/>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <g fill="#D9FF43"><path class="cf" d="M60 40 l2 4.2 4.2 2 -4.2 2 -2 4.2 -2,-4.2 -4.2,-2 4.2,-2 z"/></g>
+      <g fill="#FF7A6B"><path class="cf c2" d="M140 30 l2 4.2 4.2 2 -4.2 2 -2 4.2 -2,-4.2 -4.2,-2 4.2,-2 z"/></g>
+      <g fill="#7C85FF"><circle class="cf c3" cx="100" cy="26" r="3.4"/></g>
+    </g>
+    <text class="lbl" x="115" y="202">celebrate · copy actions trigger it</text>
+  </g>
+  <!-- 7 sleepy -->
+  <g transform="translate(490 312)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g><path d="M66 90 q6 5 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/><path d="M100 87 q6 5 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/></g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <g><path d="M79 114 q4 4 8 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M89 114 q4 4 8 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><circle cx="84" cy="121" r="2.8" fill="none" stroke="#D9FF43" stroke-width="2"/></g>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <g fill="#4B57FF" font-weight="700"><text class="zz" x="138" y="42" font-size="20">Z</text><text class="zz z2" x="152" y="30" font-size="15">z</text><text class="zz z3" x="163" y="22" font-size="11">z</text></g>
+    </g>
+    <text class="lbl" x="115" y="202">sleepy · after 2.5 min of quiet</text>
+  </g>
+  <!-- 8 dance -->
+  <g transform="translate(730 312)">
+    <rect class="cell-bg" width="230" height="212" rx="14"/>
+    <g class="dnc" transform="translate(15 18)">
+      <ellipse cx="100" cy="172" rx="56" ry="7" fill="#000" opacity=".3"/>
+      <path class="body" d="M42 108 C42 76 60 58 90 55 C117 53 133 58 144 67 C151 73 154 80 154 90 C154 110 151 128 143 130 L57 130 C48 128 42 116 42 108 Z"/>
+      <g><ellipse class="ear" cx="62" cy="56" rx="10" ry="7.5" transform="rotate(-18 62 56)"/><ellipse class="ear" cx="92" cy="51" rx="10" ry="7.5" transform="rotate(-6 92 51)"/></g>
+      <g><path d="M66 90 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/><path d="M100 87 q6 -8 12 0" fill="none" stroke="#101114" stroke-width="2.8" stroke-linecap="round"/></g>
+      <rect x="122" y="84" width="13" height="8.5" rx="4.2" fill="#2a1c12" stroke="#101114" stroke-width="2"/>
+      <path d="M118 96 q6 8 13 0 z" fill="#7a4a2b" stroke="#101114" stroke-width="2.4" stroke-linejoin="round"/>
+      <rect class="disp-b" x="66" y="100" width="36" height="32" rx="8"/><rect class="disp-s" x="71" y="105" width="26" height="22" rx="5"/>
+      <g><path d="M79 112 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M89 112 q3.5 -4.5 7 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/><path d="M80 121 q8 6 16 0" fill="none" stroke="#D9FF43" stroke-width="2.2" stroke-linecap="round"/></g>
+      <rect x="46" y="126" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="76" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <rect x="104" y="129" width="18" height="11" rx="5.5" class="pawc" stroke="#101114" stroke-width="3"/>
+      <g class="wave-p"><rect x="128" y="118" width="19" height="12" rx="6" class="pawc" stroke="#101114" stroke-width="3"/></g>
+      <g fill="#7C85FF" font-weight="700"><text class="nt" x="30" y="46" font-size="20">♪</text><text class="nt n2" x="158" y="38" font-size="17">♫</text><text class="nt n3" x="176" y="60" font-size="13">♪</text></g>
+    </g>
+    <text class="lbl" x="115" y="202">dance · 6 taps unlocks it</text>
+  </g>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="480" viewBox="0 0 980 480" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif">
+  <style>
+    .ttl { fill:#F2EFE6; font-size:22px; font-weight:700 }
+    .sub { fill:#A9ADB9; font-size:13px }
+    .stage { fill:#0d0e11; stroke:#2a2c35; stroke-width:2; rx:14 }
+    .cam { stroke:#D9FF43; stroke-width:3; fill:none; stroke-linecap: round }
+    .chip { fill:#1d2027; stroke:#D9FF43; stroke-width:1.6; rx:999 }
+    .mode { fill:#D9FF43; font-size:13px; font-weight:700; letter-spacing:2 }
+    .gl { fill:#A9ADB9; font-size:13px; font-weight:600; text-anchor:middle }
+    .hand { animation: hmove 9s ease-in-out infinite }
+    @keyframes hmove {
+      0% { transform: translate(0px,0px) }
+      22% { transform: translate(150px,-46px) }
+      45% { transform: translate(300px,26px) }
+      68% { transform: translate(430px,-30px) }
+      88% { transform: translate(250px,40px) }
+      100% { transform: translate(0px,0px) }
+    }
+    .ring { animation: rspin 5s linear infinite; transform-origin: 0px 0px }
+    @keyframes rspin { to { transform: rotate(360deg) } }
+    .ringdot { fill:#D9FF43 }
+    .palm { fill:#E9A566; stroke:#101114; stroke-width:3 }
+    .fin { stroke:#E9A566; stroke-width:13; stroke-linecap: round }
+    .fin2 { stroke:#C9814C; stroke-width:13; stroke-linecap: round }
+    .lm { fill:#7C85FF }
+    .zoom { animation: zmode 9s ease-in-out infinite; transform-origin: 0px 0px }
+    @keyframes zmode { 0%,20% { opacity:1 } 30%,45% { opacity:.35 } 55%,80% { opacity:1 } 90%,100% { opacity:.5 } }
+    .burst { transform-origin: 0px 0px; animation: brs 9s ease-in-out infinite }
+    @keyframes brs { 0%,24% { transform: scale(1) } 30% { transform: scale(1.9); opacity:.6 } 38% { transform: scale(1) } 100% { transform: scale(1) } }
+    .m1 { animation: md1 9s steps(1) infinite } .m2 { animation: md2 9s steps(1) infinite }
+    .m3 { animation: md3 9s steps(1) infinite } .m4 { animation: md4 9s steps(1) infinite }
+    @keyframes md1 { 0%,24% { opacity:1 } 25%,100% { opacity:0 } }
+    @keyframes md2 { 0%,24% { opacity:0 } 25%,49% { opacity:1 } 50%,100% { opacity:0 } }
+    @keyframes md3 { 0%,49% { opacity:0 } 50%,74% { opacity:1 } 75%,100% { opacity:0 } }
+    @keyframes md4 { 0%,74% { opacity:0 } 75%,99% { opacity:1 } 100% { opacity:0 } }
+  </style>
+  <rect width="980" height="480" fill="#101114"/>
+  <text class="ttl" x="40" y="46">Webcam hand control — <tspan fill="#D9FF43">your hand is the controller</tspan></text>
+  <text class="sub" x="40" y="70">MediaPipe hand tracking runs entirely on-device. Nothing is recorded, stored, or uploaded. Camera stops the moment you close.</text>
+
+  <rect class="stage" x="40" y="92" width="600" height="340" rx="14"/>
+  <g class="cam">
+    <path d="M56 116 v-16 h16"/><path d="M624 116 v-16 h-16"/>
+    <path d="M56 408 v16 h16"/><path d="M624 408 v16 h-16"/>
+  </g>
+  <g transform="translate(84 118)">
+    <rect class="chip" width="130" height="26" rx="13"/>
+    <circle cx="16" cy="13" r="4" fill="#D9FF43"/>
+    <text x="28" y="17" fill="#D9FF43" font-size="11" font-weight="700" letter-spacing="1">LIVE · ON-DEVICE</text>
+  </g>
+
+  <g class="hand" transform="translate(120 240)">
+    <g class="burst">
+      <g class="ring">
+        <circle class="ringdot" cx="0" cy="-64" r="5"/><circle class="ringdot" cx="45" cy="-45" r="4"/>
+        <circle class="ringdot" cx="64" cy="0" r="5"/><circle class="ringdot" cx="45" cy="45" r="4"/>
+        <circle class="ringdot" cx="0" cy="64" r="5"/><circle class="ringdot" cx="-45" cy="45" r="4"/>
+        <circle class="ringdot" cx="-64" cy="0" r="5"/><circle class="ringdot" cx="-45" cy="-45" r="4"/>
+        <circle class="ringdot" cx="88" cy="-30" r="3.4" fill="#7C85FF"/><circle class="ringdot" cx="-88" cy="30" r="3.4" fill="#FFA86B"/>
+      </g>
+    </g>
+    <rect class="palm" x="-26" y="-24" width="52" height="52" rx="18"/>
+    <g class="fin"><path d="M-20 -24 C-22 -52 -14 -60 -8 -44"/><path d="M-4 -26 C-4 -58 2 -64 6 -46"/><path d="M10 -24 C12 -52 20 -56 22 -40"/></g>
+    <g class="fin2"><path d="M22 -10 C38 -14 44 -22 40 -30"/></g>
+    <g class="lm"><circle cx="-8" cy="-46" r="3.4"/><circle cx="2" cy="-58" r="3.4"/><circle cx="16" cy="-50" r="3.4"/><circle cx="34" cy="-24" r="3.4"/><circle cx="0" cy="0" r="3.4"/></g>
+  </g>
+
+  <g transform="translate(664 132)">
+    <text class="mode m1" x="20" y="0">🤚 HOVER — PORTAL RING</text>
+    <text class="mode m2" x="20" y="0">✋ OPEN — BURST &amp; SCATTER</text>
+    <text class="mode m3" x="20" y="0">✊ FIST — SWIRL SPHERE</text>
+    <text class="mode m4" x="20" y="0">✌️ VICTORY — SIGNAL STREAM</text>
+    <text class="sub" x="20" y="26">The swarm reads your gesture in real time.</text>
+  </g>
+
+  <g transform="translate(40 452)">
+    <text class="gl" x="120">🤚 portal ring</text>
+    <text class="gl" x="360">✋ burst &amp; scatter</text>
+    <text class="gl" x="600">✊ swirl sphere</text>
+    <text class="gl" x="820">✌️ signal stream</text>
+  </g>
+</svg>
