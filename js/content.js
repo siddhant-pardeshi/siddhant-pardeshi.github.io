@@ -376,7 +376,8 @@ window.CONTENT = (function () {
     idle: [
       "Two projects, lots of backend thinking.",
       "Short on time? I've got a quick summary.",
-      "The skill map links every tool to real evidence."
+      "The skill map links every tool to real evidence.",
+      "Psst — rub my belly sideways. I like it."
     ],
     reactions: [
       "Hehe, that tickles.",
@@ -384,6 +385,19 @@ window.CONTENT = (function () {
       "Okay okay, one more spin.",
       "You found my happy dance!"
     ],
+    dizzy: "Okay okay… the world is doing a barrel roll 🌀",
+    dance: "DANCE MODE! You found my secret moves 🧡",
+    pet: "Ahh, that's the spot. Keep going.",
+    fast: "Whoa — fast hands!",
+    sections: {
+      work: "Two builds, two playable walkthroughs. Try them!",
+      skills: "Every tool here links to real evidence.",
+      achievements: "4th overall with Team UrbanSync. So proud of this one.",
+      gallery: "Real moments — that's us on the metro!",
+      posts: "Follow the build on LinkedIn and GitHub.",
+      about: "That's the human behind the logic.",
+      contact: "Found what you needed? Siddhant's email is right here."
+    },
     projects: "This one shows how a transfer stays consistent.",
     achievements: "Team UrbanSync placed 4th overall. Take a look.",
     contact: "Found what you needed? Siddhant's email is right here.",

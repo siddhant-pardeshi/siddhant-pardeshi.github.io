@@ -1,0 +1,222 @@
+{
+  "results": [
+    {
+      "name": "desktop-1440: page loads",
+      "pass": true,
+      "info": "Siddhant Pardeshi | Java & Spring Boot Developer"
+    },
+    {
+      "name": "resume: PDF reachable",
+      "pass": true,
+      "info": "200"
+    },
+    {
+      "name": "data: version snapshot reachable",
+      "pass": true,
+      "info": "200"
+    },
+    {
+      "name": "boot: title",
+      "pass": true,
+      "info": "Siddhant Pardeshi | Java & Spring Boot Developer"
+    },
+    {
+      "name": "boot: byte instances >= 2 (hero + dock)",
+      "pass": true,
+      "info": "2"
+    },
+    {
+      "name": "boot: gallery tiles = 67",
+      "pass": true,
+      "info": "67"
+    },
+    {
+      "name": "boot: gallery real images",
+      "pass": true,
+      "info": "63"
+    },
+    {
+      "name": "boot: skill pills = 32",
+      "pass": true,
+      "info": "32"
+    },
+    {
+      "name": "boot: repo cards = 3",
+      "pass": true,
+      "info": "3"
+    },
+    {
+      "name": "boot: ticker bands = 2",
+      "pass": true,
+      "info": "2"
+    },
+    {
+      "name": "boot: hero floaters = 4",
+      "pass": true,
+      "info": "4"
+    },
+    {
+      "name": "boot: headlines word-wrapped",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "boot: count-up target present",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: click hero → reacts",
+      "pass": true,
+      "info": "byte-instance byte--breath byte--happy"
+    },
+    {
+      "name": "byte: petting → love state",
+      "pass": true,
+      "info": "byte-instance byte--breath byte--love"
+    },
+    {
+      "name": "byte: 6-click combo → dance mode",
+      "pass": true,
+      "info": "byte-instance byte--breath byte--dance"
+    },
+    {
+      "name": "byte: guide menu opens + closes",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: post menu items hidden while unconfigured",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "gallery: filter Hackathons shrinks wall",
+      "pass": true,
+      "info": "67 -> 15"
+    },
+    {
+      "name": "gallery: lightbox opens + Escape closes",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "case: BankNest case study opens + hash",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "sim: transfer commits atomically",
+      "pass": true,
+      "info": "₹11,900.00|4"
+    },
+    {
+      "name": "sim: transfer failure rolls back",
+      "pass": true,
+      "info": "₹12,400.00|1"
+    },
+    {
+      "name": "sim: LifeDrop approve → fulfill decrements inventory",
+      "pass": true,
+      "info": "Fulfilled|13"
+    },
+    {
+      "name": "sim: 90-day check renders with dates",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "skills: pill click fills evidence panel",
+      "pass": true,
+      "info": "123"
+    },
+    {
+      "name": "palette: Ctrl+K opens, Escape closes",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "settings: motion Off applies + restores",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "copy: copy email shows toast (no throw)",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "nav: all anchors resolve",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "links: external links are noopener",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "handfx: graceful camera-degraded state",
+      "pass": true,
+      "info": "Allow camera access when your browser asks…"
+    },
+    {
+      "name": "desktop-1440: zero console errors",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "desktop-1440: zero uncaught exceptions",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "desktop-1440: zero failed requests",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "mobile-390: page loads",
+      "pass": true,
+      "info": "Siddhant Pardeshi | Java & Spring Boot Developer"
+    },
+    {
+      "name": "mobile-390: no horizontal overflow",
+      "pass": true,
+      "info": "delta=0"
+    },
+    {
+      "name": "mobile-390: Byte dock appears after scroll",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "mobile-390: mobile menu opens",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "mobile-390: gallery renders",
+      "pass": true,
+      "info": "67"
+    },
+    {
+      "name": "mobile-390: zero console errors",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "mobile-390: zero uncaught exceptions",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "mobile-390: zero failed requests",
+      "pass": true,
+      "info": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "failedRequests": []
+}

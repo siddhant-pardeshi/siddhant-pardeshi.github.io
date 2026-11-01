@@ -1,115 +1,243 @@
 /* ============================================================
-   BYTE — the capybara guide.
-   Illustration styling, breathing, blinking, wave, states.
-   All decorative motion is disabled for reduced motion.
+   BYTE — the capybara guide. Character rig v2:
+   breathing · blinking · ear twitch · body lean · squash &
+   stretch · 12 emotional states · petting · dance mode ·
+   dizzy spins · heart eyes · music notes. All decorative motion
+   is disabled for reduced motion / motion off.
    ============================================================ */
 
 .byte-svg { overflow: visible; }
 
+/* ---- rig layers (outer → inner): lean → motion → body ---- */
+.byte-lean-g {
+  transform-origin: 100px 178px;
+  transform: rotate(var(--lean, 0deg));
+  transition: transform 200ms var(--ease-out);
+}
+.byte-motion-g { transform-origin: 100px 178px; }
 .byte-body-g { transform-origin: 100px 178px; }
+
 .byte--breath .byte-body-g { animation: byte-breath 3.6s ease-in-out infinite; }
 @keyframes byte-breath {
   0%, 100% { transform: scaleY(1) scaleX(1); }
   50% { transform: scaleY(1.022) scaleX(0.994); }
 }
 
+/* face follows the cursor via CSS vars (set from JS, rAF-throttled) */
+.byte-face-g {
+  transform: translate(var(--fx, 0px), var(--fy, 0px));
+  transition: transform 140ms var(--ease-out);
+}
+.byte-pupil-g { transition: transform 120ms var(--ease-out); }
+
+/* ---- ears: perk / droop / twitch ---- */
+.byte-ears-g { transform: translateY(var(--ear, 0px)); transition: transform 180ms var(--ease-out); }
+.byte-ear-l { transform-origin: 66px 74px; }
+.byte--twitch .byte-ear-l { animation: byte-ear-twitch 450ms var(--ease-out) 1; }
+@keyframes byte-ear-twitch {
+  30% { transform: rotate(-14deg) translateY(-2px); }
+  60% { transform: rotate(4deg); }
+}
+.byte--curious .byte-ears-g { transform: translateY(-3px) rotate(-5deg); }
+.byte--excited .byte-ears-g, .byte--dance .byte-ears-g, .byte--surprised .byte-ears-g {
+  transform: translateY(-4px);
+}
+.byte--sleepy .byte-ears-g, .byte--dizzy .byte-ears-g { transform: translateY(3px) rotate(3deg); }
+
+/* ---- eyes ---- */
 .byte-eyes-g { transform-origin: 100px 96px; }
 .byte--blink .byte-eyes-g { animation: byte-blink 220ms ease-in-out; }
 @keyframes byte-blink { 40% { transform: scaleY(0.08); } }
-
-/* state: eyes closed (sleepy / happy squint) */
+.byte-eye-open { transition: opacity 120ms; }
+.byte-eye-shut, .byte-eye-happy, .byte-eye-heart, .byte-eye-dizzy { opacity: 0; }
 .byte--eyes-closed .byte-eye-open { opacity: 0; }
 .byte--eyes-closed .byte-eye-shut { opacity: 1; }
-.byte-eye-open { transition: opacity 120ms; }
-.byte-eye-shut { opacity: 0; }
-
-/* happy squint arcs + display face */
-.byte--happy .byte-eye-open { opacity: 0; }
-.byte--happy .byte-eye-happy { opacity: 1; }
-.byte-eye-happy { opacity: 0; }
-
-/* surprised */
+.byte--happy .byte-eye-open, .byte--celebrate .byte-eye-open,
+.byte--dance .byte-eye-open, .byte--greeting .byte-eye-open { opacity: 0; }
+.byte--happy .byte-eye-happy, .byte--celebrate .byte-eye-happy,
+.byte--dance .byte-eye-happy, .byte--greeting .byte-eye-happy { opacity: 1; }
+.byte--love .byte-eye-open { opacity: 0; }
+.byte--love .byte-eye-heart { opacity: 1; animation: byte-heartbeat 900ms var(--ease-spring) infinite; }
+@keyframes byte-heartbeat { 40% { transform: scale(1.25); } }
+.byte--dizzy .byte-eye-open { opacity: 0; }
+.byte--dizzy .byte-eye-dizzy { opacity: 1; animation: byte-swirl 900ms linear infinite; transform-origin: 86px 95px; }
+@keyframes byte-swirl { to { transform: rotate(360deg); } }
 .byte--surprised .byte-eye-pupil { transform: scale(1.25); transform-origin: center; transform-box: fill-box; }
 
-/* cheeks glow on happy */
-.byte--happy .byte-cheek { opacity: 0.85; }
-.byte-cheek { transition: opacity 200ms; }
+/* ---- mouths ---- */
+.byte-mouth-o, .byte-mouth-open { opacity: 0; }
+.byte--surprised .byte-mouth, .byte--dizzy .byte-mouth { opacity: 0; }
+.byte--surprised .byte-mouth-o, .byte--dizzy .byte-mouth-o { opacity: 1; }
+.byte--excited .byte-mouth, .byte--dance .byte-mouth { opacity: 0; }
+.byte--excited .byte-mouth-open, .byte--dance .byte-mouth-open { opacity: 1; }
 
-/* Wave paw */
+/* ---- cheeks ---- */
+.byte-cheek { transition: opacity 200ms; }
+.byte--happy .byte-cheek, .byte--love .byte-cheek, .byte--dance .byte-cheek { opacity: 0.9; }
+.byte--shy .byte-cheek { opacity: 1; }
+
+/* ---- paws ---- */
 .byte-paw-wave { transform-origin: 138px 150px; transform-box: view-box; }
-.byte--wave .byte-paw-wave { animation: byte-wave 0.55s var(--ease-spring) 2; }
+.byte--wave .byte-paw-wave, .byte--greeting .byte-paw-wave { animation: byte-wave 0.55s var(--ease-spring) 2; }
+.byte--dance .byte-paw-wave { animation: byte-wave 0.42s var(--ease-spring) infinite; }
+.byte-paw-back { transform-origin: 46px 166px; transform-box: view-box; }
+.byte--dance .byte-paw-back { animation: byte-wave-back 0.42s var(--ease-spring) infinite; }
 @keyframes byte-wave {
   0%, 100% { transform: rotate(0deg); }
   40% { transform: rotate(-58deg); }
   70% { transform: rotate(-30deg); }
 }
+@keyframes byte-wave-back {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(52deg); }
+  70% { transform: rotate(24deg); }
+}
 
-/* Celebration bounce */
+/* ---- big body motions ---- */
 .byte--celebrate .byte-body-g { animation: byte-bounce 0.62s var(--ease-spring) 2; }
 @keyframes byte-bounce {
   0%, 100% { transform: translateY(0) scaleY(1); }
   35% { transform: translateY(-14px) scaleY(1.04); }
   70% { transform: translateY(0) scaleY(0.96); }
 }
-
-/* Surprise hop */
 .byte--surprised .byte-body-g { animation: byte-hop 0.4s var(--ease-spring) 1; }
 @keyframes byte-hop { 50% { transform: translateY(-7px); } }
+.byte--excited .byte-body-g { animation: byte-boing 0.5s var(--ease-spring) 3; }
+@keyframes byte-boing {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-11px) scale(1.05, 0.95); }
+  60% { transform: translateY(0) scale(0.94, 1.06); }
+}
+.byte--dance .byte-motion-g { animation: byte-dance 0.46s var(--ease-out) infinite; }
+@keyframes byte-dance {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  25% { transform: rotate(0deg) translateY(-9px); }
+  50% { transform: rotate(7deg) translateY(0); }
+  75% { transform: rotate(0deg) translateY(-6px); }
+}
+.byte--dizzy .byte-motion-g { animation: byte-dizzy 0.9s ease-in-out 2; }
+@keyframes byte-dizzy {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-7deg) translateX(-4px); }
+  50% { transform: rotate(6deg) translateX(4px); }
+  80% { transform: rotate(-4deg); }
+}
 
-/* Thinking — chest display dots pulse */
+/* ---- music notes (dance) ---- */
+.byte-notes { opacity: 0; }
+.byte--dance .byte-notes { opacity: 1; }
+.byte-notes text {
+  animation: byte-note 1s var(--ease-out) infinite;
+  transform-origin: center; transform-box: fill-box;
+}
+.byte-notes text:nth-child(2) { animation-delay: 250ms; }
+.byte-notes text:nth-child(3) { animation-delay: 500ms; }
+@keyframes byte-note {
+  0% { opacity: 0; transform: translateY(4px) scale(0.6); }
+  35% { opacity: 1; transform: translateY(-4px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-14px) scale(1); }
+}
+
+/* ---- thinking / sleepy ---- */
 .byte--thinking .byte-display-dot { animation: byte-dot 900ms ease-in-out infinite; }
 .byte--thinking .byte-display-dot:nth-of-type(2) { animation-delay: 150ms; }
 .byte--thinking .byte-display-dot:nth-of-type(3) { animation-delay: 300ms; }
 @keyframes byte-dot { 50% { opacity: 0.25; } }
-
-/* Sleepy Zzz */
 .byte-zzz { opacity: 0; }
 .byte--sleepy .byte-zzz { opacity: 1; animation: byte-zzz 2.6s ease-in-out infinite; }
 .byte--sleepy .byte-eyes-g { animation: none; }
 @keyframes byte-zzz { 50% { transform: translateY(4px); } }
 
-/* Hearts / sparkles burst */
+/* ---- burst (hearts + sparkles) ---- */
 .byte-burst { opacity: 0; }
 .byte-burst.is-on { animation: byte-burst 900ms var(--ease-out) forwards; }
+.byte-burst.is-on > * { animation: byte-burst-item 900ms var(--ease-spring) forwards; }
+.byte-burst > *:nth-child(2) { animation-delay: 60ms; }
+.byte-burst > *:nth-child(3) { animation-delay: 120ms; }
+.byte-burst > *:nth-child(4) { animation-delay: 180ms; }
+.byte-burst > *:nth-child(5) { animation-delay: 240ms; }
+.byte-burst > *:nth-child(6) { animation-delay: 300ms; }
 @keyframes byte-burst {
-  0% { opacity: 0; transform: translateY(6px) scale(0.5); }
+  0% { opacity: 0; }
   25% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-26px) scale(1.15); }
+  100% { opacity: 0; }
+}
+@keyframes byte-burst-item {
+  0% { transform: translateY(6px) scale(0.4); }
+  60% { transform: translateY(-18px) scale(1.2); }
+  100% { transform: translateY(-30px) scale(0.9); }
 }
 
-/* Display text swap */
+/* ---- display faces ---- */
 .byte-display-face { transition: opacity 150ms; }
 .byte-display-face[hidden] { display: none; }
+.byte-display-face[hidden] { display: none; }
 
-/* Builder hat (projects) */
+/* ---- builder hat ---- */
 .byte-hat { opacity: 0; transform: translateY(6px); transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out); }
 .byte--hat .byte-hat { opacity: 1; transform: none; }
 
-/* Motion off/reduced — static poses only */
+/* ---- hover wiggle on the interactive byte ---- */
+@media (hover: hover) and (pointer: fine) {
+  .byte-dock__btn:hover .byte-motion-g { animation: byte-wiggle 0.5s var(--ease-out) 1; }
+}
+@keyframes byte-wiggle {
+  25% { transform: rotate(-4deg); }
+  60% { transform: rotate(3deg); }
+}
+
+/* ---- reduced motion: static poses only ---- */
 @media (prefers-reduced-motion: reduce) {
   .byte--breath .byte-body-g, .byte--blink .byte-eyes-g,
-  .byte--wave .byte-paw-wave, .byte--celebrate .byte-body-g,
-  .byte--surprised .byte-body-g, .byte--thinking .byte-display-dot,
-  .byte--sleepy .byte-zzz, .byte-burst.is-on { animation: none !important; }
+  .byte--wave .byte-paw-wave, .byte--greeting .byte-paw-wave,
+  .byte--dance .byte-paw-wave, .byte--dance .byte-paw-back,
+  .byte--celebrate .byte-body-g, .byte--surprised .byte-body-g,
+  .byte--excited .byte-body-g, .byte--dance .byte-motion-g,
+  .byte--dizzy .byte-motion-g, .byte--thinking .byte-display-dot,
+  .byte--sleepy .byte-zzz, .byte-burst.is-on, .byte-burst.is-on > *,
+  .byte--love .byte-eye-heart, .byte--dizzy .byte-eye-dizzy,
+  .byte-notes text, .byte-dock__btn:hover .byte-motion-g,
+  .byte--twitch .byte-ear-l { animation: none !important; }
+  .byte-lean-g, .byte-face-g, .byte-ears-g, .byte-pupil-g { transition: none; }
 }
 html[data-motion="reduced"] .byte--breath .byte-body-g,
 html[data-motion="reduced"] .byte--blink .byte-eyes-g,
 html[data-motion="reduced"] .byte--wave .byte-paw-wave,
+html[data-motion="reduced"] .byte--greeting .byte-paw-wave,
+html[data-motion="reduced"] .byte--dance .byte-paw-wave,
+html[data-motion="reduced"] .byte--dance .byte-paw-back,
 html[data-motion="reduced"] .byte--celebrate .byte-body-g,
 html[data-motion="reduced"] .byte--surprised .byte-body-g,
+html[data-motion="reduced"] .byte--excited .byte-body-g,
+html[data-motion="reduced"] .byte--dance .byte-motion-g,
+html[data-motion="reduced"] .byte--dizzy .byte-motion-g,
 html[data-motion="reduced"] .byte--thinking .byte-display-dot,
 html[data-motion="reduced"] .byte--sleepy .byte-zzz,
 html[data-motion="reduced"] .byte-burst.is-on,
+html[data-motion="reduced"] .byte--love .byte-eye-heart,
+html[data-motion="reduced"] .byte--dizzy .byte-eye-dizzy,
+html[data-motion="reduced"] .byte-notes text,
+html[data-motion="reduced"] .byte--twitch .byte-ear-l,
 html[data-motion="off"] .byte--breath .byte-body-g,
 html[data-motion="off"] .byte--blink .byte-eyes-g,
 html[data-motion="off"] .byte--wave .byte-paw-wave,
+html[data-motion="off"] .byte--greeting .byte-paw-wave,
+html[data-motion="off"] .byte--dance .byte-paw-wave,
+html[data-motion="off"] .byte--dance .byte-paw-back,
 html[data-motion="off"] .byte--celebrate .byte-body-g,
 html[data-motion="off"] .byte--surprised .byte-body-g,
+html[data-motion="off"] .byte--excited .byte-body-g,
+html[data-motion="off"] .byte--dance .byte-motion-g,
+html[data-motion="off"] .byte--dizzy .byte-motion-g,
 html[data-motion="off"] .byte--thinking .byte-display-dot,
 html[data-motion="off"] .byte--sleepy .byte-zzz,
-html[data-motion="off"] .byte-burst.is-on { animation: none !important; }
+html[data-motion="off"] .byte-burst.is-on,
+html[data-motion="off"] .byte--love .byte-eye-heart,
+html[data-motion="off"] .byte--dizzy .byte-eye-dizzy,
+html[data-motion="off"] .byte-notes text,
+html[data-motion="off"] .byte--twitch .byte-ear-l { animation: none !important; }
 
-/* Footer bridge scene */
+/* ---- footer bridge scene ---- */
 .bridge-g { opacity: 0; }
 .bridge--built .bridge-g { opacity: 1; transition: opacity 400ms var(--ease-out); }
 .bridge-plank { opacity: 0; transform-origin: center; transform-box: fill-box; }

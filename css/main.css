@@ -621,6 +621,8 @@
   border: 1.5px solid var(--lime);
   max-width: 150px; text-align: left;
 }
+.byte-instance { display: block; }
+.byte-dock__btn .byte-instance, .byte-dock__btn .byte-svg { width: 100%; height: 100%; }
 @media (max-width: 640px) {
   .byte-dock__btn { width: 64px; height: 64px; }
   .byte-dock__hint { display: none; }

@@ -150,8 +150,10 @@
   /* ---------------- Copy actions ---------------- */
   function copyText(text, okMsg) {
     function done(ok) {
-      if (ok) toast(okMsg);
-      else {
+      if (ok) {
+        toast(okMsg);
+        if (window.Byte) window.Byte.celebrateAll();
+      } else {
         toast("Copy blocked — select the text below and copy manually.");
       }
     }
@@ -369,7 +371,7 @@
     tourIdx = -1;
     if (tourRestoreFocus && tourRestoreFocus.focus) tourRestoreFocus.focus();
     if (done) {
-      if (window.Byte) Byte.celebrateAll();
+      if (window.Byte) Byte.dance();
       toast("You know the playground now — scroll on.");
     }
   }
@@ -534,6 +536,36 @@
     window.addEventListener("load", function () { setTimeout(sweep, 400); });
   }
 
+  /* ---------------- Byte section awareness ---------------- */
+  function initByteSectionAwareness() {
+    var ids = ["top", "work", "skills", "achievements", "gallery", "posts", "about", "contact"];
+    var current = "";
+    var lastFired = 0;
+    var ticking = false;
+    function check() {
+      ticking = false;
+      var center = window.innerHeight * 0.5;
+      var found = "";
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el || found) return;
+        var r = el.getBoundingClientRect();
+        if (r.top <= center && r.bottom >= center) found = id;
+      });
+      if (found && found !== current) {
+        current = found;
+        if (found !== "top" && Date.now() - lastFired > 9000 && resolveMotion() !== "off") {
+          lastFired = Date.now();
+          window.dispatchEvent(new CustomEvent("byte:section", { detail: { id: found } }));
+        }
+      }
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(check); }
+    }, { passive: true });
+    check();
+  }
+
   /* ---------------- Achievements sweep + footer finale ---------------- */
   function initPolish() {
     $$(".ach-card").forEach(function (card) {
@@ -590,6 +622,7 @@
     initWordReveal();
     initCountUp();
     initRevealFailsafe();
+    initByteSectionAwareness();
     /* re-wrap headlines that get revealed later is unnecessary —
        the observer adds is-revealed to the whole .section-head */
     initAvailability();
