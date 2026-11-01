@@ -64,11 +64,6 @@
   box-shadow: 8px 8px 0 var(--ink);
   overflow: hidden;
 }
-.scene-card__label {
-  position: absolute; top: 0.9rem; right: 1rem;
-  font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  font-family: var(--font-display); opacity: 0.55;
-}
 .node-map { position: relative; padding: 1rem 0.4rem 0.6rem; }
 .node-map svg { width: 100%; height: auto; }
 .node-map .node { cursor: pointer; }

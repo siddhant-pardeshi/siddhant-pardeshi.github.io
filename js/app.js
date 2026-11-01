@@ -528,7 +528,7 @@
         var r = el.getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-revealed");
       });
-      $$(".sheet-item:not(.is-in)").forEach(function (el) {
+      $$(".sheet-item:not(.is-in), .more-build-card:not(.is-in)").forEach(function (el) {
         var r = el.getBoundingClientRect();
         if (r.top < window.innerHeight * 1.2 && r.bottom > 0) el.classList.add("is-in");
       });
