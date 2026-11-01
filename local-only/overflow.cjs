@@ -23,6 +23,10 @@ async function main() {
   await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
   await send("Page.navigate", { url: "http://localhost:8137/index.html" });
   await sleep(2500);
+  if (process.argv[3]) {
+    await send("Runtime.evaluate", { expression: `(() => { const el = document.getElementById('${process.argv[3]}'); const y = el.getBoundingClientRect().top + window.scrollY - 60; window.scrollTo({ top: y, behavior: 'instant' }); })()` });
+    await sleep(1200);
+  }
   const r = await send("Runtime.evaluate", { expression: `(() => {
     const d = document.documentElement;
     const wide = [...document.querySelectorAll('*')]

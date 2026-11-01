@@ -187,6 +187,9 @@ evals.push(["copy: copy email shows toast (no throw)", `(async () => {
 })()`]);
 evals.push(["nav: all anchors resolve", `[...document.querySelectorAll('a[href^="#"]')].every(a => { const id = a.getAttribute('href').slice(1); return !id || document.getElementById(id); })`]);
 evals.push(["links: external links are noopener", `[...document.querySelectorAll('a[target="_blank"]')].every(a => (a.rel || '').includes('noopener'))`]);
+evals.push(["more builds: 7 project cards render", `document.querySelectorAll('.more-build-card').length`]);
+evals.push(["more builds: links valid + noopener", `[...document.querySelectorAll('.more-build-card a.mb-name')].length === 7 && [...document.querySelectorAll('.more-build-card a.mb-name')].every(a => (a.rel || '').includes('noopener'))`]);
+evals.push(["sound: engine present and OFF by default", `window.Byte && window.Byte.SoundFX && typeof window.Byte.SoundFX.play === 'function' && window.Byte.SoundFX.enabled === false`]);
 evals.push(["handfx: graceful camera-degraded state", `(async () => {
   window.HandFX.open();
   await new Promise(r => setTimeout(r, 2500));

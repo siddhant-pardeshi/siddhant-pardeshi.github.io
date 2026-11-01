@@ -197,7 +197,42 @@
       return parts[parts.length - 1];
     }
 
+    /* ---- More builds: owner-named projects ---- */
+    function drawMoreBuilds() {
+      var wrap = root.querySelector(".more-builds");
+      if (!wrap || !C.moreProjects || !C.moreProjects.length) return;
+      var grid = wrap.querySelector(".more-builds-grid");
+      if (!grid) return;
+      var io = null;
+      C.moreProjects.forEach(function (p) {
+        var card = document.createElement("article");
+        card.className = "more-build-card";
+        card.innerHTML =
+          '<div class="mb-head"><a class="mb-name" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.name) + ' ↗</a>'
+          + '<span class="mb-tag">' + esc(p.tag) + "</span></div>"
+          + "<p>" + esc(p.description) + "</p>";
+        grid.appendChild(card);
+      });
+      if ("IntersectionObserver" in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              en.target.classList.add("is-in");
+              io.unobserve(en.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: "0px 0px 10% 0px" });
+        Array.prototype.forEach.call(grid.children, function (card, i) {
+          card.style.setProperty("--ti", Math.min(i, 10));
+          io.observe(card);
+        });
+      } else {
+        Array.prototype.forEach.call(grid.children, function (card) { card.classList.add("is-in"); });
+      }
+    }
+
     drawRepos(null);
+    drawMoreBuilds();
     fetch("data/github-snapshot.json", { cache: "no-cache" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (snap) { if (snap) drawRepos(snap); })

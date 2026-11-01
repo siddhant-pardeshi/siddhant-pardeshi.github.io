@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--greeting byte--wave"
+      "info": "byte-instance byte--breath byte--celebrate"
     },
     {
       "name": "byte: petting → love state",
@@ -157,6 +157,21 @@
     },
     {
       "name": "links: external links are noopener",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "more builds: 7 project cards render",
+      "pass": true,
+      "info": "7"
+    },
+    {
+      "name": "more builds: links valid + noopener",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "sound: engine present and OFF by default",
       "pass": true,
       "info": "true"
     },

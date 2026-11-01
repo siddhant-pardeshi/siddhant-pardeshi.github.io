@@ -106,6 +106,60 @@ window.CONTENT = (function () {
     }
   ];
 
+  /* ---------- More builds (owner-named projects, owner repo
+     descriptions) ---------- */
+  var moreProjects = [
+    {
+      id: "communityconnect",
+      name: "CommunityConnect",
+      url: "https://github.com/siddhant-pardeshi/communityconnect",
+      tag: "Community tool",
+      description: "Decision Rooms, peer vouches, referral XP, QR cards, and a support hub — turn group-chat chaos into ONE plan everyone attends."
+    },
+    {
+      id: "jobforge",
+      name: "JobForge",
+      url: "https://github.com/siddhant-pardeshi/JobForge",
+      tag: "AI · Career",
+      description: "AI job-hunt cockpit: real openings from 21 verified boards, mail fraud screening, a self-organizing tracker with round reminders, and explainable matching. Free and open source."
+    },
+    {
+      id: "asset-intelligence-copilot",
+      name: "Asset Intelligence Copilot",
+      url: "https://github.com/siddhant-pardeshi/asset-intelligence-copilot",
+      tag: "AI · Data",
+      description: "AI copilot for oil fields: plain-English questions over 600 wells, cited evidence-backed answers in milliseconds. Deterministic FastAPI + SQLite engine — zero hallucinated numbers."
+    },
+    {
+      id: "foodmanagement",
+      name: "FoodManagement",
+      url: "https://github.com/siddhant-pardeshi/FoodManagement",
+      tag: "Full-stack · Social good",
+      description: "Food donation platform moving surplus food to NGOs, shelters, and families in need. React SPA + serverless Node.js API on Vercel with cloud MySQL."
+    },
+    {
+      id: "flytbase-ahc-agentic-testing",
+      name: "FlytBase Agentic QA",
+      url: "https://github.com/siddhant-pardeshi/flytbase-ahc-agentic-testing",
+      tag: "Agentic QA",
+      description: "Agentic QA for a live drone incident-response dashboard: Playwright drives real multi-user sessions, an independent telemetry observer cross-checks the UI, and seeded mutations validate detection."
+    },
+    {
+      id: "hospitalshield-ai",
+      name: "HospitalShield-AI",
+      url: "https://github.com/siddhant-pardeshi/HospitalShield-AI",
+      tag: "Hackathon · Digital twin",
+      description: "Climate-resilient hospital digital twin — built for the FUSION 2026 Hackathon (HC-03 Mayo Clinic track)."
+    },
+    {
+      id: "game-deck",
+      name: "Game Deck",
+      url: "https://github.com/siddhant-pardeshi/game-deck",
+      tag: "Browser games",
+      description: "Catalog hub for handcrafted browser games — one shared game kit (mascot engine, synth audio, responsive shell), six worlds, and the factory recipe for more."
+    }
+  ];
+
   /* ---------- Skills: group -> items -> evidence ----------
      Evidence only where the resume/repo support it. */
   var skillGroups = [
@@ -408,6 +462,7 @@ window.CONTENT = (function () {
     site: site,
     postsConfig: postsConfig,
     repos: repos,
+    moreProjects: moreProjects,
     skillGroups: skillGroups,
     achievements: achievements,
     education: education,

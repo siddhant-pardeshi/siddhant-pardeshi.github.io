@@ -26,6 +26,7 @@ Then open http://localhost:3000 (or :8080). Opening `index.html` directly from d
 | LinkedIn posts (curated) | `js/content.js` → `postsConfig.posts` |
 | GitHub featured repos + descriptions | `js/content.js` → `repos` |
 | Gallery photos & captions | `js/content.js` → `galleryItems` |
+| "More builds" projects | `js/content.js` → `moreProjects` |
 | About-section portrait | `js/content.js` → `site.aboutPortrait` + `assets/portrait/` |
 | Availability text | `js/content.js` → `site.availability` |
 | Resume PDF | `assets/resume/Siddhant_Pardeshi_General_Resume.pdf` |
@@ -126,6 +127,27 @@ after 60 days of repo inactivity — just run the workflow manually or push to r
 Motion (Full / Reduced / Off — follows OS preference until changed) and Sound (off by default,
 opt-in) live in the ⚙ nav control. Byte can be hidden and restored from the same panel.
 Ctrl/Cmd+K opens the command palette anywhere.
+
+## 7a-2. Sound design (opt-in, default OFF)
+
+Every interaction has a signature sound behind the ⚙ **Sound: on** toggle — nothing
+plays until the visitor opts in, and everything is synthesized locally with WebAudio
+(no audio files, no CDN):
+
+| Interaction | Sound |
+|---|---|
+| Trace a request | 4-note ascending signal arpeggio following the pulse |
+| Transfer sim | step ticks per pipeline stage · major chord on commit · descending buzz on rollback |
+| LifeDrop sim | water-drop sweep on approve · confirm chord on fulfill |
+| Lightbox / polaroid | soft camera shutter |
+| Filters, tour steps | tiny ticks |
+| Palette / case studies | slide sweep |
+| Section changes | two-note motif (Byte comments too) |
+| Byte petting | purr with rumble vibrato + a little "mrrp!" tail |
+| Byte dance / celebrate / excited | jingle / chime / boing |
+
+Cooldowns prevent stacking; `tick` has its own shorter throttle. Sound state
+persists in localStorage and never turns on automatically.
 
 ## 7b. Hand-tracked particles (webcam feature)
 

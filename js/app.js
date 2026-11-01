@@ -127,6 +127,7 @@
         if (open) {
           history.replaceState(null, "", "#" + panel.id);
           panel.scrollIntoView({ behavior: resolveMotion() === "full" ? "smooth" : "auto", block: "start" });
+          window.SoundPop && window.SoundPop();
         } else {
           history.replaceState(null, "", "#" + btn.closest("[id]").id);
         }
@@ -265,6 +266,7 @@
       render();
       dlg.showModal();
       input.focus();
+      window.SoundPop && window.SoundPop();
     }
     if (btn) btn.addEventListener("click", open);
     document.addEventListener("keydown", function (e) {
@@ -542,7 +544,7 @@
       b.addEventListener("click", function () {
         if (window.GalleryView && window.GalleryView.openById) {
           window.GalleryView.openById(b.getAttribute("data-open-photo"));
-          window.SoundPop && window.SoundPop();
+          if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play("shutter");
         } else {
           location.hash = "#gallery";
         }
@@ -571,6 +573,7 @@
         if (found !== "top" && Date.now() - lastFired > 9000 && resolveMotion() !== "off") {
           lastFired = Date.now();
           window.dispatchEvent(new CustomEvent("byte:section", { detail: { id: found } }));
+          if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play("section");
         }
       }
     }

@@ -120,6 +120,7 @@
         active = c.id;
         filtersEl.querySelectorAll(".filter-btn").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
         render();
+        if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play("tick");
       });
       filtersEl.appendChild(b);
     });
@@ -188,12 +189,17 @@
     var currentIdx = 0;
     var lastFocus = null;
 
+    function sfx(kind) {
+      if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play(kind);
+    }
+
     function openLightbox(item) {
       currentIdx = Math.max(0, shown.indexOf(item));
       lastFocus = document.activeElement;
       renderLightbox();
       lightbox.showModal();
       btnClose.focus();
+      sfx("shutter");
     }
 
     function renderLightbox() {

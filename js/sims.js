@@ -52,7 +52,7 @@
       if (tracing) return;
       tracing = true;
       btn.disabled = true;
-      SoundFXSafe("pop");
+      SoundFXSafe("trace");
       if (!motionFull()) {
         /* reduced motion: step highlights without travel */
         var i = 0;
@@ -152,18 +152,20 @@
         if (k >= seq.length) {
           if (fail) {
             explain.innerHTML = "<strong>Rollback.</strong> The debit was never committed — both balances stay exactly as they were. That is the all-or-nothing principle: a transfer either completes fully or not at all, so money can never vanish mid-flight.";
+            SoundFXSafe("simfail");
           } else {
             balA.textContent = fmt(A0 - AMT);
             balB.textContent = fmt(B0 + AMT);
             balA.classList.add("changed"); balB.classList.add("changed");
             explain.innerHTML = "<strong>Committed.</strong> Sender −₹500 and receiver +₹500 landed as one atomic unit. If any step had failed, both would have rolled back — never one without the other.";
-            SoundFXSafe("chime");
+            SoundFXSafe("simok");
           }
           btnGo.disabled = false; btnFail.disabled = false;
           return;
         }
         var st = seq[k];
         steps[st.i].classList.add("is-active");
+        SoundFXSafe("simstep");
         if (st.i === 2 && !fail) arrowAmt.textContent = "₹500 →";
         if (st.i === 2 && fail) arrowAmt.textContent = "₹500 → (in-flight)";
         explain.innerHTML = st.text;
@@ -221,7 +223,7 @@
       btnApprove.disabled = true;
       btnFulfill.disabled = false;
       explain.innerHTML = "<strong>Approved.</strong> An admin reviewed the request. Inventory is still untouched — approval is a decision, not a delivery.";
-      SoundFXSafe("pop");
+      SoundFXSafe("drop");
     });
 
     btnFulfill.addEventListener("click", function () {
@@ -231,7 +233,7 @@
       units.textContent = "13";
       units.classList.add("changed");
       explain.innerHTML = "<strong>Fulfilled.</strong> One unit of O+ left the inventory atomically as the request completed — the stock count and the request status can never disagree.";
-      SoundFXSafe("chime");
+      SoundFXSafe("simok");
     });
 
     btnReset.addEventListener("click", function () { SoundFXSafe("pop"); reset(); });
