@@ -169,40 +169,40 @@
       if (now - this.last < cd) return; /* cooldown - no stacking */
       if (!this.ensureCtx()) return;
       this.last = now;
-      if (kind === "chirp") { this.tone(720, 0, 0.09); this.tone(980, 0.09, 0.12); }
-      else if (kind === "pop") { this.tone(300, 0, 0.14, "triangle", 0.06); }
-      else if (kind === "chime") { this.tone(660, 0, 0.12); this.tone(880, 0.11, 0.12); this.tone(1174, 0.22, 0.18); }
-      else if (kind === "boing") { this.tone(160, 0, 0.22, "sine", 0.07, 620); }
+      if (kind === "chirp") { this.tone(720, 0, 0.09, "sine", 0.075); this.tone(980, 0.09, 0.12, "sine", 0.075); }
+      else if (kind === "pop") { this.tone(300, 0, 0.14, "triangle", 0.09); }
+      else if (kind === "chime") { this.tone(660, 0, 0.12, "sine", 0.075); this.tone(880, 0.11, 0.12, "sine", 0.075); this.tone(1174, 0.22, 0.18, "sine", 0.08); }
+      else if (kind === "boing") { this.tone(160, 0, 0.22, "sine", 0.1, 620); }
       else if (kind === "purr") {
         /* purr with rumble vibrato + a little "mrrp!" tail */
         var t0 = this.ctx.currentTime;
         var o = this.ctx.createOscillator(); o.type = "sine"; o.frequency.value = 106;
         var g = this.ctx.createGain();
         g.gain.setValueAtTime(0, t0);
-        g.gain.linearRampToValueAtTime(0.055, t0 + 0.08);
-        g.gain.setValueAtTime(0.055, t0 + 0.5);
+        g.gain.linearRampToValueAtTime(0.085, t0 + 0.08);
+        g.gain.setValueAtTime(0.085, t0 + 0.5);
         g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.7);
         var lfo = this.ctx.createOscillator(); lfo.frequency.value = 24;
-        var lg = this.ctx.createGain(); lg.gain.value = 0.028;
+        var lg = this.ctx.createGain(); lg.gain.value = 0.042;
         lfo.connect(lg); lg.connect(g.gain);
         o.connect(g); g.connect(this.ctx.destination);
         o.start(t0); lfo.start(t0); o.stop(t0 + 0.75); lfo.stop(t0 + 0.75);
-        this.tone(880, 0.52, 0.07, "sine", 0.045);
-        this.tone(1174, 0.62, 0.1, "sine", 0.045);
+        this.tone(880, 0.52, 0.07, "sine", 0.07);
+        this.tone(1174, 0.62, 0.1, "sine", 0.07);
       }
-      else if (kind === "jingle") { this.tone(523, 0, 0.11, "square", 0.03); this.tone(659, 0.12, 0.11, "square", 0.03); this.tone(784, 0.24, 0.11, "square", 0.03); this.tone(1046, 0.36, 0.2, "square", 0.035); }
-      else if (kind === "zzz") { this.tone(240, 0, 0.3, "sine", 0.03); }
-      else if (kind === "whoa") { this.tone(880, 0, 0.16, "sine", 0.05, 440); }
+      else if (kind === "jingle") { this.tone(523, 0, 0.11, "square", 0.045); this.tone(659, 0.12, 0.11, "square", 0.045); this.tone(784, 0.24, 0.11, "square", 0.045); this.tone(1046, 0.36, 0.2, "square", 0.05); }
+      else if (kind === "zzz") { this.tone(240, 0, 0.3, "sine", 0.045); }
+      else if (kind === "whoa") { this.tone(880, 0, 0.16, "sine", 0.075, 440); }
       /* ---- interaction score ---- */
-      else if (kind === "trace") { this.tone(523, 0, 0.12, "sine", 0.04); this.tone(659, 0.9, 0.12, "sine", 0.04); this.tone(784, 1.9, 0.12, "sine", 0.04); this.tone(1046, 2.85, 0.22, "sine", 0.045); }
-      else if (kind === "simstep") { this.tone(1400, 0, 0.04, "square", 0.022); }
-      else if (kind === "simok") { this.tone(523, 0, 0.14, "sine", 0.045); this.tone(659, 0.09, 0.14, "sine", 0.045); this.tone(784, 0.18, 0.24, "sine", 0.05); }
-      else if (kind === "simfail") { this.tone(392, 0, 0.16, "triangle", 0.05); this.tone(311, 0.14, 0.24, "triangle", 0.05); }
-      else if (kind === "drop") { this.tone(920, 0, 0.26, "sine", 0.05, 260); }
-      else if (kind === "shutter") { this.tone(1250, 0, 0.03, "square", 0.03); this.tone(880, 0.055, 0.045, "square", 0.03); }
-      else if (kind === "tick") { this.tone(1750, 0, 0.025, "sine", 0.025); }
-      else if (kind === "slide") { this.tone(300, 0, 0.12, "triangle", 0.04, 720); }
-      else if (kind === "section") { this.tone(659, 0, 0.1, "sine", 0.03); this.tone(988, 0.11, 0.14, "sine", 0.03); }
+      else if (kind === "trace") { this.tone(523, 0, 0.12, "sine", 0.06); this.tone(659, 0.9, 0.12, "sine", 0.06); this.tone(784, 1.9, 0.12, "sine", 0.06); this.tone(1046, 2.85, 0.22, "sine", 0.07); }
+      else if (kind === "simstep") { this.tone(1400, 0, 0.04, "square", 0.035); }
+      else if (kind === "simok") { this.tone(523, 0, 0.14, "sine", 0.07); this.tone(659, 0.09, 0.14, "sine", 0.07); this.tone(784, 0.18, 0.24, "sine", 0.075); }
+      else if (kind === "simfail") { this.tone(392, 0, 0.16, "triangle", 0.075); this.tone(311, 0.14, 0.24, "triangle", 0.075); }
+      else if (kind === "drop") { this.tone(920, 0, 0.26, "sine", 0.075, 260); }
+      else if (kind === "shutter") { this.tone(1250, 0, 0.03, "square", 0.045); this.tone(880, 0.055, 0.045, "square", 0.045); }
+      else if (kind === "tick") { this.tone(1750, 0, 0.025, "sine", 0.04); }
+      else if (kind === "slide") { this.tone(300, 0, 0.12, "triangle", 0.06, 720); }
+      else if (kind === "section") { this.tone(659, 0, 0.1, "sine", 0.045); this.tone(988, 0.11, 0.14, "sine", 0.045); }
     }
   };
   SoundFX.load();

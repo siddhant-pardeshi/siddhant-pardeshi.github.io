@@ -63,6 +63,13 @@
       </ul>
     </nav>
     <div class="site-nav__actions">
+      <button class="nav-icon-btn snd-quick" type="button" data-sound-quick aria-pressed="false" aria-label="Toggle sound effects" title="Toggle sound effects">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+          <path class="snd-waves" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>
+          <path class="snd-slash" d="M22 2 2 22"/>
+        </svg>
+      </button>
       <button class="nav-icon-btn" type="button" data-open-palette aria-label="Search and navigate (Ctrl+K)">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
       </button>
@@ -92,6 +99,7 @@
     <div class="mobile-menu__foot">
       <a class="btn btn--small" href="assets/resume/Siddhant_Pardeshi_General_Resume.pdf" target="_blank" rel="noopener">Resume</a>
       <a class="btn btn--small btn--lime" href="recruiter.html">Recruiter view</a>
+      <button class="btn btn--small btn--ghost" type="button" data-sound-quick data-sound-label>Sound: off 🔇</button>
       <button class="btn btn--small btn--ghost" type="button" data-open-settings>Settings</button>
       <a class="btn btn--small btn--ghost" href="https://www.linkedin.com/in/siddhant-pardeshi-53788221a" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn btn--small btn--ghost" href="https://github.com/siddhant-pardeshi" target="_blank" rel="noopener">GitHub ↗</a>
@@ -461,6 +469,23 @@
   </div>
 </section>
 
+<!-- ================= MORE BUILDS ================= -->
+<section class="section" id="builds" aria-label="More builds" style="padding-top:clamp(2rem,5vw,4rem)">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">Open source</p>
+      <h2>More builds. More lessons.</h2>
+      <p class="lede muted">Ten repositories and counting — community tools, AI systems, agentic QA, social good, and a game kit. Each one taught me something a classroom couldn't.</p>
+    </header>
+    <div class="more-builds reveal">
+      <div class="more-builds-grid"></div>
+    </div>
+    <p class="row reveal" style="margin-top:1.8rem">
+      <a class="btn btn--ghost" href="https://github.com/siddhant-pardeshi?tab=repositories" target="_blank" rel="noopener">Explore every repository on GitHub <span class="ext">↗</span></a>
+    </p>
+  </div>
+</section>
+
 <!-- ================= SKILLS ================= -->
 <section class="section section--ink on-dark" id="skills" aria-label="Skills">
   <div class="container">
@@ -597,10 +622,6 @@
         <div class="repos-list"></div>
         <p class="stat-refresh-note"></p>
         <p class="more-repos" hidden></p>
-        <div class="more-builds">
-          <div class="panel-h" style="margin-top:1.8rem">More builds <span class="panel-tag">Open source</span></div>
-          <div class="more-builds-grid"></div>
-        </div>
       </div>
     </div>
   </div>
@@ -804,6 +825,7 @@
       <li><button type="button" data-byte-action="resume">View resume</button></li>
       <li><button type="button" data-byte-action="contact">Contact Siddhant</button></li>
       <li><button type="button" data-byte-action="handfx">Play with hand-tracked particles ✋</button></li>
+      <li><button type="button" data-byte-action="sound" data-sound-label>Sound: off 🔇</button></li>
       <li><button type="button" data-byte-action="tour">Take a quick tour ⚡</button></li>
     </ul>
     <div class="byte-menu__foot">

@@ -171,14 +171,24 @@
       "info": "true"
     },
     {
+      "name": "builds: dedicated shelf section after work",
+      "pass": true,
+      "info": "true"
+    },
+    {
       "name": "sound: engine present and OFF by default",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "sound: nav quick toggle works + persists state",
       "pass": true,
       "info": "true"
     },
     {
       "name": "handfx: graceful camera-degraded state",
       "pass": true,
-      "info": "Loading the hand-tracking engine (~6 MB, cached after this)…"
+      "info": "Allow camera access when your browser asks…"
     },
     {
       "name": "desktop-1440: zero console errors",

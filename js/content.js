@@ -445,6 +445,7 @@ window.CONTENT = (function () {
     fast: "Whoa — fast hands!",
     sections: {
       work: "Two builds, two playable walkthroughs. Try them!",
+      builds: "Ten projects and counting — each one taught me something different.",
       skills: "Every tool here links to real evidence.",
       achievements: "4th overall with Team UrbanSync. So proud of this one.",
       gallery: "Real moments — that's us on the metro!",

@@ -189,7 +189,19 @@ evals.push(["nav: all anchors resolve", `[...document.querySelectorAll('a[href^=
 evals.push(["links: external links are noopener", `[...document.querySelectorAll('a[target="_blank"]')].every(a => (a.rel || '').includes('noopener'))`]);
 evals.push(["more builds: 7 project cards render", `document.querySelectorAll('.more-build-card').length`]);
 evals.push(["more builds: links valid + noopener", `[...document.querySelectorAll('.more-build-card a.mb-name')].length === 7 && [...document.querySelectorAll('.more-build-card a.mb-name')].every(a => (a.rel || '').includes('noopener'))`]);
+evals.push(["builds: dedicated shelf section after work", `!!document.getElementById('builds') && document.querySelectorAll('#builds .more-build-card').length === 7`]);
 evals.push(["sound: engine present and OFF by default", `window.Byte && window.Byte.SoundFX && typeof window.Byte.SoundFX.play === 'function' && window.Byte.SoundFX.enabled === false`]);
+evals.push(["sound: nav quick toggle works + persists state", `(async () => {
+  const btn = document.querySelector('.site-nav [data-sound-quick]');
+  if (!btn) return 'no btn';
+  btn.click();
+  await new Promise(r => setTimeout(r, 120));
+  const on = window.Byte.SoundFX.enabled === true && btn.getAttribute('aria-pressed') === 'true';
+  btn.click();
+  await new Promise(r => setTimeout(r, 120));
+  const off = window.Byte.SoundFX.enabled === false && btn.getAttribute('aria-pressed') === 'false';
+  return on && off;
+})()`]);
 evals.push(["handfx: graceful camera-degraded state", `(async () => {
   window.HandFX.open();
   await new Promise(r => setTimeout(r, 2500));

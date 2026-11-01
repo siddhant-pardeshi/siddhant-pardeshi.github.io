@@ -209,7 +209,7 @@ print-perfect page built for the person with one minute:
 
 ## 🧱 More builds — the open-source shelf
 
-Beyond the three flagship case studies, seven more repositories are showcased with owner descriptions:
+Right after the flagship case studies, a dedicated shelf spotlights **seven more repositories** with owner-written descriptions:
 
 [CommunityConnect](https://github.com/siddhant-pardeshi/communityconnect) — group plans with decision rooms & peer vouches ·
 [JobForge](https://github.com/siddhant-pardeshi/JobForge) — AI job-hunt cockpit with fraud screening ·

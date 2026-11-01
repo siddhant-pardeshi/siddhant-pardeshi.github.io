@@ -197,9 +197,9 @@
       return parts[parts.length - 1];
     }
 
-    /* ---- More builds: owner-named projects ---- */
+    /* ---- More builds: owner-named projects (own section #builds) ---- */
     function drawMoreBuilds() {
-      var wrap = root.querySelector(".more-builds");
+      var wrap = document.querySelector(".more-builds");
       if (!wrap || !C.moreProjects || !C.moreProjects.length) return;
       var grid = wrap.querySelector(".more-builds-grid");
       if (!grid) return;

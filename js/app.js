@@ -55,15 +55,49 @@
 
   /* ---------------- Sound ---------------- */
   function applySoundUI() {
-    var on = window.Byte && window.Byte.SoundFX.enabled;
+    var fx = window.Byte && window.Byte.SoundFX;
+    var on = !!(fx && fx.enabled);
     $$("[data-sound-toggle]").forEach(function (b) {
       b.setAttribute("aria-pressed", on ? "true" : "false");
       b.textContent = on ? "Sound: on" : "Sound: off";
     });
+    $$("[data-sound-quick]").forEach(function (b) {
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    $$("[data-sound-label]").forEach(function (b) {
+      b.textContent = on ? "Sound: on 🔊" : "Sound: off 🔇";
+    });
   }
+  function toggleSound() {
+    var fx = window.Byte && window.Byte.SoundFX;
+    if (!fx) return;
+    fx.enabled = !fx.enabled;
+    fx.save();
+    applySoundUI();
+    if (fx.enabled) fx.play("chime");
+  }
+  window.appToggleSound = toggleSound;
   window.SoundPop = function () {
     if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play("pop");
   };
+  /* one-time invitation — audio needs a gesture, so the toast button IS it */
+  function inviteSound() {
+    try {
+      if (localStorage.getItem("sp-sound") === "on" || localStorage.getItem("sp-sound-invited")) return;
+      localStorage.setItem("sp-sound-invited", "1");
+    } catch (e) { return; }
+    setTimeout(function () {
+      if (window.Byte && window.Byte.SoundFX.enabled) return;
+      toast("🔊 This playground has a soundtrack — steps, chirps, victory chords.", "Enable sound", function () {
+        var fx = window.Byte && window.Byte.SoundFX;
+        if (!fx) return;
+        fx.enabled = true;
+        fx.save();
+        applySoundUI();
+        fx.play("jingle");
+      });
+    }, 2600);
+  }
 
   /* ---------------- Reveal once ---------------- */
   function initReveal() {
@@ -208,6 +242,7 @@
     var items = [
       { label: "Top of page", hint: "Home", run: function () { location.hash = "#top"; } },
       { label: "Work — projects & case studies", hint: "Section", run: function () { location.hash = "#work"; } },
+      { label: "More builds — open-source shelf", hint: "Section", run: function () { location.hash = "#builds"; } },
       { label: "BankNest — follow a transfer", hint: "Sim", run: function () { location.hash = "#banknest"; } },
       { label: "LifeDrop — move a request", hint: "Sim", run: function () { location.hash = "#lifedrop"; } },
       { label: "MetroMind — hackathon build", hint: "Project", run: function () { location.hash = "#metromind"; } },
@@ -290,14 +325,7 @@
       });
     });
     $$("[data-sound-toggle]", settingsDlg).forEach(function (b) {
-      b.addEventListener("click", function () {
-        var fx = window.Byte && window.Byte.SoundFX;
-        if (!fx) return;
-        fx.enabled = !fx.enabled;
-        fx.save();
-        applySoundUI();
-        if (fx.enabled) fx.play("chirp");
-      });
+      b.addEventListener("click", toggleSound);
     });
     var restore = $("[data-restore-byte]", settingsDlg);
     if (restore) {
@@ -415,6 +443,7 @@
         return;
       }
       b.addEventListener("click", function () {
+        if (act === "sound") { toggleSound(); return; } /* menu stays open */
         if (menu.open) menu.close();
         switch (act) {
           case "projects": location.hash = "#work"; break;
@@ -552,9 +581,16 @@
     });
   }
 
+  /* ---------------- Sound quick-toggle (nav + mobile + byte menu) ---------------- */
+  function initSoundQuick() {
+    $$("[data-sound-quick]").forEach(function (b) {
+      b.addEventListener("click", toggleSound);
+    });
+  }
+
   /* ---------------- Byte section awareness ---------------- */
   function initByteSectionAwareness() {
-    var ids = ["top", "work", "skills", "achievements", "gallery", "posts", "about", "contact"];
+    var ids = ["top", "work", "builds", "skills", "achievements", "gallery", "posts", "about", "contact"];
     var current = "";
     var lastFired = 0;
     var ticking = false;
@@ -641,6 +677,8 @@
     initRevealFailsafe();
     initByteSectionAwareness();
     initHeroPhotos();
+    initSoundQuick();
+    inviteSound();
     /* re-wrap headlines that get revealed later is unnecessary —
        the observer adds is-revealed to the whole .section-head */
     initAvailability();
