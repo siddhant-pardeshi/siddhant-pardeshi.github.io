@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gallery tile test (local only)</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/main.css">
+<script src="../js/content.js"></script>
+<script src="../js/gallery.js"></script>
+<style>body { padding: 20px; } #gallery-view .gallery-filters { margin-bottom: 12px; }</style>
+</head>
+<body>
+<div id="gallery-view">
+  <div class="gallery-filters"></div>
+  <div class="contact-sheet"></div>
+</div>
+<dialog class="lightbox" id="lightbox"><div class="lightbox__inner"><div class="lightbox__stage"></div><div class="lightbox__bar"><div class="lb-caption"></div><div class="lightbox__nav"><button class="lb-prev">←</button><button class="lb-next">→</button><button class="lb-close">✕</button></div></div></div></dialog>
+<script>
+  GalleryView.init();
+  document.querySelectorAll(".sheet-item").forEach(function (t) { t.classList.add("is-in"); });
+</script>
+</body>
+</html>

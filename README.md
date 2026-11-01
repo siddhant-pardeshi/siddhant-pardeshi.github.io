@@ -26,9 +26,19 @@ Then open http://localhost:3000 (or :8080). Opening `index.html` directly from d
 | LinkedIn posts (curated) | `js/content.js` → `postsConfig.posts` |
 | GitHub featured repos + descriptions | `js/content.js` → `repos` |
 | Gallery photos & captions | `js/content.js` → `galleryItems` |
+| About-section portrait | `js/content.js` → `site.aboutPortrait` + `assets/portrait/` |
 | Availability text | `js/content.js` → `site.availability` |
 | Resume PDF | `assets/resume/Siddhant_Pardeshi_General_Resume.pdf` |
 | Live GitHub stats | `data/github-snapshot.json` (auto-generated — never hand-edit) |
+
+**Photo asset map** (owner-supplied, renamed for the web):
+`assets/portrait/` formal portraits · `assets/hackathons/metro-hackathon/` OpenAI
+DevDay Exchange – Metro Hackathon Pune · `assets/hackathons/fusion-2026/` Fusion @
+SKNCOE · `assets/hackathons/genspark/` Genspark community event ·
+`assets/events/tech-meetups/` community meetups & office visits ·
+`assets/hobby/jivdhan-trek/` Jivdhan Fort trek & camping. Two event videos play
+in the lightbox. To add more: drop files in the matching folder, add a
+`galleryItems` record, push.
 
 **Every change publishes itself:** edit → commit → push to `main`. The `Deploy portfolio`
 workflow builds and publishes to Pages automatically. That's the whole release process.

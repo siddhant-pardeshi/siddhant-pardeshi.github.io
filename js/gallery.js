@@ -80,12 +80,15 @@
   }
 
   function photoSVG(item, w, h) {
-    /* Real photos load as <image> inside the svg frame so crops stay controlled */
-    var W = w || 400, H = h || 300;
-    return '<svg class="ph" viewBox="0 0 ' + W + " " + H + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="' + esc(item.alt) + '" preserveAspectRatio="xMidYMid ' + (item.category === "certificates" ? "meet" : "slice") + '">'
-      + '<rect width="' + W + '" height="' + H + '" fill="#E7E3D6"/>'
-      + '<image href="' + esc(item.src) + '" width="' + W + '" height="' + H + '" preserveAspectRatio="xMidYMid ' + (item.category === "certificates" ? "meet" : "slice") + '"/>'
-      + "</svg>";
+    /* kept for designed schematic placeholders (projects) */
+    return placeholderSVG(item, w, h);
+  }
+
+  function videoTile(item) {
+    return '<span class="video-tile" aria-hidden="true">'
+      + '<span class="video-play">▶</span>'
+      + '<span class="video-len">Video</span>'
+      + "</span>";
   }
 
   function init() {
@@ -99,7 +102,7 @@
     var emptyNote = root.querySelector(".gallery-empty-note");
 
     var catsPresent = [];
-    var catLabels = { hackathons: "Hackathons", team: "Team moments", projects: "Projects", certificates: "Certificates", portrait: "Portrait" };
+    var catLabels = { hackathons: "Hackathons", team: "Team moments", events: "Tech events", hobby: "Treks & camping", projects: "Projects", certificates: "Certificates", portrait: "Portrait" };
     C.galleryItems.forEach(function (g) { if (catsPresent.indexOf(g.category) < 0) catsPresent.push(g.category); });
 
     var visibleCats = catsPresent.filter(function (c) { return C.galleryItems.some(function (g) { return g.category === c && g.src; }); });
@@ -128,7 +131,15 @@
       fig.className = "sheet-item" + (item.size === "wide" ? " sheet-item--wide" : "") + (item.size === "tall" ? " sheet-item--tall" : "");
       fig.setAttribute("aria-haspopup", "dialog");
       fig.setAttribute("aria-label", "Open: " + item.caption);
-      fig.innerHTML = (item.src ? photoSVG(item) : placeholderSVG(item))
+      var media;
+      if (item.video) {
+        media = videoTile(item);
+      } else if (item.src) {
+        media = '<img class="ph" src="' + esc(item.src) + '" alt="' + esc(item.alt) + '" loading="lazy" decoding="async">';
+      } else {
+        media = placeholderSVG(item);
+      }
+      fig.innerHTML = media
         + "<figcaption><span>" + esc(item.caption) + '</span><span class="cat">' + esc(catLabels[item.category] || item.category) + "</span></figcaption>";
       fig.addEventListener("click", function () { openLightbox(item); });
       return fig;
@@ -138,11 +149,35 @@
       sheetEl.innerHTML = "";
       shown = C.galleryItems.filter(function (g) { return active === "all" || g.category === active; });
       shown.forEach(function (item) { sheetEl.appendChild(tileFor(item)); });
+      /* staggered entrance: cap the delay so long walls never wait */
+      Array.prototype.forEach.call(sheetEl.children, function (tile, i) {
+        tile.style.setProperty("--ti", Math.min(i, 14));
+      });
+      if ("IntersectionObserver" in window) {
+        if (tileIO) tileIO.disconnect();
+        tileIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              en.target.classList.add("is-in");
+              tileIO.unobserve(en.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: "0px 0px 12% 0px" });
+        Array.prototype.forEach.call(sheetEl.children, function (tile) {
+          /* tiles already on screen reveal immediately — never hidden behind JS */
+          var r = tile.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) tile.classList.add("is-in");
+          else tileIO.observe(tile);
+        });
+      } else {
+        Array.prototype.forEach.call(sheetEl.children, function (tile) { tile.classList.add("is-in"); });
+      }
       if (emptyNote) {
         var hasReal = C.galleryItems.some(function (g) { return g.src; });
         emptyNote.hidden = hasReal;
       }
     }
+    var tileIO = null;
 
     /* ---- Lightbox ---- */
     var stage = lightbox.querySelector(".lightbox__stage");
@@ -164,10 +199,16 @@
     function renderLightbox() {
       var item = shown[currentIdx];
       if (!item) return;
-      stage.innerHTML = item.src ? photoSVG(item, 800, 560) : placeholderSVG(item, 800, 560);
+      if (item.video) {
+        stage.innerHTML = '<video src="' + esc(item.src) + '" controls autoplay muted loop playsinline aria-label="' + esc(item.alt) + '"></video>';
+      } else if (item.src) {
+        stage.innerHTML = '<img src="' + esc(item.src) + '" alt="' + esc(item.alt) + '">';
+      } else {
+        stage.innerHTML = placeholderSVG(item, 800, 560);
+      }
       capEl.innerHTML = "<strong>" + esc(item.caption) + "</strong>" +
         (item.eventName ? '<span class="lb-event">' + esc(item.eventName) + (item.date ? " · " + esc(item.date) : "") + "</span>" : "") +
-        (item.src ? "" : '<span class="lb-event">Owner photo pending — designed illustration for now</span>');
+        (item.src ? "" : '<span class="lb-event">Designed schematic — screenshots to come</span>');
       var single = shown.length < 2;
       btnPrev.hidden = single; btnNext.hidden = single;
     }
@@ -198,6 +239,9 @@
     }, { passive: true });
 
     render();
+    /* the lightbox scales photos up cleanly */
+    var st = lightbox.querySelector(".lightbox__stage");
+    if (st) st.classList.add("lightbox__stage--photo");
   }
 
   function esc(s) {

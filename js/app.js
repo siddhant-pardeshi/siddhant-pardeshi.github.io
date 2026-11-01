@@ -462,6 +462,78 @@
     check();
   }
 
+  /* ---------------- Word-by-word headline reveals ---------------- */
+  function initWordReveal() {
+    if (resolveMotion() !== "full") return;
+    $$(".section-head h2").forEach(function (h2) {
+      if (h2.dataset.wrapped) return;
+      h2.dataset.wrapped = "1";
+      var words = h2.textContent.trim().split(/\s+/);
+      var wi = 0;
+      h2.innerHTML = words.map(function (w) {
+        return '<span class="wline"><span class="word" style="--wi:' + (wi++) + '">' + w + "</span></span>";
+      }).join(" ");
+      /* if the parent is already revealed, show immediately */
+      var parent = h2.closest(".reveal");
+      if (parent && parent.classList.contains("is-revealed")) {
+        $$(".word", h2).forEach(function (w) { w.style.transform = "none"; });
+      }
+    });
+  }
+
+  /* ---------------- Count-up numbers ---------------- */
+  function initCountUp() {
+    var els = $$("[data-count]");
+    if (!els.length) return;
+    function animate(el) {
+      var to = parseFloat(el.getAttribute("data-count"));
+      var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
+      var start = null, dur = 1100;
+      function frame(ts) {
+        if (start === null) start = ts;
+        var p = Math.min(1, (ts - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (to * eased).toFixed(dec);
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      if (resolveMotion() === "full") requestAnimationFrame(frame);
+      else el.textContent = to.toFixed(dec);
+    }
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (el) { animate(el); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          animate(en.target);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------------- Reveal failsafes ----------------
+     Content must never be trapped behind an animation. Anything
+     already in the viewport gets revealed on a timer, no matter
+     what the observers did. */
+  function initRevealFailsafe() {
+    function sweep() {
+      $$(".reveal:not(.is-revealed)").forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-revealed");
+      });
+      $$(".sheet-item:not(.is-in)").forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 1.2 && r.bottom > 0) el.classList.add("is-in");
+      });
+    }
+    setTimeout(sweep, 600);
+    setTimeout(sweep, 2500);
+    window.addEventListener("load", function () { setTimeout(sweep, 400); });
+  }
+
   /* ---------------- Achievements sweep + footer finale ---------------- */
   function initPolish() {
     $$(".ach-card").forEach(function (card) {
@@ -515,6 +587,11 @@
     initHideByte();
     initHandFX();
     initPolish();
+    initWordReveal();
+    initCountUp();
+    initRevealFailsafe();
+    /* re-wrap headlines that get revealed later is unnecessary —
+       the observer adds is-revealed to the whole .section-head */
     initAvailability();
     if (window.SkillsView) SkillsView.init();
     if (window.GalleryView) GalleryView.init();

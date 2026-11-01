@@ -39,6 +39,7 @@ window.CONTENT = (function () {
       enabled: true, // edit to false to hide the availability chip
       text: "Available to join immediately"
     },
+    aboutPortrait: "assets/portrait/formal-03-art-wall.jpg",
     emailSubject: "Role discussion - Siddhant Pardeshi",
     profileSummary:
       "Siddhant Pardeshi is a Pune-based Computer Engineering graduate (SPPU, CGPA 8.13/10; GATE 2025 qualified) focused on Java, Spring Boot, MySQL, and React. His projects include BankNest, with 8+ REST APIs and transactional fund-transfer workflows, and LifeDrop, with 10+ REST APIs and role-based donation management. His team, UrbanSync, placed 4th overall at the OpenAI DevDay Exchange - Metro Hackathon Pune with MetroMind. Contact: siddhantpardeshi307@gmail.com."
@@ -281,73 +282,92 @@ window.CONTENT = (function () {
   ];
 
   /* ---------- Gallery ----------
-     Each record: { id, src?, width?, height?, alt, caption, category,
-     eventName?, date?, projectId?, featured? }
-     category: "hackathons" | "team" | "projects" | "certificates" | "portrait"
-     Until you add photos, tiles render as designed abstract
-     illustrations (marked as such) based on real achievements. */
+     All photos are owner-supplied and placed under assets/ with
+     descriptive names. Captions describe what is actually in the
+     photo; event names come from the owner's folders and visible
+     event signage. Categories: hackathons | team | events | hobby |
+     portrait | projects. video: true renders a playable lightbox. */
+  var METRO = "OpenAI DevDay Exchange - Metro Hackathon Pune";
+  var FUSION = "Fusion 2026 International Hackathon (SKNCOE)";
+  var GENSPARK = "Genspark community event";
+  var MEET = "Tech community meetups";
+  var TREK = "Jivdhan Fort trek & camping";
+  var PORT = "Portfolio portraits";
+
   var galleryItems = [
-    {
-      id: "g-metro-1",
-      category: "hackathons",
-      caption: "OpenAI DevDay Exchange - Metro Hackathon Pune",
-      eventName: "Metro Hackathon Pune",
-      alt: "Abstract illustration of the Metro Hackathon stage with a lime signal line and 4th place marker",
-      placeholder: { motif: "stage", accent: "lime" },
-      featured: true,
-      size: "wide"
-    },
-    {
-      id: "g-metro-2",
-      category: "team",
-      caption: "Building MetroMind with Team UrbanSync",
-      eventName: "Metro Hackathon Pune",
-      alt: "Abstract illustration of four connected teammate nodes around a shared build",
-      placeholder: { motif: "team", accent: "violet" },
-      featured: true
-    },
-    {
-      id: "g-uitest-1",
-      category: "hackathons",
-      caption: "Autonomous UI Testing Hackathon - Award",
-      eventName: "Autonomous UI Testing Hackathon",
-      alt: "Abstract illustration of a UI window being checked by an automated test cursor",
-      placeholder: { motif: "award", accent: "apricot" }
-    },
-    {
-      id: "g-fusion-1",
-      category: "hackathons",
-      caption: "Fusion 2026 International Hackathon (SKNCOE)",
-      eventName: "Fusion 2026",
-      date: "Oct 2026",
-      alt: "Abstract illustration of an international hackathon arena with orbiting participant badges",
-      placeholder: { motif: "orbit", accent: "violet" }
-    },
-    {
-      id: "g-portrait-1",
-      category: "portrait",
-      caption: "Siddhant Pardeshi - portrait coming soon",
-      alt: "SP monogram placeholder for a portrait photo",
-      placeholder: { motif: "monogram", accent: "lime" },
-      featured: true,
-      size: "tall"
-    },
-    {
-      id: "g-banknest-1",
-      category: "projects",
-      caption: "BankNest - backend architecture",
-      projectId: "banknest",
-      alt: "Schematic illustration of BankNest's layered architecture",
-      placeholder: { motif: "schema", accent: "violet" }
-    },
-    {
-      id: "g-lifedrop-1",
-      category: "projects",
-      caption: "LifeDrop - request workflow",
-      projectId: "lifedrop",
-      alt: "Schematic illustration of LifeDrop's Pending to Approved to Fulfilled workflow",
-      placeholder: { motif: "flow", accent: "apricot" }
-    }
+    /* ----- Metro Hackathon: the story ----- */
+    { id: "m-01", src: "assets/hackathons/metro-hackathon/metro-01-team-arrives.jpg", category: "team", caption: "Team UrbanSync arrives at the venue", eventName: METRO, alt: "Team UrbanSync taking a group selfie in the venue lobby", featured: true },
+    { id: "m-23", src: "assets/hackathons/metro-hackathon/metro-23-build-on-metro.jpg", category: "hackathons", caption: "The build happens on the metro itself", eventName: METRO, alt: "Hackathon participants working on laptops inside a moving Pune Metro train", featured: true, size: "wide" },
+    { id: "m-09", src: "assets/hackathons/metro-hackathon/metro-09-stage-quad.jpg", category: "hackathons", caption: "On the DevDay Exchange stage", eventName: METRO, alt: "Four team members posing on the OpenAI DevDay Exchange stage under the event screen", featured: true, size: "wide" },
+    { id: "m-20", src: "assets/hackathons/metro-hackathon/metro-20-devday-swag.jpg", category: "team", caption: "DevDay swag - OpenAI tote bags", eventName: METRO, alt: "Three team members holding OpenAI DevDay Exchange tote bags on stage", featured: true },
+    { id: "m-24", src: "assets/hackathons/metro-hackathon/metro-24-train-hack-room.jpg", category: "hackathons", caption: "A train car turned into a hack room", eventName: METRO, alt: "A Pune Metro train coach full of participants coding on laptops", size: "wide" },
+    { id: "m-06", src: "assets/hackathons/metro-hackathon/metro-06-metro-ride.jpg", category: "team", caption: "Riding the Pune Metro together", eventName: METRO, alt: "Three team members giving thumbs up inside a metro train" },
+    { id: "m-07", src: "assets/hackathons/metro-hackathon/metro-07-laptop-on-metro.jpg", category: "team", caption: "Laptop out before the doors even open", eventName: METRO, alt: "Team members with a laptop on a metro train" },
+    { id: "m-02", src: "assets/hackathons/metro-hackathon/metro-02-openai-banner.jpg", category: "hackathons", caption: "At the OpenAI banner", eventName: METRO, alt: "Three participants standing beside an OpenAI roll-up banner" },
+    { id: "m-03", src: "assets/hackathons/metro-hackathon/metro-03-team-selfie.jpg", category: "team", caption: "Team selfie at the venue", eventName: METRO, alt: "Five team members taking a selfie in front of an OpenAI banner" },
+    { id: "m-04", src: "assets/hackathons/metro-hackathon/metro-04-full-squad.jpg", category: "team", caption: "The full squad", eventName: METRO, alt: "Six team members posing together at the hackathon venue" },
+    { id: "m-05", src: "assets/hackathons/metro-hackathon/metro-05-way-in.jpg", category: "team", caption: "Hyped on the way in", eventName: METRO, alt: "Group selfie in a bright venue corridor" },
+    { id: "m-08", src: "assets/hackathons/metro-hackathon/metro-08-community.jpg", category: "hackathons", caption: "With the wider hackathon community", eventName: METRO, alt: "A larger group of participants with event lanyards" },
+    { id: "m-10", src: "assets/hackathons/metro-hackathon/metro-10-stage-trio.jpg", category: "hackathons", caption: "Stage moment", eventName: METRO, alt: "Three team members on the DevDay Exchange stage" },
+    { id: "m-11", src: "assets/hackathons/metro-hackathon/metro-11-event-video.mp4", video: true, category: "hackathons", caption: "Event film - DevDay Exchange", eventName: METRO, alt: "Video clip from the OpenAI DevDay Exchange Metro Hackathon" },
+    { id: "m-12", src: "assets/hackathons/metro-hackathon/metro-12-pune-metro-logo.jpg", category: "team", caption: "At the Pune Metro mark", eventName: METRO, alt: "Three team members in front of the Pune Metro logo" },
+    { id: "m-13", src: "assets/hackathons/metro-hackathon/metro-13-station-smiles.jpg", category: "team", caption: "All smiles at the metro station", eventName: METRO, alt: "Three team members giving thumbs up at the station" },
+    { id: "m-14", src: "assets/hackathons/metro-hackathon/metro-14-community-wall.jpg", category: "hackathons", caption: "The community wall", eventName: METRO, alt: "Seven participants in front of the DevDay Exchange Community Event wall", size: "wide" },
+    { id: "m-15", src: "assets/hackathons/metro-hackathon/metro-15-cafe-front.jpg", category: "team", caption: "Team dinner spot", eventName: METRO, alt: "The lit front of Cafe Black Cat and Wolf at night" },
+    { id: "m-16", src: "assets/hackathons/metro-hackathon/metro-16-team-dinner.jpg", category: "team", caption: "Post-hackathon debrief over dinner", eventName: METRO, alt: "Six team members around a cafe table" },
+    { id: "m-17", src: "assets/hackathons/metro-hackathon/metro-17-platform-selfie.jpg", category: "team", caption: "Platform selfie before the build", eventName: METRO, alt: "Five team members on the metro platform" },
+    { id: "m-18", src: "assets/hackathons/metro-hackathon/metro-18-main-stage.jpg", category: "hackathons", caption: "Team UrbanSync on the main stage", eventName: METRO, alt: "Four team members on the main stage in front of the event screen", featured: true },
+    { id: "m-19", src: "assets/hackathons/metro-hackathon/metro-19-stage-vertical.jpg", category: "hackathons", caption: "Stage light", eventName: METRO, alt: "Four team members standing under the stage lights" },
+    { id: "m-21", src: "assets/hackathons/metro-hackathon/metro-21-stage-portrait.jpg", category: "hackathons", caption: "On stage at the community event", eventName: METRO, alt: "Three team members on stage with the event screen behind them" },
+    { id: "m-22", src: "assets/hackathons/metro-hackathon/metro-22-auditorium.jpg", category: "hackathons", caption: "Sessions at the DevDay auditorium", eventName: METRO, alt: "An auditorium session with a speaker on stage" },
+    /* ----- Fusion 2026 ----- */
+    { id: "f-02", src: "assets/hackathons/fusion-2026/fusion-02-skncoder-group.jpg", category: "hackathons", caption: "Fusion 2026 at SKNCOE - the crew", eventName: FUSION, alt: "A large group of participants in front of the SKNCOE and Fusion banners", featured: true, size: "wide" },
+    { id: "f-01", src: "assets/hackathons/fusion-2026/fusion-01-crew-selfie.jpg", category: "team", caption: "With the crew at Fusion", eventName: FUSION, alt: "Four participants taking a selfie at the Fusion hackathon" },
+    { id: "f-03", src: "assets/hackathons/fusion-2026/fusion-03-night-walk.jpg", category: "team", caption: "Night walks between rounds", eventName: FUSION, alt: "Four participants on the campus at night" },
+    { id: "f-04", src: "assets/hackathons/fusion-2026/fusion-04-skncoe-wall.jpg", category: "hackathons", caption: "At the SKNCOE wall", eventName: FUSION, alt: "Two participants in front of the SKNCOE honour boards" },
+    { id: "f-05", src: "assets/hackathons/fusion-2026/fusion-05-build-session.jpg", category: "hackathons", caption: "Heads-down build session", eventName: FUSION, alt: "Siddhant in an event t-shirt during a work session at Fusion" },
+    { id: "f-06", src: "assets/hackathons/fusion-2026/fusion-06-day-two.jpg", category: "team", caption: "Day-two energy", eventName: FUSION, alt: "Four participants outdoors on the second day" },
+    { id: "f-07", src: "assets/hackathons/fusion-2026/fusion-07-event-video.mp4", video: true, category: "hackathons", caption: "Event film - Fusion 2026", eventName: FUSION, alt: "Video clip from the Fusion 2026 hackathon" },
+    /* ----- Genspark community event ----- */
+    { id: "gs-01", src: "assets/hackathons/genspark/genspark-01-event-banner.jpg", category: "events", caption: "Genspark community night", eventName: GENSPARK, alt: "A group under string lights beside the Genspark Event banner", featured: true, size: "wide" },
+    { id: "gs-02", src: "assets/hackathons/genspark/genspark-02-rooftop-crew.jpg", category: "events", caption: "With builders on the rooftop", eventName: GENSPARK, alt: "Group selfie on a rooftop venue at night" },
+    { id: "gs-03", src: "assets/hackathons/genspark/genspark-03-mural-chat.jpg", category: "events", caption: "Community conversations", eventName: GENSPARK, alt: "Three people chatting in front of a floral mural" },
+    { id: "gs-04", src: "assets/hackathons/genspark/genspark-04-code-night.jpg", category: "events", caption: "Code Night crew", eventName: GENSPARK, alt: "Group selfie at the Genspark rooftop event" },
+    { id: "gs-05", src: "assets/hackathons/genspark/genspark-05-terrace-talks.jpg", category: "events", caption: "Terrace talks after the event", eventName: GENSPARK, alt: "Three people on a lit terrace at night" },
+    /* ----- Tech meetups ----- */
+    { id: "e-17", src: "assets/events/tech-meetups/meetup-17-devcon-viii.jpg", category: "events", caption: "Zoho DevCon VIII India", eventName: MEET, alt: "Three attendees in front of the DevCon VIII India screen", featured: true },
+    { id: "e-08", src: "assets/events/tech-meetups/meetup-08-map-wall.jpg", category: "events", caption: "At the famous map wall", eventName: MEET, alt: "Siddhant wearing a name badge in front of a world map wall with red hats", size: "tall" },
+    { id: "e-11", src: "assets/events/tech-meetups/meetup-11-doastro-visit.jpg", category: "events", caption: "Visit to the Doastro Technologies office", eventName: MEET, alt: "Seven people in front of the Doastro Technologies logo wall" },
+    { id: "e-01", src: "assets/events/tech-meetups/meetup-01-community-selfie.jpg", category: "events", caption: "With a fellow builder", eventName: MEET, alt: "Selfie with another developer at a community meetup" },
+    { id: "e-02", src: "assets/events/tech-meetups/meetup-02-squad-a.jpg", category: "events", caption: "Meetup squad", eventName: MEET, alt: "Three attendees at a marble wall" },
+    { id: "e-05", src: "assets/events/tech-meetups/meetup-05-catchup-a.jpg", category: "events", caption: "Community catch-up", eventName: MEET, alt: "Selfie with a fellow community member" },
+    { id: "e-07", src: "assets/events/tech-meetups/meetup-07-sessions-badges.jpg", category: "events", caption: "Sessions and name badges", eventName: MEET, alt: "Four attendees with name badges beside poster walls" },
+    { id: "e-09", src: "assets/events/tech-meetups/meetup-09-office-tour.jpg", category: "events", caption: "Office tour", eventName: MEET, alt: "Selfie inside a modern open office" },
+    { id: "e-10", src: "assets/events/tech-meetups/meetup-10-group-map-wall.jpg", category: "events", caption: "The meetup group at the map wall", eventName: MEET, alt: "Five attendees at the world map wall" },
+    { id: "e-12", src: "assets/events/tech-meetups/meetup-12-doastro-reception-a.jpg", category: "events", caption: "Doastro reception", eventName: MEET, alt: "Two attendees at a glowing reception sign" },
+    { id: "e-14", src: "assets/events/tech-meetups/meetup-14-elevator-crew.jpg", category: "events", caption: "Elevator crew", eventName: MEET, alt: "Six people in a group selfie in an elevator lobby" },
+    { id: "e-15", src: "assets/events/tech-meetups/meetup-15-dev-mural.jpg", category: "events", caption: "With the dev community", eventName: MEET, alt: "Five developers in front of a colorful mural" },
+    { id: "e-16", src: "assets/events/tech-meetups/meetup-16-studio-session.jpg", category: "events", caption: "Studio session at the FlytBase office", eventName: MEET, alt: "Siddhant with headphones at the FlytBase office" },
+    { id: "e-18", src: "assets/events/tech-meetups/meetup-18-rooftop-night-a.jpg", category: "events", caption: "Rooftop meetup nights", eventName: MEET, alt: "Group selfie on a terrace at night with string lights" },
+    { id: "e-19", src: "assets/events/tech-meetups/meetup-19-rooftop-night-b.jpg", category: "events", caption: "One more for the road", eventName: MEET, alt: "Group selfie on a rooftop at night" },
+    /* ----- Hobby: Jivdhan trek ----- */
+    { id: "h-06", src: "assets/hobby/jivdhan-trek/trek-06-rock-cut-steps.jpg", category: "hobby", caption: "The rock-cut steps of Jivdhan", eventName: TREK, alt: "The trekking group resting on the carved rock steps of Jivdhan Fort", featured: true, size: "tall" },
+    { id: "h-04", src: "assets/hobby/jivdhan-trek/trek-04-fort-needle-view.jpg", category: "hobby", caption: "Jivdhan Fort and the needle at sunrise", eventName: TREK, alt: "The fort massif and a rock needle in morning haze", size: "wide" },
+    { id: "h-01", src: "assets/hobby/jivdhan-trek/trek-01-sunrise-selfie.jpg", category: "hobby", caption: "Sunrise at the base village", eventName: TREK, alt: "Siddhant in a beanie with the fort behind him at sunrise" },
+    { id: "h-02", src: "assets/hobby/jivdhan-trek/trek-02-camp-night-a.jpg", category: "hobby", caption: "Camp night - tents up", eventName: TREK, alt: "Night selfie at the campsite with tents behind" },
+    { id: "h-07", src: "assets/hobby/jivdhan-trek/trek-07-trek-crew.jpg", category: "hobby", caption: "The trek crew at the base", eventName: TREK, alt: "A large group of trekkers with the fort behind them" },
+    { id: "h-08", src: "assets/hobby/jivdhan-trek/trek-08-on-the-rocks.jpg", category: "hobby", caption: "Jivdhan Fort behind me", eventName: TREK, alt: "Siddhant sitting on a rock with the fort and needle behind" },
+    { id: "h-09", src: "assets/hobby/jivdhan-trek/trek-09-whole-gang.jpg", category: "hobby", caption: "The whole gang", eventName: TREK, alt: "The full trekking group posing on rocks" },
+    /* ----- Portraits ----- */
+    { id: "p-02", src: "assets/portrait/formal-02-waterfall-wall.jpg", category: "portrait", caption: "By the waterfall wall", eventName: PORT, alt: "Siddhant in formal attire in front of a textured waterfall wall", featured: true, size: "tall" },
+    { id: "p-03", src: "assets/portrait/formal-03-art-wall.jpg", category: "portrait", caption: "In front of the amber canvas", eventName: PORT, alt: "Siddhant in a light blue shirt in front of an amber abstract painting" },
+    { id: "p-01", src: "assets/portrait/formal-01-lobby-lounge.jpg", category: "portrait", caption: "Lobby lounge", eventName: PORT, alt: "Siddhant seated in a hotel lounge in formal attire" },
+    { id: "p-04", src: "assets/portrait/formal-04-wood-panel.jpg", category: "portrait", caption: "Wood-panel portrait", eventName: PORT, alt: "Siddhant standing by a wooden panel and lilies" },
+    { id: "p-05", src: "assets/portrait/formal-05-floral-lobby.jpg", category: "portrait", caption: "Floral lobby", eventName: PORT, alt: "Siddhant in a lobby with large floral arrangements" },
+    { id: "p-06", src: "assets/portrait/formal-06-evening-light.jpg", category: "portrait", caption: "Evening light", eventName: PORT, alt: "Close portrait of Siddhant by a water wall at dusk" },
+    /* ----- Projects (designed schematics until screenshots arrive) ----- */
+    { id: "g-banknest-1", category: "projects", caption: "BankNest - backend architecture", projectId: "banknest", alt: "Schematic illustration of BankNest's layered architecture", placeholder: { motif: "schema", accent: "violet" } },
+    { id: "g-lifedrop-1", category: "projects", caption: "LifeDrop - request workflow", projectId: "lifedrop", alt: "Schematic illustration of LifeDrop's Pending to Approved to Fulfilled workflow", placeholder: { motif: "flow", accent: "apricot" } }
   ];
 
   /* ---------- Byte: guide lines ---------- */
