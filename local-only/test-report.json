@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--celebrate"
+      "info": "byte-instance byte--breath byte--greeting byte--wave"
     },
     {
       "name": "byte: petting → love state",
@@ -242,6 +242,66 @@
     },
     {
       "name": "mobile-390: zero failed requests",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "recruiter: loads with identity + skills",
+      "pass": true,
+      "info": "{\"h1\":\"Siddhant Pardeshi\",\"skills\":7,\"buildLinks\":7,\"avail\":true,\"toast\":true}"
+    },
+    {
+      "name": "recruiter: all 7 more-build links present",
+      "pass": true,
+      "info": "7"
+    },
+    {
+      "name": "recruiter: Backend lens re-weights page",
+      "pass": true,
+      "info": "3|0"
+    },
+    {
+      "name": "recruiter: copy actions present",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "handfx: demo opens, tracks, closes cleanly",
+      "pass": true,
+      "info": "tracking|true|true|true"
+    },
+    {
+      "name": "deep link: #banknest-case opens the case study",
+      "pass": true,
+      "info": "{\"open\":true,\"expanded\":\"true\"}"
+    },
+    {
+      "name": "byte menu: opens + projects action navigates",
+      "pass": true,
+      "info": "true|true|#work"
+    },
+    {
+      "name": "byte menu: sound item toggles without closing",
+      "pass": true,
+      "info": "false->true|true|true"
+    },
+    {
+      "name": "gallery: video tile plays in lightbox",
+      "pass": true,
+      "info": "true|true"
+    },
+    {
+      "name": "sound: invite toast fires once, never nags",
+      "pass": true,
+      "info": "[\"🔊 This playground has a soundtrack — st\",\"\"]"
+    },
+    {
+      "name": "final-inspection: zero console errors",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "final-inspection: zero uncaught exceptions",
       "pass": true,
       "info": ""
     }

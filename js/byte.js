@@ -607,6 +607,9 @@
         menu.addEventListener("close", function () { dockBtn.setAttribute("aria-expanded", "false"); });
         menu.addEventListener("click", function (e) {
           if (e.target === menuCard) return;
+          /* keyboard/synthetic activations report (0,0) — they are always on
+             a menu item, never "outside", so don't close on them */
+          if (e.detail === 0) return;
           var r = menuCard.getBoundingClientRect();
           var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
           if (!inside) menu.close();

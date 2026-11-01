@@ -212,6 +212,122 @@ evals.push(["handfx: graceful camera-degraded state", `(async () => {
 evals.push(["resume: PDF reachable", `fetch('assets/resume/Siddhant_Pardeshi_General_Resume.pdf', {method: 'HEAD'}).then(r => r.status)`]);
 evals.push(["data: version snapshot reachable", `fetch('data/version.json').then(r => r.status)`]);
 
+/* ------- final inspection: recruiter + handfx demo + deep links + menu ------- */
+async function runFinalInspection() {
+  console.log("\n[final-inspection]");
+
+  /* recruiter.html */
+  await send("Page.navigate", { url: BASE + "/recruiter.html" });
+  await sleep(1600);
+  const r1 = await evaluate(`(() => ({
+    h1: document.querySelector('h1') && document.querySelector('h1').textContent,
+    skills: document.querySelectorAll('#rv-skills > div').length,
+    buildLinks: document.querySelectorAll('#rv-more a.mini-link').length,
+    avail: !!document.querySelector('[data-availability]'),
+    toast: !!document.getElementById('toast')
+  }))()`);
+  record("recruiter: loads with identity + skills", r1.h1 === "Siddhant Pardeshi" && r1.skills === 7, JSON.stringify(r1).slice(0, 120));
+  record("recruiter: all 7 more-build links present", r1.buildLinks === 7, String(r1.buildLinks));
+  const r2 = await evaluate(`(async () => {
+    document.querySelector('[data-lens-choice="backend"]').click();
+    await new Promise(r => setTimeout(r, 100));
+    const hits = document.querySelectorAll('.rv-block.lens-hit').length;
+    const dims = document.querySelectorAll('.rv-block.lens-dim').length;
+    document.querySelector('[data-lens-choice="all"]').click();
+    return hits + '|' + dims;
+  })()`, true);
+  /* Backend lens: Project evidence + More builds + Full skills all carry the
+     backend tag → 3 highlighted, 0 dimmed (every recruiter block is relevant) */
+  record("recruiter: Backend lens re-weights page", r2 === "3|0", r2);
+  const r3 = await evaluate(`!!document.querySelector('[data-copy-link]') && !!document.querySelector('[data-copy-summary]')`);
+  record("recruiter: copy actions present", r3);
+
+  /* handfx demo lifecycle */
+  await send("Page.navigate", { url: BASE + "/index.html?handfx-test=1" });
+  await sleep(1800);
+  const h1 = await evaluate(`(async () => {
+    window.HandFX.open();
+    await new Promise(r => setTimeout(r, 900));
+    const s = window.HandFX._engine.stats();
+    const open = document.getElementById('handfx-overlay').open;
+    window.HandFX.close();
+    await new Promise(r => setTimeout(r, 150));
+    const closed = !document.getElementById('handfx-overlay').open;
+    return s.state + '|' + open + '|' + closed + '|' + (s.count > 500);
+  })()`, true);
+  record("handfx: demo opens, tracks, closes cleanly", h1 === "tracking|true|true|true", h1);
+
+  /* hash deep link */
+  await send("Page.navigate", { url: BASE + "/index.html#banknest-case" });
+  await sleep(1800);
+  const d1 = await evaluate(`(() => ({
+    open: !document.getElementById('banknest-case').hidden,
+    expanded: document.querySelector('.case-toggle[aria-controls="banknest-case"]').getAttribute('aria-expanded')
+  }))()`);
+  record("deep link: #banknest-case opens the case study", d1.open && d1.expanded === "true", JSON.stringify(d1));
+
+  /* byte menu actions */
+  await send("Page.navigate", { url: BASE + "/index.html" });
+  await sleep(1600);
+  const m1 = await evaluate(`(async () => {
+    document.getElementById('byte-dock').hidden = false;
+    document.querySelector('.byte-dock__btn').click();
+    await new Promise(r => setTimeout(r, 150));
+    const menu = document.getElementById('byte-menu');
+    const opened = menu.open;
+    document.querySelector('[data-byte-action="projects"]').click();
+    await new Promise(r => setTimeout(r, 150));
+    return opened + '|' + (menu.open === false) + '|' + location.hash;
+  })()`, true);
+  record("byte menu: opens + projects action navigates", m1 === "true|true|#work", m1);
+  const m2 = await evaluate(`(async () => {
+    document.getElementById('byte-dock').hidden = false;
+    document.querySelector('.byte-dock__btn').click();
+    await new Promise(r => setTimeout(r, 150));
+    const snd = document.querySelector('[data-byte-action="sound"]');
+    const before = window.Byte.SoundFX.enabled;
+    snd.click();
+    await new Promise(r => setTimeout(r, 120));
+    const after = window.Byte.SoundFX.enabled;
+    const staysOpen = document.getElementById('byte-menu').open;
+    snd.click();
+    await new Promise(r => setTimeout(r, 120));
+    const restored = window.Byte.SoundFX.enabled === before;
+    document.getElementById('byte-menu').close();
+    return before + '->' + after + '|' + staysOpen + '|' + restored;
+  })()`, true);
+  record("byte menu: sound item toggles without closing", /false->true\|true\|true/.test(m2) || /true->false\|true\|true/.test(m2), m2);
+
+  /* video lightbox */
+  const v1 = await evaluate(`(async () => {
+    const tile = [...document.querySelectorAll('.sheet-item')].find(t => t.getAttribute('aria-label').includes('Event film'));
+    tile.click();
+    await new Promise(r => setTimeout(r, 250));
+    const lb = document.getElementById('lightbox');
+    const hasVideo = !!lb.querySelector('.lightbox__stage video');
+    const open = lb.open;
+    lb.close();
+    return open + '|' + hasVideo;
+  })()`, true);
+  record("gallery: video tile plays in lightbox", v1 === "true|true", v1);
+
+  /* invite toast fires once only */
+  const t1 = await evaluate(`(async () => {
+    localStorage.removeItem('sp-sound-invited');
+    location.reload();
+    return 1;
+  })()`, true);
+  await sleep(3400);
+  const t2 = await evaluate(`document.getElementById('toast').textContent`);
+  const t3 = await evaluate(`(async () => { location.reload(); return 1; })()`, true);
+  await sleep(3400);
+  const t4 = await evaluate(`document.getElementById('toast').textContent`);
+  record("sound: invite toast fires once, never nags", /soundtrack/.test(t2) && !/soundtrack/.test(t4), JSON.stringify([t2.slice(0, 40), t4.slice(0, 40)]));
+
+  record("final-inspection: zero console errors", consoleErrors.length === 0, consoleErrors.slice(0, 3).join(" | "));
+  record("final-inspection: zero uncaught exceptions", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));
+}
+
 /* ------- runner ------- */
 async function runSuite(mobile) {
   const tag = mobile ? "mobile-390" : "desktop-1440";
@@ -331,6 +447,9 @@ async function main() {
   try {
     await runSuite(false);
     await runSuite(true);
+    /* reset noise ledgers so final inspection measures only its own page */
+    consoleErrors.length = 0; pageErrors.length = 0; failedRequests.length = 0;
+    await runFinalInspection();
   } catch (e) {
     record("runner: completed", false, e.message);
   }
