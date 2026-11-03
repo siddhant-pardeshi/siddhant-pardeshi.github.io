@@ -328,6 +328,35 @@ async function runFinalInspection() {
   record("final-inspection: zero uncaught exceptions", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));
 }
 
+/* ------- recruiter mobile pass (never tested before) ------- */
+async function runRecruiterMobile() {
+  console.log("\n[recruiter-mobile-390]");
+  consoleErrors.length = 0; pageErrors.length = 0; failedRequests.length = 0;
+  await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
+  await send("Page.navigate", { url: BASE + "/recruiter.html" });
+  await sleep(1600);
+  const ovf = await evaluate(`document.documentElement.scrollWidth - document.documentElement.clientWidth`);
+  record("recruiter-mobile: no horizontal overflow", ovf <= 1, "delta=" + ovf);
+  const lens = await evaluate(`(async () => {
+    document.querySelector('[data-lens-choice="backend"]').click();
+    await new Promise(r => setTimeout(r, 120));
+    return document.querySelectorAll('.rv-block.lens-hit').length;
+  })()`, true);
+  record("recruiter-mobile: Backend lens works", lens >= 2, String(lens));
+  const els = await evaluate(`(() => {
+    const need = ['[data-copy-summary]', '[data-copy-link]', '[data-copy-email]', '#rv-skills', '#rv-more'];
+    return need.map(s => s + ':' + (document.querySelector(s) ? 1 : 0)).join(' ');
+  })()`);
+  record("recruiter-mobile: all key controls present", !els.includes(":0"), els);
+  const noInvite = await evaluate(`document.getElementById('toast').textContent.includes('soundtrack') === false`);
+  record("recruiter-mobile: no sound-invite on calm page", noInvite);
+  record("recruiter-mobile: zero console errors", consoleErrors.length === 0, consoleErrors.slice(0, 3).join(" | "));
+  record("recruiter-mobile: zero uncaught exceptions", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));
+  const shot = await send("Page.captureScreenshot", { format: "png" });
+  fs.writeFileSync(path.join(__dirname, "shot-recruiter-m.png"), Buffer.from(shot.data, "base64"));
+  await send("Emulation.clearDeviceMetricsOverride");
+}
+
 /* ------- runner ------- */
 async function runSuite(mobile) {
   const tag = mobile ? "mobile-390" : "desktop-1440";
@@ -466,6 +495,7 @@ async function main() {
     /* reset noise ledgers so final inspection measures only its own page */
     consoleErrors.length = 0; pageErrors.length = 0; failedRequests.length = 0;
     await runFinalInspection();
+    await runRecruiterMobile();
   } catch (e) {
     record("runner: completed", false, e.message);
   }

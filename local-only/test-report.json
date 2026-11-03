@@ -233,7 +233,7 @@
     {
       "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",
       "pass": true,
-      "info": "319|319"
+      "info": "341|341"
     },
     {
       "name": "mobile-390: zero console errors",
@@ -307,6 +307,36 @@
     },
     {
       "name": "final-inspection: zero uncaught exceptions",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "recruiter-mobile: no horizontal overflow",
+      "pass": true,
+      "info": "delta=0"
+    },
+    {
+      "name": "recruiter-mobile: Backend lens works",
+      "pass": true,
+      "info": "3"
+    },
+    {
+      "name": "recruiter-mobile: all key controls present",
+      "pass": true,
+      "info": "[data-copy-summary]:1 [data-copy-link]:1 [data-copy-email]:1 #rv-skills:1 #rv-more:1"
+    },
+    {
+      "name": "recruiter-mobile: no sound-invite on calm page",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "recruiter-mobile: zero console errors",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "recruiter-mobile: zero uncaught exceptions",
       "pass": true,
       "info": ""
     }

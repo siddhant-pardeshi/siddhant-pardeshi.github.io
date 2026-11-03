@@ -82,6 +82,7 @@
   };
   /* one-time invitation — audio needs a gesture, so the toast button IS it */
   function inviteSound() {
+    if (/recruiter\.html$/.test(location.pathname)) return; /* calm page, no invites */
     try {
       if (localStorage.getItem("sp-sound") === "on" || localStorage.getItem("sp-sound-invited")) return;
       localStorage.setItem("sp-sound-invited", "1");
