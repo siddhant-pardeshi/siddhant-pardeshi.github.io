@@ -364,6 +364,22 @@ async function runSuite(mobile) {
     record(tag + ": mobile menu opens", menu);
     const tiles = await evaluate(`document.querySelectorAll('.sheet-item').length`);
     record(tag + ": gallery renders", tiles >= 60, tiles);
+    /* regression: span-2 tiles must not create implicit columns on 1-col grids
+       (the "gallery doesn't show on mobile" bug) */
+    const gal = await evaluate(`(async () => {
+      const tiles = document.querySelectorAll('#gallery .sheet-item');
+      tiles.forEach(t => t.classList.add('is-in'));
+      const el = document.getElementById('gallery');
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 60, behavior: 'instant' });
+      await new Promise(r => setTimeout(r, 750));
+      const w = [...tiles].filter(t => t.classList.contains('sheet-item--wide')).map(t => Math.round(t.getBoundingClientRect().width));
+      const n = [...tiles].filter(t => !t.classList.contains('sheet-item--wide')).map(t => Math.round(t.getBoundingClientRect().width));
+      return Math.min(...n) + '|' + Math.min(...w);
+    })()`, true);
+    record(tag + ": gallery tiles full-width (sliver-bug regression)", (() => {
+      const p = gal.split('|').map(Number);
+      return p[0] > 300 && p[1] > 300;
+    })(), gal);
   } else {
     /* run network probes FIRST, then reset the ledgers so the
        zero-noise checks measure the site, not the test itself */

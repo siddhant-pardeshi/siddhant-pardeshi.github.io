@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--greeting byte--wave"
+      "info": "byte-instance byte--breath byte--celebrate"
     },
     {
       "name": "byte: petting → love state",
@@ -188,7 +188,7 @@
     {
       "name": "handfx: graceful camera-degraded state",
       "pass": true,
-      "info": "Allow camera access when your browser asks…"
+      "info": "Loading the hand-tracking engine (~6 MB, cached after this)…"
     },
     {
       "name": "desktop-1440: zero console errors",
@@ -229,6 +229,11 @@
       "name": "mobile-390: gallery renders",
       "pass": true,
       "info": "67"
+    },
+    {
+      "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",
+      "pass": true,
+      "info": "319|319"
     },
     {
       "name": "mobile-390: zero console errors",
