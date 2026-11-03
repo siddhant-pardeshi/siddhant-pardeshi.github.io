@@ -159,16 +159,18 @@
         tileIO = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) {
             if (en.isIntersecting) {
+              en.target.classList.remove("pre");
               en.target.classList.add("is-in");
               tileIO.unobserve(en.target);
             }
           });
         }, { threshold: 0.05, rootMargin: "0px 0px 12% 0px" });
         Array.prototype.forEach.call(sheetEl.children, function (tile) {
-          /* tiles already on screen reveal immediately — never hidden behind JS */
+          /* tiles already on screen render visible immediately — hiding is
+             a JS-applied enhancement (.pre) for below-viewport tiles only */
           var r = tile.getBoundingClientRect();
           if (r.top < window.innerHeight && r.bottom > 0) tile.classList.add("is-in");
-          else tileIO.observe(tile);
+          else { tile.classList.add("pre"); tileIO.observe(tile); }
         });
       } else {
         Array.prototype.forEach.call(sheetEl.children, function (tile) { tile.classList.add("is-in"); });

@@ -292,23 +292,26 @@ button { font: inherit; color: inherit; }
 }
 .mobile-menu__foot { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
 
-/* --- Reveal system ------------------------------------------- */
+/* --- Reveal system -------------------------------------------
+   Visible by default. JS adds .pre only to below-viewport elements
+   (pure enhancement) — if scripts or observers fail, content still
+   shows. .is-revealed marks the reveal as done. */
 .reveal {
-  opacity: 0;
-  transform: translateY(26px);
   transition: opacity var(--t-slow) var(--ease-out),
               transform var(--t-slow) var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
+.reveal.pre { opacity: 0; transform: translateY(26px); }
 .reveal.is-revealed { opacity: 1; transform: none; }
+.reveal.pre.is-revealed { opacity: 1; transform: none; }
 
 /* OS-level reduced motion: keep everything visible, skip movement */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal.pre { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }
-html[data-motion="reduced"] .reveal,
-html[data-motion="off"] .reveal { opacity: 1; transform: none; transition: none; }
+html[data-motion="reduced"] .reveal, html[data-motion="off"] .reveal,
+html[data-motion="reduced"] .reveal.pre, html[data-motion="off"] .reveal.pre { opacity: 1; transform: none; transition: none; }
 
 /* Anchor offset under sticky nav */
 section[id], article[id] { scroll-margin-top: 84px; }

@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--celebrate"
+      "info": "byte-instance byte--breath byte--greeting byte--wave"
     },
     {
       "name": "byte: petting → love state",

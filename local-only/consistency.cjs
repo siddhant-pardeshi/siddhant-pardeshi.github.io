@@ -15,10 +15,10 @@ const content = read("js/content.js");
 const appjs = read("js/app.js");
 const readme = read("README.md");
 
-/* 1. every js/css file referenced by the pages exists */
+/* 1. every js/css file referenced by the pages exists (query strings stripped) */
 for (const [page, html] of [["index.html", index], ["recruiter.html", recruiter]]) {
-  const refs = [...html.matchAll(/(?:src|href)="((?:js|css|assets)\/[^"]+)"/g)].map(m => m[1]);
-  const missing = refs.filter(f => !fs.existsSync(path.join(ROOT, f)));
+  const refs = [...html.matchAll(/(?:src|href)="((?:js|css|assets)\/[^"]+)"/g)].map(m => m[1].split("?")[0]);
+  const missing = [...new Set(refs)].filter(f => !fs.existsSync(path.join(ROOT, f)));
   check(page + ": all local js/css/asset refs exist", missing.length === 0, missing.join(", ") || "ok");
 }
 
@@ -72,7 +72,7 @@ check("sound: quick toggle wired in app.js", appjs.includes("initSoundQuick"));
 check("sections: #builds exists in page + palette", ids.has("builds") && appjs.includes('"#builds"'));
 
 /* 10. script load order sanity (content before everything) */
-const order = [...index.matchAll(/<script src="(js\/[^"]+)"/g)].map(m => m[1]);
+const order = [...index.matchAll(/<script src="(js\/[^"]+)"/g)].map(m => m[1].split("?")[0]);
 check("load order: content.js first", order[0] === "js/content.js", order.join(" -> "));
 check("load order: app.js last", order[order.length - 1] === "js/app.js", order.join(" -> "));
 

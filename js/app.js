@@ -100,22 +100,30 @@
     }, 2600);
   }
 
-  /* ---------------- Reveal once ---------------- */
+  /* ---------------- Reveal once (visible by default) ----------------
+     .pre is added ONLY to below-viewport elements by JS — pure
+     enhancement. No JS / no IO / failed observer = fully visible. */
   function initReveal() {
     var els = $$(".reveal");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach(function (e) { e.classList.add("is-revealed"); });
+    if (!("IntersectionObserver" in window) || resolveMotion() !== "full") {
+      els.forEach(function (e) { e.classList.add("is-revealed"); e.classList.remove("pre"); });
       return;
     }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) {
+          en.target.classList.remove("pre");
           en.target.classList.add("is-revealed");
           io.unobserve(en.target);
         }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-    els.forEach(function (e) { io.observe(e); });
+    els.forEach(function (e) {
+      var r = e.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) { e.classList.add("is-revealed"); return; }
+      e.classList.add("pre");
+      io.observe(e);
+    });
   }
 
   /* ---------------- Nav progress + back to top ---------------- */
@@ -553,19 +561,28 @@
      already in the viewport gets revealed on a timer, no matter
      what the observers did. */
   function initRevealFailsafe() {
+    var sTick = false;
     function sweep() {
-      $$(".reveal:not(.is-revealed)").forEach(function (el) {
+      $$(".reveal.pre").forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-revealed");
+        if (r.top < window.innerHeight * 1.05 && r.bottom > 0) {
+          el.classList.remove("pre");
+          el.classList.add("is-revealed");
+        }
       });
-      $$(".sheet-item:not(.is-in), .more-build-card:not(.is-in)").forEach(function (el) {
+      $$(".sheet-item.pre, .more-build-card.pre").forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight * 1.2 && r.bottom > 0) el.classList.add("is-in");
+        if (r.top < window.innerHeight * 1.05 && r.bottom > 0) el.classList.remove("pre");
       });
+    }
+    function onScroll() {
+      if (sTick) return; sTick = true;
+      requestAnimationFrame(function () { sTick = false; sweep(); });
     }
     setTimeout(sweep, 600);
     setTimeout(sweep, 2500);
     window.addEventListener("load", function () { setTimeout(sweep, 400); });
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   /* ---------------- Hero polaroid → photo viewer ---------------- */

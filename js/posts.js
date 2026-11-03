@@ -217,6 +217,7 @@
         io = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) {
             if (en.isIntersecting) {
+              en.target.classList.remove("pre");
               en.target.classList.add("is-in");
               io.unobserve(en.target);
             }
@@ -224,7 +225,9 @@
         }, { threshold: 0.1, rootMargin: "0px 0px 10% 0px" });
         Array.prototype.forEach.call(grid.children, function (card, i) {
           card.style.setProperty("--ti", Math.min(i, 10));
-          io.observe(card);
+          var r = card.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) card.classList.add("is-in");
+          else { card.classList.add("pre"); io.observe(card); }
         });
       } else {
         Array.prototype.forEach.call(grid.children, function (card) { card.classList.add("is-in"); });
