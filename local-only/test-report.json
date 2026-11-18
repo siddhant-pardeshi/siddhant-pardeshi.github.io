@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--hyped"
+      "info": "byte-instance byte--breath byte--greeting byte--wave"
     },
     {
       "name": "byte: petting → love state",
@@ -206,6 +206,16 @@
       "info": "true"
     },
     {
+      "name": "byte: menu stays accessible after an emote (regression)",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: drag moves Byte, drop sets mood, click suppressed",
+      "pass": true,
+      "info": "true|true|true|false"
+    },
+    {
       "name": "gallery: Paytm photos live (8 new tiles)",
       "pass": true,
       "info": "true"
@@ -258,7 +268,7 @@
     {
       "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",
       "pass": true,
-      "info": "338|338"
+      "info": "335|335"
     },
     {
       "name": "mobile-390: zero console errors",

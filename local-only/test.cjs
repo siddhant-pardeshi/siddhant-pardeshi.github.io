@@ -254,6 +254,41 @@ evals.push(["byte: roam walk starts, moves, stops cleanly", `(async () => {
   const stopped = !dock.classList.contains('byte-dock--walk');
   return walking && moved && stopped;
 })()`]);
+evals.push(["byte: menu stays accessible after an emote (regression)", `(async () => {
+  window.Byte.emote('happy');
+  await new Promise(r => setTimeout(r, 250));
+  document.querySelectorAll('dialog[open]').forEach(d => d.close());
+  document.getElementById('byte-dock').hidden = false;
+  document.querySelector('.byte-dock__btn').click();
+  await new Promise(r => setTimeout(r, 300));
+  const open = document.getElementById('byte-menu').open;
+  document.getElementById('byte-menu').close();
+  return open;
+})()`]);
+evals.push(["byte: drag moves Byte, drop sets mood, click suppressed", `(async () => {
+  const dock = document.getElementById('byte-dock');
+  document.querySelectorAll('dialog[open]').forEach(d => d.close());
+  dock.hidden = false;
+  const r0 = dock.getBoundingClientRect();
+  const opts = (x, y) => ({ bubbles: true, clientX: x, clientY: y, pointerId: 1, button: 0 });
+  dock.dispatchEvent(new PointerEvent('pointerdown', opts(600, 700)));
+  dock.dispatchEvent(new PointerEvent('pointermove', opts(660, 700)));
+  dock.dispatchEvent(new PointerEvent('pointermove', opts(860, 700)));
+  dock.dispatchEvent(new PointerEvent('pointerup', opts(860, 700)));
+  await new Promise(r => setTimeout(r, 250));
+  const r1 = dock.getBoundingClientRect();
+  const moved = Math.abs(r1.left - r0.left) > 150;
+  const mood = document.querySelectorAll('.byte-instance')[1].className;
+  const parked = localStorage.getItem('sp-byte-roam') === 'off';
+  document.querySelector('.byte-dock__btn').click();
+  await new Promise(r => setTimeout(r, 250));
+  const menuNotOpened = !document.getElementById('byte-menu').open;
+  localStorage.removeItem('sp-byte-roam');
+  localStorage.removeItem('sp-byte-pos');
+  dock.style.left = ''; dock.style.top = ''; dock.style.right = '';
+  document.getElementById('byte-menu').close();
+  return moved + '|' + /byte--(happy|curious|greeting|surprised)/.test(mood) + '|' + parked + '|' + menuNotOpened;
+})()`]);
 evals.push(["gallery: Paytm photos live (8 new tiles)", `document.querySelectorAll('.sheet-item').length >= 75 && [...document.querySelectorAll('.sheet-item figcaption')].filter(c => c.textContent.includes('Paytm')).length === 8`]);
 evals.push(["handfx: graceful camera-degraded state", `(async () => {
   window.HandFX.open();

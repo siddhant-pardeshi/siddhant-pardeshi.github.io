@@ -757,7 +757,10 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
 }
 
 /* ---- Byte's stroll across the page (roam) ---- */
-.byte-dock__btn { position: relative; }
+.byte-dock__btn { position: relative; touch-action: none; }
+.byte-dock--drag .byte-dock__btn { cursor: grabbing; }
+.byte-dock--drag .byte-dock__btn .byte-instance { filter: drop-shadow(0 10px 14px rgba(16, 17, 20, 0.35)); }
+.byte-dock--drag .byte-dock__btn::after { display: none; }
 .byte-dock--walk .byte-dock__btn .byte-motion-g { animation: byte-walk-bob 0.4s ease-in-out infinite; }
 .byte-dock--left .byte-dock__btn .byte-svg { transform: scaleX(-1); }
 .byte-dock--walk .byte-dock__btn::after {
@@ -834,6 +837,11 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
   border-right: 2px solid var(--lime);
   border-bottom: 2px solid var(--lime);
   transform: rotate(45deg);
+}
+/* when Byte roams or is dragged, the bubble follows him and the tail tracks his center */
+.byte-speech.follow::after {
+  right: auto;
+  left: var(--tail-x, 34px);
 }
 .byte-speech .close-x {
   position: absolute; top: 6px; right: 8px;

@@ -447,6 +447,15 @@
     if (window.Byte) window.Byte.say(window.BYTE_LINES && window.BYTE_LINES.pet ? window.BYTE_LINES.pet : "Ahh, that's the spot!");
   }
 
+  /* where Byte is dropped decides how he feels about the spot */
+  function dropMood(cx, top, vw, vh) {
+    var L = window.BYTE_LINES && window.BYTE_LINES.dropZone ? window.BYTE_LINES.dropZone : {};
+    if (top < vh * 0.28) return { mood: "surprised", sound: "whoa", line: L.top || "Whoa — what a view from up here!" };
+    if (cx < vw * 0.33) return { mood: "curious", sound: "hmm", line: L.left || "New neighborhood! What's over on this side?" };
+    if (cx > vw * 0.78) return { mood: "greeting", sound: "chirp", line: L.right || "Back on my favorite side — thanks for the lift!" };
+    return { mood: "happy", sound: "yay", line: L.mid || "This spot is perfect. I'm keeping it." };
+  }
+
   /* ---------------- pointer tracking (one rAF loop) ---------------- */
   var pointer = { x: 0, y: 0, has: false };
   var trackRaf = 0;
@@ -541,6 +550,22 @@
     clearTimeout(speechTimer);
     speechEl.querySelector(".byte-speech__text").textContent = text;
     speechEl.hidden = false;
+    /* the bubble points at Byte wherever he stands — including after a drag or stroll */
+    var dock = document.getElementById("byte-dock");
+    if (dock && !dock.hidden) {
+      var r = dock.getBoundingClientRect();
+      var vw = window.innerWidth;
+      var w = Math.min(280, vw - 32);
+      var left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, vw - w - 8));
+      speechEl.style.right = "auto";
+      speechEl.style.left = left + "px";
+      speechEl.style.setProperty("--tail-x", Math.max(14, Math.min(r.left + r.width / 2 - left - 8, w - 30)) + "px");
+      speechEl.classList.add("follow");
+    } else {
+      speechEl.classList.remove("follow");
+      speechEl.style.right = "";
+      speechEl.style.left = "";
+    }
     speechTimer = setTimeout(hideSpeech, ms || 5200);
   }
   function hideSpeech() {
@@ -670,10 +695,15 @@
       var menuCard = menu ? menu.querySelector(".byte-menu__card") : null;
 
       dockBtn.addEventListener("click", function () {
+        if (drag.suppressClick) { drag.suppressClick = false; return; } /* a drag ends, not a menu request */
         if (menu && menuCard) {
           if (menu.open) { menu.close(); }
           else {
-            menu.showModal();
+            stopWalk(); /* never leave Byte strolling out from under his own menu */
+            try { menu.showModal(); } catch (err) {
+              try { menu.close(); } catch (e2) {}
+              menu.showModal();
+            }
             var r = dockBtn.getBoundingClientRect();
             var h = menuCard.offsetHeight || 340;
             /* keep the whole card on screen — options must never escape the viewport */
@@ -715,14 +745,19 @@
 
     /* ---------------- roam: Byte strolls along the bottom edge ---------------- */
     var walk = { active: false, timer: 0, stepTimer: 0 };
+    function roamPaused() {
+      /* after a manual drag the user parked Byte on purpose — no strolling */
+      try { return localStorage.getItem("sp-byte-roam") === "off"; } catch (e) { return false; }
+    }
     function roamBlocked() {
       if (!motionFull() || document.hidden) return true;
+      if (roamPaused()) return true;
       if (document.querySelector("dialog[open]")) return true;
       if (dock.hidden) return true;
       return false;
     }
     function stopWalk() {
-      if (!walk.active) return;
+      if (!dock || !walk.active) return;
       walk.active = false;
       clearTimeout(walk.timer);
       clearInterval(walk.stepTimer);
@@ -785,6 +820,70 @@
     setTimeout(roamLoop, 9000);
     api.roam = function (force) { startRoam(force === true); };
     api.roamStop = stopWalk;
+
+    /* ---------------- drag: place Byte anywhere; the spot sets his mood ---------------- */
+    var drag = { active: false, moved: false, sx: 0, sy: 0, bx: 0, by: 0, suppressClick: false };
+    function clampN(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function endDrag(cancelled) {
+      if (!drag.active) return;
+      drag.active = false;
+      dock.classList.remove("byte-dock--drag");
+      if (!drag.moved) return; /* a plain click — the click handler opens the menu */
+      drag.suppressClick = true;
+      setTimeout(function () { drag.suppressClick = false; }, 0);
+      var r = dock.getBoundingClientRect();
+      try {
+        localStorage.setItem("sp-byte-pos", JSON.stringify({ l: r.left, t: r.top }));
+        localStorage.setItem("sp-byte-roam", "off"); /* parked on purpose */
+      } catch (err) {}
+      if (cancelled) return;
+      var mood = dropMood(r.left + r.width / 2, r.top, window.innerWidth, window.innerHeight);
+      if (dockInst) { setState(dockInst, mood.mood); burst(dockInst); }
+      SoundFX.play(mood.sound);
+      say(mood.line);
+    }
+    dock.addEventListener("pointerdown", function (e) {
+      if (e.button && e.button !== 0) return;
+      drag.active = true;
+      drag.moved = false;
+      drag.sx = e.clientX;
+      drag.sy = e.clientY;
+      var r = dock.getBoundingClientRect();
+      drag.bx = r.left;
+      drag.by = r.top;
+      try { dock.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    dock.addEventListener("pointermove", function (e) {
+      if (!drag.active || !dockInst) return;
+      var dx = e.clientX - drag.sx;
+      var dy = e.clientY - drag.sy;
+      if (!drag.moved && Math.sqrt(dx * dx + dy * dy) < 10) return;
+      if (!drag.moved) {
+        drag.moved = true;
+        stopWalk();
+        dock.style.transitionDuration = "0s";
+        dock.style.transitionProperty = "left, top";
+        dock.style.right = "auto";
+        if (!dock.style.left) { dock.style.left = drag.bx + "px"; dock.style.top = drag.by + "px"; }
+        dock.classList.add("byte-dock--drag");
+        setState(dockInst, "dizzy"); /* wheee */
+      }
+      var r = dock.getBoundingClientRect();
+      dock.style.left = clampN(drag.bx + dx, 8, window.innerWidth - r.width - 8) + "px";
+      dock.style.top = clampN(drag.by + dy, 8, window.innerHeight - r.height - 8) + "px";
+    });
+    dock.addEventListener("pointerup", function () { endDrag(false); });
+    dock.addEventListener("pointercancel", function () { endDrag(true); });
+
+    /* restore a saved placement; a parked Byte stays parked */
+    var savedPos = null;
+    try { savedPos = JSON.parse(localStorage.getItem("sp-byte-pos") || "null"); } catch (e) {}
+    if (savedPos && typeof savedPos.l === "number") {
+      dock.style.right = "auto";
+      dock.style.left = clampN(savedPos.l, 8, window.innerWidth - dock.getBoundingClientRect().width - 8) + "px";
+      dock.style.top = clampN(savedPos.t || 0, 8, window.innerHeight - dock.getBoundingClientRect().height - 8) + "px";
+      dock.style.transitionProperty = "left, top";
+    }
 
     /* sleepy after long inactivity */
     var sleepTimer = null;

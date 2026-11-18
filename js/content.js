@@ -441,7 +441,8 @@ window.CONTENT = (function () {
       "Two projects, lots of backend thinking.",
       "Short on time? I've got a quick summary.",
       "The skill map links every tool to real evidence.",
-      "Psst — rub my belly sideways. I like it."
+      "Psst — rub my belly sideways. I like it.",
+      "You can drag me anywhere you like. I'll tell you what I think of the spot!"
     ],
     reactions: [
       "Hehe, that tickles.",
@@ -466,6 +467,12 @@ window.CONTENT = (function () {
       "Walking over to inspect this section 🔍",
       "My paws, your scroll — teamwork."
     ],
+    dropZone: {
+      top: "Whoa — the penthouse view! I can see the whole page from up here.",
+      left: "New neighborhood! What's over on this side, I wonder?",
+      right: "Back on my favorite side — thanks for the lift!",
+      mid: "This spot is perfect. I'm keeping it."
+    },
     sections: {
       work: "Two builds, two playable walkthroughs. Try them!",
       builds: "Ten projects and counting — each one taught me something different.",
