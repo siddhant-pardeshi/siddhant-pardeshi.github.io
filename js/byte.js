@@ -1,13 +1,22 @@
 /* ============================================================
-   BYTE — capybara guide. Character rig v2.
-   - 12 emotional states: idle greeting happy surprised thinking
+   BYTE — capybara guide. Character rig v3.
+   - 15 emotional states: idle greeting happy surprised thinking
      celebrate love dizzy excited dance curious guiding sleepy
+     angry hyped (v3 bold additions)
+   - v3: bold emotions with signature animations (angry steam +
+     shake, hyped star-eyes + zaps + hop, curious head-tilt +
+     floating "?", bigger happy bounce, love sway)
+   - v3: ROAM — the dock Byte strolls along the bottom edge of the
+     page between sections, with footsteps, dust puffs and direction
+     flipping. Pauses for dialogs, hidden tabs, reduced motion.
    - Body language: cursor lean, ear perk/droop/twitch, look-around
    - Reactions: click combos (tap→double→triple→DANCE), petting
      (rub back & forth over him), fast-cursor surprise, glance
      toward any click on the page
-   - Sound: opt-in chirps, purr, boing, jingle (WebAudio, local)
-   - Public API unchanged + Byte.dance(), Byte.debug
+   - Sound: opt-in score (WebAudio, local) — chirps, purr, boing,
+     jingle + v3 voices: yay, grr, hmm, hyped run, footsteps
+   - Public API unchanged + Byte.dance(), Byte.emote(), Byte.roam(),
+     Byte.roamStop(), Byte.debug
    ============================================================ */
 
 (function () {
@@ -61,12 +70,25 @@
     +         '<path d="M80,97 c3,-5 9,-3 8,2 c-1,4 -7,4 -7,-1 c0,-6 8,-8 12,-3"/>'
     +         '<path d="M120,93 c3,-5 9,-3 8,2 c-1,4 -7,4 -7,-1 c0,-6 8,-8 12,-3"/>'
     +       '</g>'
+    +       '<g class="byte-eye-angry" stroke="#101114" stroke-width="3.4" fill="none" stroke-linecap="round">'
+    +         '<path d="M75,87 l17,7"/>'
+    +         '<path d="M137,83 l-17,7"/>'
+    +       '</g>'
+    +       '<g class="byte-eye-angry-pupil" fill="#101114">'
+    +         '<circle cx="87" cy="100" r="4.6"/>'
+    +         '<circle cx="125" cy="96" r="4.6"/>'
+    +       '</g>'
+    +       '<g class="byte-eye-star" fill="#FFD23F" stroke="#101114" stroke-width="2" stroke-linejoin="round">'
+    +         '<path d="M86,88 l2.3,4.7 5.1,0.8 -3.7,3.6 0.9,5.1 -4.6,-2.4 -4.6,2.4 0.9,-5.1 -3.7,-3.6 5.1,-0.8 z"/>'
+    +         '<path d="M126,84 l2.3,4.7 5.1,0.8 -3.7,3.6 0.9,5.1 -4.6,-2.4 -4.6,2.4 0.9,-5.1 -3.7,-3.6 5.1,-0.8 z"/>'
+    +       '</g>'
     +     '</g>'
     /* noses + mouths */
     +     '<rect x="152" y="94" width="17" height="11" rx="5.5" fill="#2a1c12" stroke="#101114" stroke-width="2"/>'
     +     '<path class="byte-mouth" d="M150,116 q7,6 14,1" fill="none" stroke="#101114" stroke-width="3" stroke-linecap="round"/>'
     +     '<ellipse class="byte-mouth-o" cx="157" cy="118" rx="4.5" ry="5.5" fill="#7a4a2b" stroke="#101114" stroke-width="2.4"/>'
     +     '<path class="byte-mouth-open" d="M148,115 q8,10 16,0 z" fill="#7a4a2b" stroke="#101114" stroke-width="2.6" stroke-linejoin="round"/>'
+    +     '<path class="byte-mouth-frown" d="M147,121 q9,-8 18,-3" fill="none" stroke="#101114" stroke-width="3" stroke-linecap="round"/>'
     +     '<circle cx="147" cy="106" r="1.4" fill="#101114" opacity="0.5"/>'
     +     '<circle cx="152" cy="109" r="1.4" fill="#101114" opacity="0.5"/>'
     +   '</g>'
@@ -92,6 +114,13 @@
     +       '<path d="M109,144 q4,4 8,0" fill="none" stroke="#D9FF43" stroke-width="2.6" stroke-linecap="round"/>'
     +       '<circle cx="107" cy="153" r="3.4" fill="none" stroke="#D9FF43" stroke-width="2.4"/>'
     +     '</g>'
+    +     '<g class="byte-display-face byte-display-angry" hidden>'
+    +       '<path d="M96,142 l7,4 M118,142 l-7,4" fill="none" stroke="#FF7A6B" stroke-width="2.8" stroke-linecap="round"/>'
+    +       '<path d="M100,157 q7,-6 14,0" fill="none" stroke="#FF7A6B" stroke-width="2.8" stroke-linecap="round"/>'
+    +     '</g>'
+    +     '<g class="byte-display-face byte-display-spark" hidden>'
+    +       '<path d="M109,140 l-6,9 4.5,0 -4,9 10,-12 -4.5,0 3.5,-6 z" fill="#D9FF43"/>'
+    +     '</g>'
     +     '<g class="byte-display-dots" hidden>'
     +       '<circle class="byte-display-dot" cx="99" cy="147" r="2.6" fill="#D9FF43"/>'
     +       '<circle class="byte-display-dot" cx="107" cy="147" r="2.6" fill="#D9FF43"/>'
@@ -115,6 +144,15 @@
     +   '<text x="150" y="52" font-size="20">Z</text>'
     +   '<text x="164" y="38" font-size="14">z</text>'
     +   '<text x="174" y="28" font-size="10">z</text>'
+    + '</g>'
+    + '<text class="byte-qmark" x="156" y="46" font-size="30" fill="#4B57FF" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700">?</text>'
+    + '<g class="byte-steam" fill="#cfd6e0">'
+    +   '<circle cx="54" cy="54" r="7"/>'
+    +   '<circle cx="148" cy="50" r="6"/>'
+    + '</g>'
+    + '<g class="byte-zap" fill="#FFD23F" stroke="#101114" stroke-width="2" stroke-linejoin="round">'
+    +   '<path d="M44,38 l-8,12 6,0 -5,10 11,-13 -6,0 4,-9 z"/>'
+    +   '<path d="M158,32 l-8,12 6,0 -5,10 11,-13 -6,0 4,-9 z"/>'
     + '</g>'
     /* dance music notes */
     + '<g class="byte-notes" fill="#4B57FF" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700">'
@@ -165,7 +203,7 @@
     play: function (kind) {
       if (!this.enabled) return;
       var now = Date.now();
-      var cd = kind === "tick" ? 140 : kind === "trace" ? 2200 : 550;
+      var cd = kind === "tick" ? 140 : kind === "steps" ? 240 : kind === "trace" ? 2200 : 550;
       if (now - this.last < cd) return; /* cooldown - no stacking */
       if (!this.ensureCtx()) return;
       this.last = now;
@@ -173,6 +211,39 @@
       else if (kind === "pop") { this.tone(300, 0, 0.14, "triangle", 0.09); }
       else if (kind === "chime") { this.tone(660, 0, 0.12, "sine", 0.075); this.tone(880, 0.11, 0.12, "sine", 0.075); this.tone(1174, 0.22, 0.18, "sine", 0.08); }
       else if (kind === "boing") { this.tone(160, 0, 0.22, "sine", 0.1, 620); }
+      /* ---- v3 bold-emotion voices (each one signature) ---- */
+      else if (kind === "yay") { /* happy: pentatonic bounce + high ping */
+        this.tone(523, 0, 0.08, "triangle", 0.07); this.tone(659, 0.07, 0.08, "triangle", 0.07);
+        this.tone(784, 0.14, 0.08, "triangle", 0.07); this.tone(1046, 0.21, 0.16, "triangle", 0.08);
+        this.tone(1568, 0.3, 0.2, "sine", 0.06);
+      }
+      else if (kind === "grr") { /* angry: playful sawtooth growl + two hmph puffs */
+        var gt = this.ctx.currentTime;
+        var go = this.ctx.createOscillator(); go.type = "sawtooth";
+        go.frequency.setValueAtTime(130, gt);
+        go.frequency.exponentialRampToValueAtTime(72, gt + 0.45);
+        var gg = this.ctx.createGain();
+        gg.gain.setValueAtTime(0.0001, gt);
+        gg.gain.linearRampToValueAtTime(0.09, gt + 0.06);
+        gg.gain.exponentialRampToValueAtTime(0.0001, gt + 0.5);
+        go.connect(gg); gg.connect(this.ctx.destination);
+        go.start(gt); go.stop(gt + 0.55);
+        this.tone(92, 0.5, 0.05, "square", 0.055);
+        this.tone(92, 0.68, 0.05, "square", 0.055);
+      }
+      else if (kind === "hmm") { /* curious: rising two-note question */
+        this.tone(440, 0, 0.2, "sine", 0.06);
+        this.tone(587, 0.22, 0.3, "sine", 0.065, 760);
+      }
+      else if (kind === "hyped") { /* enthusiastic: fast pentatonic run + sparkle */
+        var HY = [523, 587, 659, 784, 880, 1046];
+        for (var hi = 0; hi < HY.length; hi++) this.tone(HY[hi], hi * 0.055, 0.09, "triangle", 0.06);
+        this.tone(2093, 0.36, 0.16, "sine", 0.045);
+        this.tone(1568, 0.42, 0.14, "sine", 0.04);
+      }
+      else if (kind === "steps") { /* one soft footstep thump */
+        this.tone(150, 0, 0.05, "triangle", 0.05, 105);
+      }
       else if (kind === "purr") {
         /* purr with rumble vibrato + a little "mrrp!" tail */
         var t0 = this.ctx.currentTime;
@@ -219,13 +290,13 @@
   var LIFE = {
     greeting: 1600, happy: 1400, surprised: 1300, thinking: 2400,
     celebrate: 1800, love: 2400, dizzy: 2000, excited: 1600,
-    dance: 3400, curious: 2000, wave: 1600
+    dance: 3400, curious: 2000, wave: 1600, angry: 2400, hyped: 2600
   };
   var FACE = {
     idle: "brackets", happy: "smile", surprised: "brackets", thinking: "dots",
     celebrate: "heart", love: "heart", dizzy: "sleep", excited: "smile",
     dance: "smile", curious: "brackets", guiding: "heart", greeting: "smile",
-    sleepy: "sleep"
+    sleepy: "sleep", angry: "angry", hyped: "spark"
   };
 
   function create(opts) {
@@ -260,7 +331,7 @@
     var cl = inst.el.classList;
     ["idle", "wave", "greeting", "happy", "surprised", "thinking", "celebrate",
      "love", "dizzy", "excited", "dance", "curious", "guiding", "sleepy",
-     "hat", "eyes-closed", "shy"]
+     "angry", "hyped", "hat", "eyes-closed", "shy"]
       .forEach(function (c) { cl.remove("byte--" + c); });
     cl.add("byte--" + state);
     if (state === "greeting") cl.add("byte--wave");
@@ -319,7 +390,7 @@
   }
 
   /* ---------------- reactions ---------------- */
-  var REACT_CYCLE = ["happy", "surprised", "celebrate", "greeting"];
+  var REACT_CYCLE = ["happy", "surprised", "celebrate", "greeting", "curious", "hyped"];
 
   function react(inst, forced) {
     var now = Date.now();
@@ -351,9 +422,10 @@
     }
     if (n === 2) {
       inst.lastReactionAt = now;
-      setState(inst, "excited");
+      var hype = Math.random() < 0.5 ? "hyped" : "excited";
+      setState(inst, hype);
       burst(inst);
-      SoundFX.play("boing");
+      SoundFX.play(hype === "hyped" ? "hyped" : "boing");
       return true;
     }
     if (now - inst.lastReactionAt < 1200) return false;
@@ -361,7 +433,7 @@
     var pick = forced || REACT_CYCLE[Math.floor(Math.random() * REACT_CYCLE.length)];
     setState(inst, pick);
     burst(inst);
-    SoundFX.play(pick === "celebrate" ? "chime" : "chirp");
+    SoundFX.play(pick === "celebrate" ? "chime" : pick === "curious" ? "hmm" : pick === "hyped" ? "hyped" : pick === "happy" ? "yay" : "chirp");
     return true;
   }
 
@@ -523,6 +595,18 @@
       instances.forEach(function (i) { setState(i, "dance"); burst(i); });
       SoundFX.play("jingle");
     },
+    emote: function (name) {
+      /* bold-emotion one-shot: state + burst + its signature sound + line */
+      var map = { happy: "yay", angry: "grr", curious: "hmm", hyped: "hyped",
+                  love: "purr", celebrate: "chime", excited: "boing", greeting: "chirp" };
+      var sound = map[name];
+      if (!sound) return false;
+      instances.forEach(function (i) { setState(i, name); burst(i); });
+      SoundFX.play(sound);
+      var lines = window.BYTE_LINES && window.BYTE_LINES.emotions;
+      if (lines && lines[name]) say(lines[name]);
+      return true;
+    },
     setHat: function (on) {
       instances.forEach(function (i) { i.el.classList.toggle("byte--hat", !!on); });
     },
@@ -625,6 +709,79 @@
       try { localStorage.setItem("sp-byte-met", "1"); } catch (e) {}
     }
 
+    /* ---------------- roam: Byte strolls along the bottom edge ---------------- */
+    var walk = { active: false, timer: 0, stepTimer: 0 };
+    function roamBlocked() {
+      if (!motionFull() || document.hidden) return true;
+      if (document.querySelector("dialog[open]")) return true;
+      if (dock.hidden) return true;
+      return false;
+    }
+    function stopWalk() {
+      if (!walk.active) return;
+      walk.active = false;
+      clearTimeout(walk.timer);
+      clearInterval(walk.stepTimer);
+      dock.classList.remove("byte-dock--walk", "byte-dock--left");
+      dock.style.transitionDuration = "";
+    }
+    function startRoam(force) {
+      if (walk.active || (!force && Math.random() < 0.35)) return;
+      if (roamBlocked()) return;
+      var r = dock.getBoundingClientRect();
+      if (!r.width) return;
+      if (!dock.style.left) { /* switch to left-based positioning once */
+        dock.style.left = r.left + "px";
+        dock.style.right = "auto";
+      }
+      var margin = 12;
+      var minX = margin, maxX = window.innerWidth - r.width - margin;
+      if (maxX <= minX) return;
+      var cur = parseFloat(dock.style.left) || r.left;
+      var target = minX + Math.random() * (maxX - minX);
+      if (Math.abs(target - cur) < 60) target = target < window.innerWidth / 2 ? target + 150 : target - 150;
+      target = Math.max(minX, Math.min(maxX, target));
+      var dist = Math.abs(target - cur);
+      if (dist < 24) { /* guarantee a real stroll: head for the farther edge */
+        target = cur < window.innerWidth / 2 ? maxX : minX;
+        dist = Math.abs(target - cur);
+        if (dist < 24) return;
+      }
+      var dur = Math.max(1.6, Math.min(8, dist / 62)); /* ~62 px/s stroll */
+      dock.classList.toggle("byte-dock--left", target < cur);
+      dock.style.transitionProperty = "left";
+      dock.style.transitionTimingFunction = "linear";
+      dock.style.transitionDuration = dur + "s";
+      walk.active = true;
+      dock.classList.add("byte-dock--walk");
+      void dock.getBoundingClientRect(); /* flush before moving */
+      dock.style.left = target + "px";
+      SoundFX.play("chirp");
+      walk.stepTimer = setInterval(function () { SoundFX.play("steps"); }, Math.max(240, (dur * 1000) / Math.max(2, Math.round(dist / 34))));
+      walk.timer = setTimeout(function () {
+        stopWalk();
+        var lr = window.BYTE_LINES;
+        if (lr && lr.roam && Math.random() < 0.5) say(lr.roam[Math.floor(Math.random() * lr.roam.length)]);
+      }, dur * 1000);
+    }
+    function roamLoop() {
+      setTimeout(function () {
+        if (!roamBlocked()) startRoam(false);
+        roamLoop();
+      }, 16000 + Math.random() * 18000);
+    }
+    dock.addEventListener("pointerdown", stopWalk, { passive: true });
+    window.addEventListener("blur", stopWalk);
+    document.addEventListener("visibilitychange", function () { if (document.hidden) stopWalk(); });
+    window.addEventListener("resize", function () {
+      if (!dock.style.left) return;
+      var r2 = dock.getBoundingClientRect();
+      dock.style.left = Math.max(12, Math.min(window.innerWidth - r2.width - 12, parseFloat(dock.style.left) || 0)) + "px";
+    });
+    setTimeout(roamLoop, 9000);
+    api.roam = function (force) { startRoam(force === true); };
+    api.roamStop = stopWalk;
+
     /* sleepy after long inactivity */
     var sleepTimer = null;
     function armSleep() {
@@ -668,6 +825,7 @@
           var minimized = false;
           try { minimized = localStorage.getItem("sp-byte-hidden") === "1"; } catch (e) {}
           dock.hidden = !en.isIntersecting ? minimized : true;
+          if (dock.hidden && api.roamStop) api.roamStop();
         });
       }, { threshold: 0.12 });
       io.observe(heroScene);

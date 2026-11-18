@@ -28,12 +28,12 @@
     {
       "name": "boot: gallery tiles = 67",
       "pass": true,
-      "info": "67"
+      "info": "75"
     },
     {
       "name": "boot: gallery real images",
       "pass": true,
-      "info": "63"
+      "info": "71"
     },
     {
       "name": "boot: skill pills = 32",
@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--greeting byte--wave"
+      "info": "byte-instance byte--breath byte--happy"
     },
     {
       "name": "byte: petting → love state",
@@ -98,7 +98,7 @@
     {
       "name": "gallery: filter Hackathons shrinks wall",
       "pass": true,
-      "info": "67 -> 15"
+      "info": "75 -> 19"
     },
     {
       "name": "gallery: lightbox opens + Escape closes",
@@ -186,6 +186,26 @@
       "info": "true"
     },
     {
+      "name": "byte: emote API drives the 4 new bold emotions",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: menu exposes 4 emotion actions",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: roam walk starts, moves, stops cleanly",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "gallery: Paytm photos live (8 new tiles)",
+      "pass": true,
+      "info": "true"
+    },
+    {
       "name": "handfx: graceful camera-degraded state",
       "pass": true,
       "info": "Loading the hand-tracking engine (~6 MB, cached after this)…"
@@ -228,7 +248,7 @@
     {
       "name": "mobile-390: gallery renders",
       "pass": true,
-      "info": "67"
+      "info": "75"
     },
     {
       "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",

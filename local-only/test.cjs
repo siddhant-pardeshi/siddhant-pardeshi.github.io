@@ -74,7 +74,7 @@ evals.push(["byte: click hero → reacts", `(async () => {
   el.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   await new Promise(r => setTimeout(r, 250));
   return el.className;
-})()`, v => /byte--(happy|surprised|celebrate|wave|excited|dizzy|dance|love)/.test(v)]);
+})()`, v => /byte--(happy|surprised|celebrate|wave|excited|dizzy|dance|love|hyped|curious)/.test(v)]);
 evals.push(["byte: petting → love state", `(async () => {
   const el = document.querySelector('#hero-byte .byte-instance');
   el.dispatchEvent(new MouseEvent('click', {bubbles: true}));
@@ -202,6 +202,43 @@ evals.push(["sound: nav quick toggle works + persists state", `(async () => {
   const off = window.Byte.SoundFX.enabled === false && btn.getAttribute('aria-pressed') === 'false';
   return on && off;
 })()`]);
+evals.push(["byte: emote API drives the 4 new bold emotions", `(async () => {
+  if (typeof window.Byte.emote !== 'function') return 'no emote';
+  const hero = document.querySelector('.byte-instance');
+  const check = async (name, cls) => {
+    window.Byte.emote(name);
+    await new Promise(r => setTimeout(r, 150));
+    const ok = hero.className.includes('byte--' + cls);
+    window.Byte.debug.setState(hero && window.Byte.debug.instances[0], 'idle');
+    await new Promise(r => setTimeout(r, 60));
+    return ok;
+  };
+  const a = await check('angry', 'angry');
+  const h = await check('hyped', 'hyped');
+  const c = await check('curious', 'curious');
+  const p = await check('happy', 'happy');
+  return a && h && c && p;
+})()`]);
+evals.push(["byte: menu exposes 4 emotion actions", `[...document.querySelectorAll('[data-byte-action]')].filter(b => ['happy','angry','curious','hyped'].includes(b.dataset.byteAction)).length === 4`]);
+evals.push(["byte: roam walk starts, moves, stops cleanly", `(async () => {
+  if (typeof window.Byte.roam !== 'function') return 'no roam';
+  document.querySelectorAll('dialog[open]').forEach(d => d.close()); /* roam pauses for dialogs by design */
+  document.getElementById('builds').scrollIntoView();
+  await new Promise(r => setTimeout(r, 600));
+  const dock = document.getElementById('byte-dock');
+  if (dock.hidden) return 'dock hidden';
+  const before = dock.getBoundingClientRect().left;
+  window.Byte.roam(true);
+  await new Promise(r => setTimeout(r, 800));
+  const walking = dock.classList.contains('byte-dock--walk');
+  const after = dock.getBoundingClientRect().left;
+  const moved = Math.abs(after - before) > 20;
+  window.Byte.roamStop();
+  await new Promise(r => setTimeout(r, 150));
+  const stopped = !dock.classList.contains('byte-dock--walk');
+  return walking && moved && stopped;
+})()`]);
+evals.push(["gallery: Paytm photos live (8 new tiles)", `document.querySelectorAll('.sheet-item').length >= 75 && [...document.querySelectorAll('.sheet-item figcaption')].filter(c => c.textContent.includes('Paytm')).length === 8`]);
 evals.push(["handfx: graceful camera-degraded state", `(async () => {
   window.HandFX.open();
   await new Promise(r => setTimeout(r, 2500));

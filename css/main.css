@@ -756,6 +756,29 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
   .byte-dock__hint { display: none; }
 }
 
+/* ---- Byte's stroll across the page (roam) ---- */
+.byte-dock__btn { position: relative; }
+.byte-dock--walk .byte-dock__btn .byte-motion-g { animation: byte-walk-bob 0.4s ease-in-out infinite; }
+.byte-dock--left .byte-dock__btn .byte-svg { transform: scaleX(-1); }
+.byte-dock--walk .byte-dock__btn::after {
+  content: "";
+  position: absolute; left: 6px; right: 6px; bottom: 0; height: 12px;
+  pointer-events: none;
+  background:
+    radial-gradient(7px 5px at 18% 100%, rgba(16, 17, 20, 0.16), transparent 70%),
+    radial-gradient(7px 5px at 52% 100%, rgba(16, 17, 20, 0.12), transparent 70%),
+    radial-gradient(7px 5px at 84% 100%, rgba(16, 17, 20, 0.16), transparent 70%);
+  animation: byte-dust 0.42s ease-in-out infinite;
+}
+@keyframes byte-walk-bob {
+  0%, 100% { transform: translateY(0) rotate(-2.5deg); }
+  50% { transform: translateY(-7px) rotate(2.5deg); }
+}
+@keyframes byte-dust {
+  0%, 100% { opacity: 0.45; transform: translateX(-3px); }
+  50% { opacity: 0.95; transform: translateX(3px); }
+}
+
 .byte-menu {
   border: 0; padding: 0; background: transparent;
 }

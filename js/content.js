@@ -344,6 +344,7 @@ window.CONTENT = (function () {
   var METRO = "OpenAI DevDay Exchange - Metro Hackathon Pune";
   var FUSION = "Fusion 2026 International Hackathon (SKNCOE)";
   var GENSPARK = "Genspark community event";
+  var PAYTM = "Paytm AI Hackathon";
   var TREK = "Jivdhan Fort trek & camping";
   var PORT = "Portfolio portraits";
 
@@ -419,6 +420,15 @@ window.CONTENT = (function () {
     { id: "p-04", src: "assets/portrait/formal-04-wood-panel.jpg", category: "portrait", caption: "Wood-panel portrait", eventName: PORT, alt: "Siddhant standing by a wooden panel and lilies" },
     { id: "p-05", src: "assets/portrait/formal-05-floral-lobby.jpg", category: "portrait", caption: "Floral lobby", eventName: PORT, alt: "Siddhant in a lobby with large floral arrangements" },
     { id: "p-06", src: "assets/portrait/formal-06-evening-light.jpg", category: "portrait", caption: "Evening light", eventName: PORT, alt: "Close portrait of Siddhant by a water wall at dusk" },
+    /* ----- Paytm AI Hackathon: the newest chapter ----- */
+    { id: "pt-01", src: "assets/hackathons/paytm_Hackathon/squad-team.jpeg", category: "hackathons", caption: "Team UrbanSync at the Paytm AI Hackathon banner", eventName: PAYTM, alt: "Four team members posing in front of the Paytm AI Hackathon roll-up banner", featured: true, size: "wide" },
+    { id: "pt-02", src: "assets/hackathons/paytm_Hackathon/winner-team.jpeg", category: "hackathons", caption: "The full squad at the Paytm AI Hackathon", eventName: PAYTM, alt: "Five team members standing in front of the Paytm AI Hackathon banner" },
+    { id: "pt-03", src: "assets/hackathons/paytm_Hackathon/paytm-card.jpeg", category: "hackathons", caption: "Participant badges — Paytm Hackathon selfie", eventName: PAYTM, alt: "Group selfie holding Paytm Hackathon participant badges" },
+    { id: "pt-04", src: "assets/hackathons/paytm_Hackathon/volunteers.jpeg", category: "events", caption: "Volunteers crew at the Paytm AI Hackathon", eventName: PAYTM, alt: "Group selfie of volunteers wearing Paytm lanyards" },
+    { id: "pt-05", src: "assets/hackathons/paytm_Hackathon/selfie.jpeg", category: "events", caption: "Selfie time at the Paytm Hackathon venue", eventName: PAYTM, alt: "Volunteers taking a selfie inside the Paytm office venue" },
+    { id: "pt-06", src: "assets/hackathons/paytm_Hackathon/volunteers-boys.jpeg", category: "events", caption: "The boys' crew at the Paytm Hackathon venue", eventName: PAYTM, alt: "Four participants taking a selfie at the Paytm Hackathon" },
+    { id: "pt-07", src: "assets/hackathons/paytm_Hackathon/ratnesh-tea.jpeg", category: "team", caption: "Chai break at the Paytm office", eventName: PAYTM, alt: "Team members taking a break in the Paytm office cafeteria" },
+    { id: "pt-08", src: "assets/hackathons/paytm_Hackathon/certificate.jpeg", category: "hackathons", caption: "Paytm AI Hackathon participation certificates", eventName: PAYTM, alt: "Paytm AI Hackathon certificates of participation with lanyards and badges on a desk", size: "wide" },
     /* ----- Projects (designed schematics until screenshots arrive) ----- */
     { id: "g-banknest-1", category: "projects", caption: "BankNest - backend architecture", projectId: "banknest", alt: "Schematic illustration of BankNest's layered architecture", placeholder: { motif: "schema", accent: "violet" } },
     { id: "g-lifedrop-1", category: "projects", caption: "LifeDrop - request workflow", projectId: "lifedrop", alt: "Schematic illustration of LifeDrop's Pending to Approved to Fulfilled workflow", placeholder: { motif: "flow", accent: "apricot" } }
@@ -443,6 +453,19 @@ window.CONTENT = (function () {
     dance: "DANCE MODE! You found my secret moves 🧡",
     pet: "Ahh, that's the spot. Keep going.",
     fast: "Whoa — fast hands!",
+    emotions: {
+      happy: "Best day ever! Keep the good vibes coming 😄",
+      angry: "Hey!! …okay fine, I can't stay mad at you 😤",
+      curious: "Hmm? What did you find? Show me!",
+      hyped: "LET'S GOOO! ⚡ Shipping energy at maximum!"
+    },
+    roam: [
+      "Just patrolling the playground 🚶",
+      "Getting my 10,000 steps in… of code.",
+      "Exploring! What did I miss?",
+      "Walking over to inspect this section 🔍",
+      "My paws, your scroll — teamwork."
+    ],
     sections: {
       work: "Two builds, two playable walkthroughs. Try them!",
       builds: "Ten projects and counting — each one taught me something different.",

@@ -464,6 +464,9 @@
           case "resume": window.open(C.site.resume.path, "_blank", "noopener"); break;
           case "contact": location.hash = "#contact"; break;
           case "handfx": if (window.HandFX) window.HandFX.open(); break;
+          case "happy": case "angry": case "curious": case "hyped":
+            if (window.Byte) window.Byte.emote(act);
+            break;
           case "tour": startTour(); break;
         }
         if (window.Byte) window.Byte.SoundFX.play("pop");
@@ -663,6 +666,25 @@
     }
   }
 
+  /* ---------------- Hover ticks: the page answers every touch ----------------
+     One delegated listener; SoundFX's own cooldown keeps it subtle. */
+  function initHoverTicks() {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var fx = function () { return window.Byte && window.Byte.SoundFX; };
+    var SEL = ".btn, .site-nav__links a, .filter-chip, .sheet-item, .post-card, .repo-card, .more-build-card, .mb-name, .byte-menu__list button";
+    document.addEventListener("pointerover", function (e) {
+      if (!e.target.closest || !motionFullForTicks()) return;
+      var el = e.target.closest(SEL);
+      if (el && !(e.relatedTarget && el.contains(e.relatedTarget))) {
+        var f = fx();
+        if (f) f.play("tick");
+      }
+    }, { passive: true });
+  }
+  function motionFullForTicks() {
+    return (document.documentElement.getAttribute("data-motion") || "full") === "full";
+  }
+
   /* ---------------- Availability chip ---------------- */
   function initAvailability() {
     var C = window.CONTENT;
@@ -696,6 +718,7 @@
     initByteSectionAwareness();
     initHeroPhotos();
     initSoundQuick();
+    initHoverTicks();
     inviteSound();
     /* re-wrap headlines that get revealed later is unnecessary —
        the observer adds is-revealed to the whole .section-head */
