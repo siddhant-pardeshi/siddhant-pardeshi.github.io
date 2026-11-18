@@ -925,5 +925,20 @@
 <script src="js/posts.js?v=9"></script>
 <script src="js/handfx.js?v=9"></script>
 <script src="js/app.js?v=9"></script>
+<script>
+/* freshness guard: a service worker keeps HTML network-first so visitors
+   always get the current build, and a version stamp reloads once when the
+   build changes (catches the very first SW-install visit) */
+(function () {
+  if (!("serviceWorker" in navigator)) return;
+  var V = "9";
+  try {
+    var seen = localStorage.getItem("sp-build");
+    if (!seen) { localStorage.setItem("sp-build", V); }
+    else if (seen !== V) { localStorage.setItem("sp-build", V); location.reload(); return; }
+  } catch (e) {}
+  navigator.serviceWorker.register("sw.js").catch(function () {});
+})();
+</script>
 </body>
 </html>

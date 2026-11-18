@@ -369,6 +369,16 @@ async function runFinalInspection() {
     soundtrackToast: document.getElementById('toast').textContent.includes('soundtrack') }))()`);
   record("sound: default-on with no opt-in toast", t5.on === true && t5.soundtrackToast === false, JSON.stringify(t5));
 
+  /* freshness guard: service worker registers and takes control */
+  const sw1 = await evaluate(`(async () => {
+    if (!('serviceWorker' in navigator)) return 'no sw support';
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) return 'no registration';
+    await new Promise(r => setTimeout(r, 700));
+    return (navigator.serviceWorker.controller || reg.active) ? 'controlled' : 'registered-not-active';
+  })()`, true);
+  record("sw: registers + controls the page (freshness guard)", sw1 === "controlled", sw1);
+
   record("final-inspection: zero console errors", consoleErrors.length === 0, consoleErrors.slice(0, 3).join(" | "));
   record("final-inspection: zero uncaught exceptions", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));
 }

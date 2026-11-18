@@ -234,5 +234,18 @@
 <script src="js/content.js?v=9"></script>
 <script src="js/app.js?v=9"></script>
 <script src="js/recruiter.js?v=9"></script>
+<script>
+/* freshness guard (same as index): network-first HTML via service worker */
+(function () {
+  if (!("serviceWorker" in navigator)) return;
+  var V = "9";
+  try {
+    var seen = localStorage.getItem("sp-build");
+    if (!seen) { localStorage.setItem("sp-build", V); }
+    else if (seen !== V) { localStorage.setItem("sp-build", V); location.reload(); return; }
+  } catch (e) {}
+  navigator.serviceWorker.register("sw.js").catch(function () {});
+})();
+</script>
 </body>
 </html>

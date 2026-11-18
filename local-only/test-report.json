@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--curious"
+      "info": "byte-instance byte--breath byte--hyped"
     },
     {
       "name": "byte: petting → love state",
@@ -213,7 +213,7 @@
     {
       "name": "handfx: graceful camera-degraded state",
       "pass": true,
-      "info": "Loading the hand-tracking engine (~6 MB, cached after this)…"
+      "info": "Camera permission was declined. Allow access in your browser and reopen."
     },
     {
       "name": "desktop-1440: zero console errors",
@@ -324,6 +324,11 @@
       "name": "sound: default-on with no opt-in toast",
       "pass": true,
       "info": "{\"on\":true,\"soundtrackToast\":false}"
+    },
+    {
+      "name": "sw: registers + controls the page (freshness guard)",
+      "pass": true,
+      "info": "controlled"
     },
     {
       "name": "final-inspection: zero console errors",

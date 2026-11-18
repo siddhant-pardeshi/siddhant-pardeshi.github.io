@@ -71,6 +71,10 @@ check("sound: quick toggle wired in app.js", appjs.includes("initSoundQuick"));
 /* 9. sections + palette coverage */
 check("sections: #builds exists in page + palette", ids.has("builds") && appjs.includes('"#builds"'));
 
+/* 9b. freshness guard: sw.js exists and both pages register it */
+check("sw: sw.js exists (network-first HTML guard)", fs.existsSync(path.join(ROOT, "sw.js")));
+check("sw: both pages register the service worker", index.includes("serviceWorker.register") && recruiter.includes("serviceWorker.register"));
+
 /* 10. script load order sanity (content before everything) */
 const order = [...index.matchAll(/<script src="(js\/[^"]+)"/g)].map(m => m[1].split("?")[0]);
 check("load order: content.js first", order[0] === "js/content.js", order.join(" -> "));
