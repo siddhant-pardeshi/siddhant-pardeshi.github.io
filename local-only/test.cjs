@@ -373,6 +373,21 @@ async function runFinalInspection() {
   }))()`);
   record("deep link: #banknest-case opens the case study", d1.open && d1.expanded === "true", JSON.stringify(d1));
 
+  /* speech bubble anchors to the speaking Byte — hero at page top, never the corner */
+  await send("Page.navigate", { url: BASE + "/index.html" });
+  await sleep(1900);
+  await evaluate(`window.Byte.say('anchor test')`);
+  await sleep(150);
+  const s2 = await evaluate(`(() => {
+    const sp = document.querySelector('.byte-speech').getBoundingClientRect();
+    const hero = document.getElementById('hero-byte').getBoundingClientRect();
+    const follows = document.querySelector('.byte-speech').classList.contains('follow');
+    window.Byte.hideSpeech();
+    return JSON.stringify({ above: sp.bottom <= hero.top + 2, near: sp.bottom >= hero.top - 40, follows });
+  })()`);
+  const sj = JSON.parse(s2);
+  record("speech: bubble anchors above the hero Byte at page top", sj.above && sj.near && sj.follows, s2);
+
   /* byte menu actions */
   await send("Page.navigate", { url: BASE + "/index.html" });
   await sleep(1600);

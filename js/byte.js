@@ -550,21 +550,36 @@
     clearTimeout(speechTimer);
     speechEl.querySelector(".byte-speech__text").textContent = text;
     speechEl.hidden = false;
-    /* the bubble points at Byte wherever he stands — including after a drag or stroll */
+    /* anchor the bubble to whichever Byte is actually on stage —
+       the dock first, then the hero — so it never floats away from him */
+    var vw = window.innerWidth;
+    var w = Math.min(280, vw - 32);
+    var anchor = null;
     var dock = document.getElementById("byte-dock");
     if (dock && !dock.hidden) {
-      var r = dock.getBoundingClientRect();
-      var vw = window.innerWidth;
-      var w = Math.min(280, vw - 32);
-      var left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, vw - w - 8));
+      anchor = dock.getBoundingClientRect();
+    } else {
+      var heroMount = document.getElementById("hero-byte");
+      if (heroMount) {
+        var hr = heroMount.getBoundingClientRect();
+        if (hr.width && hr.top < window.innerHeight && hr.bottom > 0) anchor = hr;
+      }
+    }
+    if (anchor) {
+      var left = Math.max(8, Math.min(anchor.left + anchor.width / 2 - w / 2, vw - w - 8));
       speechEl.style.right = "auto";
       speechEl.style.left = left + "px";
-      speechEl.style.setProperty("--tail-x", Math.max(14, Math.min(r.left + r.width / 2 - left - 8, w - 30)) + "px");
+      speechEl.style.top = "auto";
+      speechEl.style.bottom = Math.max(8, window.innerHeight - anchor.top + 10) + "px";
+      speechEl.style.setProperty("--tail-x", Math.max(14, Math.min(anchor.left + anchor.width / 2 - left - 8, w - 30)) + "px");
       speechEl.classList.add("follow");
     } else {
+      /* no Byte on stage — fall back to the calm corner, unstyled */
       speechEl.classList.remove("follow");
       speechEl.style.right = "";
       speechEl.style.left = "";
+      speechEl.style.top = "";
+      speechEl.style.bottom = "";
     }
     speechTimer = setTimeout(hideSpeech, ms || 5200);
   }
