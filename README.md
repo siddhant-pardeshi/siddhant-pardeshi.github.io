@@ -4,7 +4,7 @@
 
 [![Live site](https://img.shields.io/badge/🌐_LIVE-siddhant--pardeshi.github.io-D9FF43?style=for-the-badge&labelColor=101114)](https://siddhant-pardeshi.github.io/)
 [![Recruiter view](https://img.shields.io/badge/🎯_RECRUITER-view_in_60s-4B57FF?style=for-the-badge&labelColor=101114)](https://siddhant-pardeshi.github.io/recruiter.html)
-[![Tests](https://img.shields.io/badge/✅_TESTS-47%2F47_passing-D9FF43?style=for-the-badge&labelColor=101114)](#-testing--quality)
+[![Tests](https://img.shields.io/badge/✅_TESTS-73%2F73_passing-D9FF43?style=for-the-badge&labelColor=101114)](#-testing--quality)
 [![No build step](https://img.shields.io/badge/⚙️_BUILD-none_needed-FFA86B?style=for-the-badge&labelColor=101114)](#-tech-stack--architecture)
 
 **A portfolio that plays back.** Every architecture decision on this site can be *watched, touched, and heard* —
@@ -152,7 +152,7 @@ the metaphor the whole site is built on, with a 4-note ascending arpeggio if sou
 
 ## 🔊 Sound design — the site has a voice
 
-Opt-in (⚙ **Sound: on**), off by default, **100% synthesized locally with WebAudio** — no audio files,
+On by default (🔊 **Sound: on** — one click on the nav speaker mutes it, choice persists), **100% synthesized locally with WebAudio** — no audio files,
 no CDN, no autoplay. Cooldowns prevent stacking; motion settings never secretly enable it.
 
 | Interaction | Sound |
@@ -243,20 +243,20 @@ reveals at 600 ms / 2.5 s no matter what.
 ## 🧪 Testing & quality
 
 A custom headless-Chrome test harness (raw Chrome DevTools Protocol — **zero test dependencies**) runs
-**47 functional assertions** across desktop (1440px) and mobile (390px):
+**73 functional assertions** across desktop (1440px), mobile (390px), a final-inspection phase and a recruiter mobile pass:
 
-- Boot integrity (Byte instances, 67 gallery records, skill pills, repo cards, ticker, floaters)
+- Boot integrity (Byte instances, 75 gallery records incl. the Paytm set, skill pills, repo cards, ticker)
 - Byte: click ladder → excited → dizzy → **dance**, petting → love, guide menu
 - Gallery: filters shrink/restore the wall, lightbox opens + Escape closes
 - Case studies: toggles, `aria-expanded`, hash deep links
 - Simulations: atomic transfer **commit + rollback**, LifeDrop approve→fulfil inventory math,
   live-computed 90-day check
 - Skills evidence panel, command palette, motion settings, copy-toast fallback
-- Anchor integrity, `noopener` on every external link, sound **off by default**
+- Anchor integrity, `noopener` on every external link, sound **on by default — one click mutes, choice persists**
 - Mobile: zero horizontal overflow, Byte dock appears after scroll, hamburger menu
 
 ```bash
-node local-only/test.cjs        # → 47/47 · test-report.json
+node local-only/test.cjs        # → 73/73 · test-report.json
 node local-only/serve.cjs       # → http://localhost:8137
 node local-only/overflow.cjs    # → mobile overflow diagnostic
 ```
