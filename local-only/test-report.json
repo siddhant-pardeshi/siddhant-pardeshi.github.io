@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--surprised"
+      "info": "byte-instance byte--breath byte--celebrate"
     },
     {
       "name": "byte: petting → love state",
@@ -213,7 +213,7 @@
     {
       "name": "byte: drag moves Byte, drop sets mood, click suppressed",
       "pass": true,
-      "info": "true|true|true|false"
+      "info": "false|true|true|false"
     },
     {
       "name": "byte: vertical drag moves top (bottom-anchor regression)",
