@@ -13,7 +13,8 @@
    - Reactions: click combos (tap→double→triple→DANCE), petting
      (rub back & forth over him), fast-cursor surprise, glance
      toward any click on the page
-   - Sound: opt-in score (WebAudio, local) — chirps, purr, boing,
+   - Sound: ON by default (mute to turn off) — WebAudio score, local:
+     chirps, purr, boing,
      jingle + v3 voices: yay, grr, hmm, hyped run, footsteps
    - Public API unchanged + Byte.dance(), Byte.emote(), Byte.roam(),
      Byte.roamStop(), Byte.debug
@@ -172,11 +173,12 @@
     + '</svg>';
   }
 
-  /* ---------------- Sound (opt-in only) ---------------- */
+  /* ---------------- Sound (on by default — mute to turn off) ---------------- */
   var SoundFX = {
-    ctx: null, enabled: false, last: 0,
+    ctx: null, enabled: true, last: 0,
     load: function () {
-      try { this.enabled = localStorage.getItem("sp-sound") === "on"; } catch (e) { this.enabled = false; }
+      /* default ON; only a stored "off" (the user muted) keeps it silent */
+      try { this.enabled = localStorage.getItem("sp-sound") !== "off"; } catch (e) { this.enabled = true; }
     },
     save: function () { try { localStorage.setItem("sp-sound", this.enabled ? "on" : "off"); } catch (e) {} },
     ensureCtx: function () {
@@ -674,9 +676,11 @@
             menu.showModal();
             var r = dockBtn.getBoundingClientRect();
             var h = menuCard.offsetHeight || 340;
+            /* keep the whole card on screen — options must never escape the viewport */
+            var top = Math.max(8, Math.min(r.top - 8 - h, window.innerHeight - h - 8));
             menuCard.style.right = Math.max(8, window.innerWidth - r.right) + "px";
             menuCard.style.left = "auto";
-            menuCard.style.top = Math.max(8, r.top - 8 - h) + "px";
+            menuCard.style.top = top + "px";
             dockBtn.setAttribute("aria-expanded", "true");
             var first = menu.querySelector("button");
             if (first) first.focus();
@@ -799,6 +803,12 @@
       }, { passive: true });
     });
     armSleep();
+
+    /* default-on sound: browsers require a gesture to start audio, so wake
+       the audio context on the very first interaction — no opt-in needed */
+    var wake = function () { SoundFX.ensureCtx(); };
+    window.addEventListener("pointerdown", wake, { once: true, passive: true });
+    window.addEventListener("keydown", wake, { once: true, passive: true });
 
     /* global pointer: tracking + glance-at-click */
     document.addEventListener("pointermove", function (e) {

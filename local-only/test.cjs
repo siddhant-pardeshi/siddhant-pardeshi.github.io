@@ -190,17 +190,19 @@ evals.push(["links: external links are noopener", `[...document.querySelectorAll
 evals.push(["more builds: 7 project cards render", `document.querySelectorAll('.more-build-card').length`]);
 evals.push(["more builds: links valid + noopener", `[...document.querySelectorAll('.more-build-card a.mb-name')].length === 7 && [...document.querySelectorAll('.more-build-card a.mb-name')].every(a => (a.rel || '').includes('noopener'))`]);
 evals.push(["builds: dedicated shelf section after work", `!!document.getElementById('builds') && document.querySelectorAll('#builds .more-build-card').length === 7`]);
-evals.push(["sound: engine present and OFF by default", `window.Byte && window.Byte.SoundFX && typeof window.Byte.SoundFX.play === 'function' && window.Byte.SoundFX.enabled === false`]);
+evals.push(["sound: engine present and ON by default (mute-only-off)", `window.Byte && window.Byte.SoundFX && typeof window.Byte.SoundFX.play === 'function' && window.Byte.SoundFX.enabled === true`]);
 evals.push(["sound: nav quick toggle works + persists state", `(async () => {
   const btn = document.querySelector('.site-nav [data-sound-quick]');
   if (!btn) return 'no btn';
   btn.click();
   await new Promise(r => setTimeout(r, 120));
-  const on = window.Byte.SoundFX.enabled === true && btn.getAttribute('aria-pressed') === 'true';
+  const off = window.Byte.SoundFX.enabled === false && btn.getAttribute('aria-pressed') === 'false';
   btn.click();
   await new Promise(r => setTimeout(r, 120));
-  const off = window.Byte.SoundFX.enabled === false && btn.getAttribute('aria-pressed') === 'false';
-  return on && off;
+  const on = window.Byte.SoundFX.enabled === true && btn.getAttribute('aria-pressed') === 'true';
+  window.Byte.SoundFX.enabled = true;
+  window.Byte.SoundFX.save(); /* restore default-on for later phases */
+  return off && on;
 })()`]);
 evals.push(["byte: emote API drives the 4 new bold emotions", `(async () => {
   if (typeof window.Byte.emote !== 'function') return 'no emote';
@@ -220,6 +222,20 @@ evals.push(["byte: emote API drives the 4 new bold emotions", `(async () => {
   return a && h && c && p;
 })()`]);
 evals.push(["byte: menu exposes 4 emotion actions", `[...document.querySelectorAll('[data-byte-action]')].filter(b => ['happy','angry','curious','hyped'].includes(b.dataset.byteAction)).length === 4`]);
+evals.push(["byte: menu card clamps to viewport (options never off-screen)", `(async () => {
+  document.querySelectorAll('dialog[open]').forEach(d => d.close());
+  document.getElementById('byte-dock').hidden = false;
+  document.querySelector('.byte-dock__btn').click();
+  await new Promise(r => setTimeout(r, 250));
+  const card = document.querySelector('.byte-menu__card');
+  const cs = getComputedStyle(card);
+  const cr = card.getBoundingClientRect();
+  const list = card.querySelector('.byte-menu__list');
+  const scrollable = list.scrollHeight > list.clientHeight || cr.height <= window.innerHeight - 20;
+  const ok = cs.maxHeight !== 'none' && cr.top >= 0 && cr.bottom <= window.innerHeight + 2 && scrollable;
+  document.getElementById('byte-menu').close();
+  return ok;
+})()`]);
 evals.push(["byte: roam walk starts, moves, stops cleanly", `(async () => {
   if (typeof window.Byte.roam !== 'function') return 'no roam';
   document.querySelectorAll('dialog[open]').forEach(d => d.close()); /* roam pauses for dialogs by design */
@@ -348,18 +364,10 @@ async function runFinalInspection() {
   })()`, true);
   record("gallery: video tile plays in lightbox", v1 === "true|true", v1);
 
-  /* invite toast fires once only */
-  const t1 = await evaluate(`(async () => {
-    localStorage.removeItem('sp-sound-invited');
-    location.reload();
-    return 1;
-  })()`, true);
-  await sleep(3400);
-  const t2 = await evaluate(`document.getElementById('toast').textContent`);
-  const t3 = await evaluate(`(async () => { location.reload(); return 1; })()`, true);
-  await sleep(3400);
-  const t4 = await evaluate(`document.getElementById('toast').textContent`);
-  record("sound: invite toast fires once, never nags", /soundtrack/.test(t2) && !/soundtrack/.test(t4), JSON.stringify([t2.slice(0, 40), t4.slice(0, 40)]));
+  /* sound is ON by default now — no opt-in toast exists (other toasts may legitimately show) */
+  const t5 = await evaluate(`(() => ({ on: window.Byte.SoundFX.enabled,
+    soundtrackToast: document.getElementById('toast').textContent.includes('soundtrack') }))()`);
+  record("sound: default-on with no opt-in toast", t5.on === true && t5.soundtrackToast === false, JSON.stringify(t5));
 
   record("final-inspection: zero console errors", consoleErrors.length === 0, consoleErrors.slice(0, 3).join(" | "));
   record("final-inspection: zero uncaught exceptions", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));

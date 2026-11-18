@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--happy"
+      "info": "byte-instance byte--breath byte--curious"
     },
     {
       "name": "byte: petting → love state",
@@ -176,7 +176,7 @@
       "info": "true"
     },
     {
-      "name": "sound: engine present and OFF by default",
+      "name": "sound: engine present and ON by default (mute-only-off)",
       "pass": true,
       "info": "true"
     },
@@ -192,6 +192,11 @@
     },
     {
       "name": "byte: menu exposes 4 emotion actions",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "byte: menu card clamps to viewport (options never off-screen)",
       "pass": true,
       "info": "true"
     },
@@ -253,7 +258,7 @@
     {
       "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",
       "pass": true,
-      "info": "341|341"
+      "info": "338|338"
     },
     {
       "name": "mobile-390: zero console errors",
@@ -308,7 +313,7 @@
     {
       "name": "byte menu: sound item toggles without closing",
       "pass": true,
-      "info": "false->true|true|true"
+      "info": "true->false|true|true"
     },
     {
       "name": "gallery: video tile plays in lightbox",
@@ -316,9 +321,9 @@
       "info": "true|true"
     },
     {
-      "name": "sound: invite toast fires once, never nags",
+      "name": "sound: default-on with no opt-in toast",
       "pass": true,
-      "info": "[\"🔊 This playground has a soundtrack — st\",\"\"]"
+      "info": "{\"on\":true,\"soundtrackToast\":false}"
     },
     {
       "name": "final-inspection: zero console errors",

@@ -787,6 +787,8 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
   position: fixed; inset: auto 1rem auto auto;
   margin: 0;
   width: min(320px, calc(100vw - 2rem));
+  max-height: calc(100vh - 1.25rem);
+  display: flex; flex-direction: column;
   background: var(--paper);
   color: var(--text-dark);
   border: 2px solid var(--ink);
@@ -794,8 +796,8 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
   box-shadow: var(--shadow-l);
   padding: 1rem;
 }
-.byte-menu__card h3 { font-size: 1rem; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
-.byte-menu__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.byte-menu__card h3 { font-size: 1rem; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.byte-menu__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; overflow-y: auto; min-height: 0; overscroll-behavior: contain; }
 .byte-menu__list button {
   width: 100%; text-align: left;
   border: 0; background: transparent;
@@ -805,7 +807,7 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
   cursor: pointer;
 }
 .byte-menu__list button:hover { background: var(--paper-3); }
-.byte-menu__foot { margin-top: 0.7rem; display: flex; gap: 0.5rem; border-top: 1.5px dashed var(--line-dark); padding-top: 0.7rem; }
+.byte-menu__foot { margin-top: 0.7rem; display: flex; gap: 0.5rem; border-top: 1.5px dashed var(--line-dark); padding-top: 0.7rem; flex-shrink: 0; }
 
 /* Speech bubble (non-modal) */
 .byte-speech {

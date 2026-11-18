@@ -80,25 +80,6 @@
   window.SoundPop = function () {
     if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play("pop");
   };
-  /* one-time invitation — audio needs a gesture, so the toast button IS it */
-  function inviteSound() {
-    if (/recruiter\.html$/.test(location.pathname)) return; /* calm page, no invites */
-    try {
-      if (localStorage.getItem("sp-sound") === "on" || localStorage.getItem("sp-sound-invited")) return;
-      localStorage.setItem("sp-sound-invited", "1");
-    } catch (e) { return; }
-    setTimeout(function () {
-      if (window.Byte && window.Byte.SoundFX.enabled) return;
-      toast("🔊 This playground has a soundtrack — steps, chirps, victory chords.", "Enable sound", function () {
-        var fx = window.Byte && window.Byte.SoundFX;
-        if (!fx) return;
-        fx.enabled = true;
-        fx.save();
-        applySoundUI();
-        fx.play("jingle");
-      });
-    }, 2600);
-  }
 
   /* ---------------- Reveal once (visible by default) ----------------
      .pre is added ONLY to below-viewport elements by JS — pure
@@ -719,7 +700,6 @@
     initHeroPhotos();
     initSoundQuick();
     initHoverTicks();
-    inviteSound();
     /* re-wrap headlines that get revealed later is unnecessary —
        the observer adds is-revealed to the whole .section-head */
     initAvailability();
