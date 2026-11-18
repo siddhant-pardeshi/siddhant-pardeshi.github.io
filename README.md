@@ -53,7 +53,7 @@ Three ideas drive every pixel:
    *run* one — press a button and watch ₹500 move through `Controller → Service → Repository → MySQL`,
    then deliberately break it and watch the rollback save both balances.
 2. **The guide is a character.** [Byte](#-byte-the-capybara-who-reacts-back), a capybara with a lime
-   backpack and a chest display, lives on every screen — 15 emotions, mood swings, a secret dance, and he strolls the page between sections.
+   backpack and a chest display, lives on every screen — 15 emotions, mood swings, a secret dance, strolls the page between sections, and you can drag him anywhere (he reviews the spot).
 3. **Everything is real.** Real projects, real certificates with evidence links, a real test suite,
    and a hard no-fabrication policy — because recruiters can smell filler.
 
@@ -87,7 +87,7 @@ blinking, and switching emotions mid-motion.
 | You do | Byte does |
 |---|---|
 | Move your cursor | Leans toward it; ears perk when your hand is above him, droop when it's below |
-| Click / tap once | Cycles reactions — happy blush, surprise hop, celebration, wave |
+| Click / tap once | Cycles reactions — happy bounce, surprise, celebration, wave, curious tilt, hyped stars |
 | Double-tap | **Excited** — triple boing-jump with an open-mouth grin |
 | Tap 3–5× fast | **Dizzy** — spiral eyes, wobbly stumble, *"the world is doing a barrel roll"* |
 | Tap 6× fast | 🎵 **DANCE MODE** — full body-rock, both paws up, music notes, jingle |
@@ -97,9 +97,12 @@ blinking, and switching emotions mid-motion.
 | Scroll to a new section | Comments on it — the Achievements wall earns a celebration |
 | Ignore him for 2.5 minutes | Falls asleep. Zzz. He doesn't guilt-trip you. |
 | Copy his human's email | Celebrates with a burst of hearts |
+| **Drag him anywhere** | Goes dizzy while held, then reviews the drop spot — top: 😲 surprised, left: 🤔 curious, right edge: 👋 wave, middle: 😄 happy. He stays where you park him (strolls pause until you move him again) |
 
-He also has a **guide menu** (projects · 60-second summary · achievements · GitHub · resume ·
-contact · tour) and a **tour mode** — 5 steps that walk you through the playground, ending in dance.
+He also has a **guide menu** (projects · 60-second summary · achievements · GitHub · resume · contact ·
+mood buttons 😄😤🤔⚡ · hand particles · sound · tour) and a **tour mode** — 5 steps that walk you
+through the playground, ending in dance. The menu clamps to any screen with a scrollable list, and
+sound is **on by default** — the nav 🔊 mutes it.
 
 ---
 

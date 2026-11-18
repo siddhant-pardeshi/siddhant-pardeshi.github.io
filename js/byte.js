@@ -816,6 +816,9 @@
       if (!dock.style.left) return;
       var r2 = dock.getBoundingClientRect();
       dock.style.left = Math.max(12, Math.min(window.innerWidth - r2.width - 12, parseFloat(dock.style.left) || 0)) + "px";
+      if (dock.style.top) {
+        dock.style.top = Math.max(12, Math.min(window.innerHeight - r2.height - 12, parseFloat(dock.style.top) || 0)) + "px";
+      }
     });
     setTimeout(roamLoop, 9000);
     api.roam = function (force) { startRoam(force === true); };
@@ -861,6 +864,7 @@
       if (!drag.moved) {
         drag.moved = true;
         stopWalk();
+        if (menu && menu.open) menu.close(); /* never orphan the menu mid-drag */
         dock.style.transitionDuration = "0s";
         dock.style.transitionProperty = "left, top";
         dock.style.right = "auto";
