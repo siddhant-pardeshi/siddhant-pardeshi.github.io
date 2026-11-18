@@ -1,0 +1,58 @@
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Serialize releases: a queued deploy can never overwrite a newer one mid-flight,
+# and a failed run leaves the previous site untouched.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stamp content version for live-refresh checks
+        run: |
+          mkdir -p data
+          printf '{"version":"%s","builtAt":"%s","source":"deploy"}' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > data/version.json
+          cat data/version.json
+
+      # Static site: no build step needed. Everything shipped is pre-rendered
+      # semantic HTML + vanilla JS/CSS, as intended.
+      - name: Verify essential files exist
+        run: |
+          test -f index.html
+          test -f recruiter.html
+          test -f assets/resume/Siddhant_Pardeshi_General_Resume.pdf
+          echo "Essential files present."
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
