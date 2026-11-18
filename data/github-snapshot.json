@@ -1,0 +1,97 @@
+{
+  "source": "github-api",
+  "owner": "siddhant-pardeshi",
+  "fetchedAt": "2026-11-18T20:51:10.366Z",
+  "repos": {
+    "BankNest": {
+      "stars": 0,
+      "forks": 0,
+      "language": "JavaScript",
+      "description": "A simple full-stack banking web app built with Spring Boot and React.",
+      "pushedAt": "2026-10-18T16:19:37Z",
+      "htmlUrl": "https://github.com/siddhant-pardeshi/BankNest"
+    },
+    "BloodDonation-Management": {
+      "stars": 0,
+      "forks": 0,
+      "language": "JavaScript",
+      "description": "🩸 LifeDrop — full-stack Blood Donation Management System connecting donors, hospitals & blood camps. React + Vite frontend, Spring Boot + MySQL REST API with live inventory for all 8 blood groups, 90-day eligibility rules & animated landing page.",
+      "pushedAt": "2026-10-18T16:17:09Z",
+      "htmlUrl": "https://github.com/siddhant-pardeshi/BloodDonation-Management"
+    },
+    "MetroMind": {
+      "stars": 0,
+      "forks": 0,
+      "language": "TypeScript",
+      "description": "🏆 4th Place · Top-10 Finalist — OpenAI DevDay Exchange Metro Hackathon Pune. MetroMind — AI commute copilot and civic toolkit for the Pune Metro (Urban Mobility track, Codex Dayline)",
+      "pushedAt": "2026-11-18T13:32:02Z",
+      "htmlUrl": "https://github.com/siddhant-pardeshi/MetroMind"
+    }
+  },
+  "more": [
+    {
+      "name": "merchant-saathi",
+      "url": "https://github.com/siddhant-pardeshi/merchant-saathi",
+      "description": "Merchant Saathi - AI copilot for Paytm merchants (Grow/Manage/Serve). Team FinnovateX: Arya Jannawar, Siddhant Pardeshi, Avani Jannawar. Paytm AI Hackathon Pune, Track 1.",
+      "stars": 0,
+      "language": "TypeScript",
+      "pushedAt": "2026-11-18T05:12:02Z"
+    },
+    {
+      "name": "india-helpline",
+      "url": "https://github.com/siddhant-pardeshi/india-helpline",
+      "description": "Verified emergency & helpline numbers for India — 112 first, every number sourced, works offline, zero tracking. English + हिंदी.",
+      "stars": 1,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-10T14:54:18Z"
+    },
+    {
+      "name": "JobForge",
+      "url": "https://github.com/siddhant-pardeshi/JobForge",
+      "description": "AI job hunt cockpit: 100 percent real openings from 21 verified boards, mail fraud screening, a self organizing tracker with round reminders, LinkedIn and Naukri helper, scam checks and explainable matching. Free and open source forever.",
+      "stars": 1,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-08T21:44:32Z"
+    },
+    {
+      "name": "jallekha",
+      "url": "https://github.com/siddhant-pardeshi/jallekha",
+      "description": "JalLekha — water delivery & consumption reconciliation for campuses and housing societies (Seva First Innovation Challenge 2026, Team SevaForge)",
+      "stars": 0,
+      "language": "TypeScript",
+      "pushedAt": "2026-11-05T18:02:37Z"
+    },
+    {
+      "name": "game-deck",
+      "url": "https://github.com/siddhant-pardeshi/game-deck",
+      "description": "Catalog hub for Siddhant Pardeshi's handcrafted browser games — one shared game kit (mascot engine, synth audio, responsive shell), six worlds, and the factory recipe for more.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-05T16:54:54Z"
+    },
+    {
+      "name": "ember-isles-rpg",
+      "url": "https://github.com/siddhant-pardeshi/ember-isles-rpg",
+      "description": "A cozy open-world island RPG in your browser — collect sunfruit for the lamplighter, light beacon braziers in order, carry a lantern through the dark cave, and learn to work with AI assistants from glowing data-slates. Free, phone + desktop.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-05T16:54:51Z"
+    },
+    {
+      "name": "metro-dash",
+      "url": "https://github.com/siddhant-pardeshi/metro-dash",
+      "description": "Endless rooftop runner — three lanes over the metro yards at dusk: jump the gaps, slide the gantries, dodge drones, clear three missions, and learn scam-radar smarts from the rooftop debrief. Free browser game, phone + desktop.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-05T16:54:49Z"
+    },
+    {
+      "name": "ripcurrent-surf",
+      "url": "https://github.com/siddhant-pardeshi/ripcurrent-surf",
+      "description": "Side-view arcade surfing - carve a living sunset wave, launch lip tricks, survive the tube before the light goes, and pick up Git survival moves from board briefings between sets. Free browser game, phone + desktop.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-05T16:54:46Z"
+    }
+  ]
+}
