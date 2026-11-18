@@ -277,7 +277,7 @@ evals.push(["byte: drag moves Byte, drop sets mood, click suppressed", `(async (
   dock.dispatchEvent(new PointerEvent('pointerup', opts(860, 700)));
   await new Promise(r => setTimeout(r, 250));
   const r1 = dock.getBoundingClientRect();
-  const moved = Math.abs(r1.left - r0.left) > 150;
+  const movedH = Math.abs(r1.left - r0.left) > 150;
   const mood = document.querySelectorAll('.byte-instance')[1].className;
   const parked = localStorage.getItem('sp-byte-roam') === 'off';
   document.querySelector('.byte-dock__btn').click();
@@ -285,9 +285,28 @@ evals.push(["byte: drag moves Byte, drop sets mood, click suppressed", `(async (
   const menuNotOpened = !document.getElementById('byte-menu').open;
   localStorage.removeItem('sp-byte-roam');
   localStorage.removeItem('sp-byte-pos');
-  dock.style.left = ''; dock.style.top = ''; dock.style.right = '';
+  dock.style.left = ''; dock.style.top = ''; dock.style.right = ''; dock.style.bottom = '';
   document.getElementById('byte-menu').close();
-  return moved + '|' + /byte--(happy|curious|greeting|surprised)/.test(mood) + '|' + parked + '|' + menuNotOpened;
+  return movedH + '|' + /byte--(happy|curious|greeting|surprised)/.test(mood) + '|' + parked + '|' + menuNotOpened;
+})()`]);
+evals.push(["byte: vertical drag moves top (bottom-anchor regression)", `(async () => {
+  const dock = document.getElementById('byte-dock');
+  document.querySelectorAll('dialog[open]').forEach(d => d.close());
+  dock.hidden = false;
+  const r0 = dock.getBoundingClientRect();
+  const opts = (x, y) => ({ bubbles: true, clientX: x, clientY: y, pointerId: 2, button: 0 });
+  dock.dispatchEvent(new PointerEvent('pointerdown', opts(640, 700)));
+  dock.dispatchEvent(new PointerEvent('pointermove', opts(640, 640)));
+  dock.dispatchEvent(new PointerEvent('pointermove', opts(640, 320)));
+  dock.dispatchEvent(new PointerEvent('pointerup', opts(640, 320)));
+  await new Promise(r => setTimeout(r, 250));
+  const r1 = dock.getBoundingClientRect();
+  const movedV = Math.abs(r1.top - r0.top) > 150;
+  const mood = document.querySelectorAll('.byte-instance')[1].className;
+  localStorage.removeItem('sp-byte-roam');
+  localStorage.removeItem('sp-byte-pos');
+  dock.style.left = ''; dock.style.top = ''; dock.style.right = ''; dock.style.bottom = '';
+  return movedV + '|' + /byte--(surprised|happy|curious|greeting)/.test(mood);
 })()`]);
 evals.push(["gallery: Paytm photos live (8 new tiles)", `document.querySelectorAll('.sheet-item').length >= 75 && [...document.querySelectorAll('.sheet-item figcaption')].filter(c => c.textContent.includes('Paytm')).length === 8`]);
 evals.push(["handfx: graceful camera-degraded state", `(async () => {

@@ -867,7 +867,10 @@
         if (menu && menu.open) menu.close(); /* never orphan the menu mid-drag */
         dock.style.transitionDuration = "0s";
         dock.style.transitionProperty = "left, top";
+        /* release BOTH static anchors or the box stretches between them
+           and the button never leaves the bottom edge (horizontal-only bug) */
         dock.style.right = "auto";
+        dock.style.bottom = "auto";
         if (!dock.style.left) { dock.style.left = drag.bx + "px"; dock.style.top = drag.by + "px"; }
         dock.classList.add("byte-dock--drag");
         setState(dockInst, "dizzy"); /* wheee */
@@ -884,6 +887,7 @@
     try { savedPos = JSON.parse(localStorage.getItem("sp-byte-pos") || "null"); } catch (e) {}
     if (savedPos && typeof savedPos.l === "number") {
       dock.style.right = "auto";
+      dock.style.bottom = "auto"; /* parked top needs both static anchors released */
       dock.style.left = clampN(savedPos.l, 8, window.innerWidth - dock.getBoundingClientRect().width - 8) + "px";
       dock.style.top = clampN(savedPos.t || 0, 8, window.innerHeight - dock.getBoundingClientRect().height - 8) + "px";
       dock.style.transitionProperty = "left, top";
