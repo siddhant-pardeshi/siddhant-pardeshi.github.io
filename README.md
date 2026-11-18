@@ -9,7 +9,7 @@
 
 **A portfolio that plays back.** Every architecture decision on this site can be *watched, touched, and heard* —
 walk a bank transfer through its transaction pipeline, aim a webcam and swing particles with your bare hand,
-and get guided by **Byte**, a capybara with 12 emotions who dances if you find his secret combo.
+and get guided by **Byte**, a capybara with 15 emotions who dances if you find his secret combo.
 
 `Java` `Spring Boot` `MySQL` `React` `REST APIs` `Vanilla JS` `GitHub Pages` `Zero dependencies`
 
@@ -53,7 +53,7 @@ Three ideas drive every pixel:
    *run* one — press a button and watch ₹500 move through `Controller → Service → Repository → MySQL`,
    then deliberately break it and watch the rollback save both balances.
 2. **The guide is a character.** [Byte](#-byte-the-capybara-who-reacts-back), a capybara with a lime
-   backpack and a chest display, lives on every screen — 12 emotions, mood swings, and a secret dance.
+   backpack and a chest display, lives on every screen — 15 emotions, mood swings, a secret dance, and he strolls the page between sections.
 3. **Everything is real.** Real projects, real certificates with evidence links, a real test suite,
    and a hard no-fabrication policy — because recruiters can smell filler.
 
@@ -70,13 +70,13 @@ Three ideas drive every pixel:
 | "Passionate developer" paragraphs | **Evidence with receipts** — every certificate and result links to its document |
 | A contact form into the void | A **recruiter view** designed like a one-page resume + direct email with prefilled subject |
 | Decorative animations that tire you | **Motion with settings** — Full / Reduced / Off, OS-respected, content never hidden behind effects |
-| A mascot PNG | **Byte** — an animated character with 12 emotions who reacts to clicks, pets, and speed |
+| A mascot PNG | **Byte** — an animated character with 15 emotions who reacts to clicks, pets, and speed — and strolls across the page |
 
 ---
 
 ## 🦫 Byte — the capybara who reacts back
 
-<img src="readme/byte-emotions.svg" alt="Animation grid of Byte the capybara showing 8 emotional states: idle blinking, waving, love with heart eyes, dizzy spirals, excited bouncing, celebrate confetti, sleepy Zzz, and dance with music notes." width="100%">
+<img src="readme/byte-emotions.svg" alt="Animation grid of Byte the capybara showing 12 emotional states: idle blinking, waving, love with heart eyes, dizzy spirals, excited bouncing, celebrate confetti, sleepy Zzz, dance with music notes, angry steam shakes, hyped star-eyes and zaps, curious head-tilt with a floating question mark, and a bolder happy bounce." width="100%">
 
 Byte is a hand-drawn SVG character (no sprite sheets, no external files) built on a layered rig:
 **lean layer → motion layer → body → face** — so he can lean toward your cursor while breathing,
