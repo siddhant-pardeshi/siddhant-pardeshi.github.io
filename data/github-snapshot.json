@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-19T19:04:07.701Z",
+  "fetchedAt": "2026-11-20T01:14:23.522Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -32,10 +32,10 @@
     {
       "name": "merchant-saathi",
       "url": "https://github.com/siddhant-pardeshi/merchant-saathi",
-      "description": "Merchant Saathi - AI copilot for Paytm merchants (Grow/Manage/Serve). Team FinnovateX: Arya Jannawar, Siddhant Pardeshi, Avani Jannawar. Paytm AI Hackathon Pune, Track 1.",
+      "description": "Evidence-backed AI business copilot for small merchants - Grow / Manage / Serve, honest guardrails, mobile-first. Paytm AI Hackathon Pune · Track 1 · Team FinnovateX.",
       "stars": 0,
       "language": "TypeScript",
-      "pushedAt": "2026-11-18T21:26:47Z"
+      "pushedAt": "2026-11-19T22:07:51Z"
     },
     {
       "name": "india-helpline",
