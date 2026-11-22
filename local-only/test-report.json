@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--happy"
+      "info": "byte-instance byte--breath byte--greeting byte--wave"
     },
     {
       "name": "byte: petting → love state",
@@ -278,7 +278,7 @@
     {
       "name": "mobile-390: gallery tiles full-width (sliver-bug regression)",
       "pass": true,
-      "info": "335|335"
+      "info": "338|338"
     },
     {
       "name": "mobile-390: zero console errors",
@@ -349,6 +349,11 @@
       "name": "gallery: video tile plays in lightbox",
       "pass": true,
       "info": "true|true"
+    },
+    {
+      "name": "finale: firefly-night scene lights up + pitch links to contact",
+      "pass": true,
+      "info": "{\"lit\":true,\"pitch\":true,\"stars\":10}"
     },
     {
       "name": "sound: default-on with no opt-in toast",

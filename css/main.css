@@ -641,11 +641,22 @@
 @media (prefers-reduced-motion: reduce) {
   .more-build-card, .more-build-card.pre { opacity: 1; scale: 1; transition: none; }
   .sheet-item, .sheet-item.pre { opacity: 1; scale: 1; transition: none; }
+  .footer-finale, .footer-finale .fin-pitch { opacity: 1 !important; scale: 1 !important; transform: none !important; }
+  .fin-star, .fin-flame, .fin-flame.f2, .fin-glow, .fin-mallow, .fin-ff, .fin-shoot, .fin-blink { animation: none !important; }
 }
 html[data-motion="reduced"] .more-build-card, html[data-motion="off"] .more-build-card,
 html[data-motion="reduced"] .more-build-card.pre, html[data-motion="off"] .more-build-card.pre,
 html[data-motion="reduced"] .sheet-item, html[data-motion="off"] .sheet-item,
 html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item.pre { opacity: 1; scale: 1; transition: none; }
+html[data-motion="reduced"] .footer-finale, html[data-motion="off"] .footer-finale,
+html[data-motion="reduced"] .footer-finale .fin-pitch, html[data-motion="off"] .footer-finale .fin-pitch { opacity: 1 !important; scale: 1 !important; transform: none !important; }
+html[data-motion="reduced"] .fin-star, html[data-motion="off"] .fin-star,
+html[data-motion="reduced"] .fin-flame, html[data-motion="off"] .fin-flame,
+html[data-motion="reduced"] .fin-glow, html[data-motion="off"] .fin-glow,
+html[data-motion="reduced"] .fin-mallow, html[data-motion="off"] .fin-mallow,
+html[data-motion="reduced"] .fin-ff, html[data-motion="off"] .fin-ff,
+html[data-motion="reduced"] .fin-shoot, html[data-motion="off"] .fin-shoot,
+html[data-motion="reduced"] .fin-blink, html[data-motion="off"] .fin-blink { animation: none !important; }
 
 /* nav sound quick-toggle icon state */
 .snd-quick .snd-slash { display: none; }
@@ -714,6 +725,32 @@ html[data-motion="reduced"] .sheet-item.pre, html[data-motion="off"] .sheet-item
 .site-footer { background: var(--ink); color: var(--text-light); border-top: 1.5px solid var(--line-light); padding-block: 2.4rem 2.8rem; }
 .footer-bridge { display: flex; justify-content: center; margin-bottom: 1.6rem; }
 .footer-bridge svg { width: min(340px, 80%); height: auto; }
+
+/* ---- footer finale: Byte's firefly night ---- */
+.footer-finale { max-width: 900px; margin: 0 auto 1.8rem; opacity: 0.45; scale: 0.985; transition: opacity 1100ms var(--ease-out), scale 1100ms var(--ease-out); }
+.footer-finale.is-lit { opacity: 1; scale: 1; }
+.footer-finale svg { width: 100%; height: auto; display: block; }
+.fin-star { transform-box: fill-box; transform-origin: center; animation: fin-twinkle 3.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes fin-twinkle { 0%, 100% { opacity: 0.25; transform: scale(0.75); } 50% { opacity: 1; transform: scale(1.2); } }
+.fin-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: fin-flicker 1.15s ease-in-out infinite alternate; }
+.fin-flame.f2 { animation-duration: 0.82s; animation-delay: 0.14s; }
+@keyframes fin-flicker { from { transform: scaleY(0.88) skewX(-3deg); } to { transform: scaleY(1.14) skewX(3.5deg); } }
+.fin-glow { transform-box: fill-box; transform-origin: center; animation: fin-glowpulse 1.7s ease-in-out infinite alternate; }
+@keyframes fin-glowpulse { from { opacity: 0.55; } to { opacity: 1; } }
+.fin-mallow { transform-box: fill-box; transform-origin: center; animation: fin-toast 3.4s ease-in-out infinite; }
+@keyframes fin-toast { 0%, 100% { transform: rotate(-26deg) translateY(0); } 50% { transform: rotate(-34deg) translateY(3px); } }
+.fin-ff { animation: fin-drift 7.5s ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+@keyframes fin-drift { from { transform: translate(0, 0); opacity: 0.7; } 50% { opacity: 1; } to { transform: translate(var(--x, 12px), var(--y, -14px)); opacity: 0.7; } }
+.fin-shoot { animation: fin-shoot 7s ease-in infinite; opacity: 0; }
+@keyframes fin-shoot { 0% { opacity: 0; transform: translate(680px, 26px); } 3% { opacity: 1; } 13% { opacity: 0; transform: translate(350px, 128px); } 14%, 100% { opacity: 0; transform: translate(350px, 128px); } }
+.fin-blink { transform-box: fill-box; transform-origin: center; animation: fin-blink 4.6s ease-in-out infinite; }
+@keyframes fin-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
+.fin-pitch { text-align: center; font-size: 1.02rem; color: var(--text-light-muted); margin: 1rem 0 0; }
+.fin-pitch a { color: var(--lime); font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(217, 255, 67, 0.35); }
+.fin-pitch a:hover { border-bottom-color: var(--lime); }
+.footer-finale .fin-pitch { opacity: 0; transform: translateY(10px); transition: opacity 800ms var(--ease-out) 250ms, transform 800ms var(--ease-out) 250ms; }
+.footer-finale.is-lit .fin-pitch { opacity: 1; transform: none; }
+
 .footer-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; font-size: 0.88rem; color: var(--text-light-muted); }
 .footer-row a { color: var(--text-light); }
 .back-top {

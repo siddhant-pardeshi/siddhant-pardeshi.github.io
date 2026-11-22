@@ -645,6 +645,21 @@
     } else if (bridge) {
       bridge.classList.add("bridge--built");
     }
+    /* the finale lights up — fireflies, campfire, shooting star — as it enters */
+    var fin = $(".footer-finale");
+    if (fin && "IntersectionObserver" in window) {
+      var fio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            fin.classList.add("is-lit");
+            fio.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      fio.observe(fin);
+    } else if (fin) {
+      fin.classList.add("is-lit");
+    }
   }
 
   /* ---------------- Hover ticks: the page answers every touch ----------------

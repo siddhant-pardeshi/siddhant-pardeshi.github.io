@@ -464,6 +464,20 @@ async function runFinalInspection() {
   })()`, true);
   record("gallery: video tile plays in lightbox", v1 === "true|true", v1);
 
+  /* footer finale: the firefly-night scene lights up when scrolled into view */
+  await send("Page.navigate", { url: BASE + "/index.html" });
+  await sleep(1900);
+  const f1 = await evaluate(`(async () => {
+    document.querySelector('.footer-finale').scrollIntoView({ block: 'center', behavior: 'instant' });
+    await new Promise(r => setTimeout(r, 1000));
+    const fin = document.querySelector('.footer-finale');
+    return JSON.stringify({ lit: fin.classList.contains('is-lit'),
+      pitch: fin.querySelector('.fin-pitch a').getAttribute('href') === '#contact',
+      stars: fin.querySelectorAll('.fin-star').length });
+  })()`, true);
+  const fj2 = JSON.parse(f1);
+  record("finale: firefly-night scene lights up + pitch links to contact", fj2.lit && fj2.pitch && fj2.stars >= 10, f1);
+
   /* sound is ON by default now — no opt-in toast exists (other toasts may legitimately show) */
   const t5 = await evaluate(`(() => ({ on: window.Byte.SoundFX.enabled,
     soundtrackToast: document.getElementById('toast').textContent.includes('soundtrack') }))()`);
