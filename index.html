@@ -16,12 +16,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=13">
-<link rel="stylesheet" href="css/base.css?v=13">
-<link rel="stylesheet" href="css/main.css?v=13">
-<link rel="stylesheet" href="css/byte.css?v=13">
-<link rel="stylesheet" href="css/handfx.css?v=13">
-<link rel="stylesheet" href="css/print.css?v=13">
+<link rel="stylesheet" href="css/tokens.css?v=14">
+<link rel="stylesheet" href="css/base.css?v=14">
+<link rel="stylesheet" href="css/main.css?v=14">
+<link rel="stylesheet" href="css/byte.css?v=14">
+<link rel="stylesheet" href="css/handfx.css?v=14">
+<link rel="stylesheet" href="css/print.css?v=14">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -908,23 +908,33 @@
   </div>
   <footer class="handfx__bottom">
     <p class="handfx__status" id="handfx-status" role="status" aria-live="polite">Starting…</p>
-    <ul class="handfx__legend" aria-label="Gesture guide">
-      <li><span class="g" aria-hidden="true">🤚</span> Hover — portal ring</li>
-      <li><span class="g" aria-hidden="true">✋</span> Open — burst &amp; scatter</li>
-      <li><span class="g" aria-hidden="true">✊</span> Fist — swirl sphere</li>
-      <li><span class="g" aria-hidden="true">✌️</span> Victory — signal stream</li>
+    <div class="handfx__modes" role="toolbar" aria-label="Particle modes — press keys 1 to 8 to switch">
+      <button class="handfx__mode" type="button" data-mode="portal" aria-pressed="true"><span aria-hidden="true">🌀</span>Portal</button>
+      <button class="handfx__mode" type="button" data-mode="stream" aria-pressed="false"><span aria-hidden="true">🛰️</span>Stream</button>
+      <button class="handfx__mode" type="button" data-mode="sphere" aria-pressed="false"><span aria-hidden="true">🔮</span>Sphere</button>
+      <button class="handfx__mode" type="button" data-mode="burst" aria-pressed="false"><span aria-hidden="true">💥</span>Burst</button>
+      <button class="handfx__mode" type="button" data-mode="thunder" aria-pressed="false"><span aria-hidden="true">⚡</span>Thunder</button>
+      <button class="handfx__mode" type="button" data-mode="hearts" aria-pressed="false"><span aria-hidden="true">💗</span>Hearts</button>
+      <button class="handfx__mode" type="button" data-mode="fireflies" aria-pressed="false"><span aria-hidden="true">✨</span>Fireflies</button>
+      <button class="handfx__mode" type="button" data-mode="comet" aria-pressed="false"><span aria-hidden="true">☄️</span>Comet</button>
+    </div>
+    <ul class="handfx__legend" aria-label="Gesture guide — same four gestures in every mode">
+      <li><span class="g" aria-hidden="true">🤚</span> Hold — signature scene</li>
+      <li><span class="g" aria-hidden="true">✊</span> Fist — collapse · ⚡ bolt strike</li>
+      <li><span class="g" aria-hidden="true">✋</span> Open — scatter</li>
+      <li><span class="g" aria-hidden="true">✌️</span> Victory — stream · fountain · launch</li>
     </ul>
   </footer>
 </dialog>
 
-<script src="js/content.js?v=13"></script>
-<script src="js/byte.js?v=13"></script>
-<script src="js/sims.js?v=13"></script>
-<script src="js/skills.js?v=13"></script>
-<script src="js/gallery.js?v=13"></script>
-<script src="js/posts.js?v=13"></script>
-<script src="js/handfx.js?v=13"></script>
-<script src="js/app.js?v=13"></script>
+<script src="js/content.js?v=14"></script>
+<script src="js/byte.js?v=14"></script>
+<script src="js/sims.js?v=14"></script>
+<script src="js/skills.js?v=14"></script>
+<script src="js/gallery.js?v=14"></script>
+<script src="js/posts.js?v=14"></script>
+<script src="js/handfx.js?v=14"></script>
+<script src="js/app.js?v=14"></script>
 <script>
 /* freshness guard: a service worker keeps HTML network-first so visitors
    always get the current build, and a version stamp reloads once when the

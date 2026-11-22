@@ -364,6 +364,28 @@ async function runFinalInspection() {
   })()`, true);
   record("handfx: demo opens, tracks, closes cleanly", h1 === "tracking|true|true|true", h1);
 
+  /* 8 modes: picker chips + keyboard switching */
+  await send("Page.navigate", { url: BASE + "/index.html?handfx-test=1" });
+  await sleep(1800);
+  const hm1 = await evaluate(`(async () => {
+    window.HandFX.open();
+    await new Promise(r => setTimeout(r, 800));
+    const chips = document.querySelectorAll('#handfx-overlay [data-mode]').length;
+    document.querySelector('#handfx-overlay [data-mode="thunder"]').click();
+    await new Promise(r => setTimeout(r, 150));
+    const afterClick = window.HandFX._engine.stats().mode;
+    document.getElementById('handfx-overlay').dispatchEvent(new KeyboardEvent('keydown', { key: '7', bubbles: true }));
+    await new Promise(r => setTimeout(r, 150));
+    const afterKey = window.HandFX._engine.stats().mode;
+    const thunderPressed = document.querySelector('#handfx-overlay [data-mode="thunder"]').getAttribute('aria-pressed');
+    const firefliesPressed = document.querySelector('#handfx-overlay [data-mode="fireflies"]').getAttribute('aria-pressed');
+    const count = window.HandFX._engine.stats().count;
+    window.HandFX.close();
+    return JSON.stringify({ chips: chips, afterClick: afterClick, afterKey: afterKey, thunderPressed: thunderPressed, firefliesPressed: firefliesPressed, count: count });
+  })()`, true);
+  const hmj = JSON.parse(hm1);
+  record("handfx: 8 modes, chip click + keyboard switch, per-mode budget", hmj.chips === 8 && hmj.afterClick === "thunder" && hmj.afterKey === "fireflies" && hmj.thunderPressed === "false" && hmj.firefliesPressed === "true" && hmj.count > 500, hm1);
+
   /* hash deep link */
   await send("Page.navigate", { url: BASE + "/index.html#banknest-case" });
   await sleep(1800);

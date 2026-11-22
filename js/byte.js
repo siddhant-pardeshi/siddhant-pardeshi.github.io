@@ -202,6 +202,25 @@
       osc.connect(g); g.connect(this.ctx.destination);
       osc.start(t0); osc.stop(t0 + dur + 0.05);
     },
+    noise: function (dur, gain, fFrom, fTo, delay) {
+      /* filtered white-noise burst — crackles, whoosh tails */
+      var t0 = this.ctx.currentTime + (delay || 0);
+      var len = Math.max(1, Math.floor(this.ctx.sampleRate * dur));
+      var buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      var src = this.ctx.createBufferSource();
+      src.buffer = buf;
+      var flt = this.ctx.createBiquadFilter();
+      flt.type = "lowpass";
+      flt.frequency.setValueAtTime(fFrom, t0);
+      flt.frequency.exponentialRampToValueAtTime(Math.max(40, fTo), t0 + dur);
+      var g = this.ctx.createGain();
+      g.gain.setValueAtTime(gain, t0);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      src.connect(flt); flt.connect(g); g.connect(this.ctx.destination);
+      src.start(t0); src.stop(t0 + dur + 0.05);
+    },
     play: function (kind) {
       if (!this.enabled) return;
       var now = Date.now();
@@ -245,6 +264,22 @@
       }
       else if (kind === "steps") { /* one soft footstep thump */
         this.tone(150, 0, 0.05, "triangle", 0.05, 105);
+      }
+      /* ---- handfx mode voices ---- */
+      else if (kind === "thunder") { /* crackle + sub thump + aftershock */
+        this.noise(0.5, 0.15, 900, 90);
+        this.tone(52, 0, 0.4, "sine", 0.13);
+        this.noise(0.16, 0.06, 2400, 300, 0.14);
+      }
+      else if (kind === "sparkle") { /* shimmer run */
+        this.tone(1568, 0, 0.09, "triangle", 0.05);
+        this.tone(2093, 0.07, 0.09, "triangle", 0.05);
+        this.tone(2637, 0.14, 0.12, "sine", 0.045);
+        this.tone(3136, 0.21, 0.16, "sine", 0.04);
+      }
+      else if (kind === "launch") { /* comet whoosh */
+        this.tone(220, 0, 0.3, "sawtooth", 0.06, 980);
+        this.noise(0.16, 0.05, 1800, 500, 0.12);
       }
       else if (kind === "purr") {
         /* purr with rumble vibrato + a little "mrrp!" tail */

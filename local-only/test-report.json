@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--surprised"
+      "info": "byte-instance byte--breath byte--celebrate"
     },
     {
       "name": "byte: petting → love state",
@@ -213,7 +213,7 @@
     {
       "name": "byte: drag moves Byte, drop sets mood, click suppressed",
       "pass": true,
-      "info": "false|true|true|false"
+      "info": "true|true|true|false"
     },
     {
       "name": "byte: vertical drag moves top (bottom-anchor regression)",
@@ -228,7 +228,7 @@
     {
       "name": "handfx: graceful camera-degraded state",
       "pass": true,
-      "info": "Loading the hand-tracking engine (~6 MB, cached after this)…"
+      "info": "Camera permission was declined. Allow access in your browser and reopen."
     },
     {
       "name": "desktop-1440: zero console errors",
@@ -314,6 +314,11 @@
       "name": "handfx: demo opens, tracks, closes cleanly",
       "pass": true,
       "info": "tracking|true|true|true"
+    },
+    {
+      "name": "handfx: 8 modes, chip click + keyboard switch, per-mode budget",
+      "pass": true,
+      "info": "{\"chips\":8,\"afterClick\":\"thunder\",\"afterKey\":\"fireflies\",\"thunderPressed\":\"false\",\"firefliesPressed\":\"true\",\"count\":1100}"
     },
     {
       "name": "deep link: #banknest-case opens the case study",

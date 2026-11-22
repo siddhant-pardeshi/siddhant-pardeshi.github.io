@@ -60,7 +60,7 @@
 .handfx__preview {
   position: absolute;
   left: clamp(0.8rem, 2vw, 1.6rem);
-  bottom: calc(6.6rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(10.4rem + env(safe-area-inset-bottom, 0px));
   width: 148px;
   aspect-ratio: 4 / 3;
   border: 2px solid var(--line-light-strong);
@@ -141,3 +141,34 @@
 @media (prefers-reduced-motion: reduce) {
   .handfx__stage canvas { opacity: 0.92; }
 }
+
+/* ---- mode picker ---- */
+.handfx__modes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  max-width: 760px;
+}
+.handfx__mode {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  border: 1.5px solid var(--line-light-strong);
+  border-radius: var(--r-pill);
+  background: rgba(13, 14, 17, 0.72);
+  color: var(--text-light);
+  padding: 0.36rem 0.7rem;
+  cursor: pointer;
+  transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out),
+              background 160ms var(--ease-out), transform 160ms var(--ease-spring);
+}
+.handfx__mode:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-1px); }
+.handfx__mode:focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+.handfx__mode[aria-pressed="true"] {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--ink);
+}
+.handfx__mode span { margin-right: 0.2rem; }
