@@ -4,7 +4,7 @@
 
 [![Live site](https://img.shields.io/badge/🌐_LIVE-siddhant--pardeshi.github.io-D9FF43?style=for-the-badge&labelColor=101114)](https://siddhant-pardeshi.github.io/)
 [![Recruiter view](https://img.shields.io/badge/🎯_RECRUITER-view_in_60s-4B57FF?style=for-the-badge&labelColor=101114)](https://siddhant-pardeshi.github.io/recruiter.html)
-[![Tests](https://img.shields.io/badge/✅_TESTS-73%2F73_passing-D9FF43?style=for-the-badge&labelColor=101114)](#-testing--quality)
+[![Tests](https://img.shields.io/badge/✅_TESTS-81%2F81_passing-D9FF43?style=for-the-badge&labelColor=101114)](#-testing--quality)
 [![No build step](https://img.shields.io/badge/⚙️_BUILD-none_needed-FFA86B?style=for-the-badge&labelColor=101114)](#-tech-stack--architecture)
 
 **A portfolio that plays back.** Every architecture decision on this site can be *watched, touched, and heard* —
@@ -257,7 +257,7 @@ reveals at 600 ms / 2.5 s no matter what.
 ## 🧪 Testing & quality
 
 A custom headless-Chrome test harness (raw Chrome DevTools Protocol — **zero test dependencies**) runs
-**73 functional assertions** across desktop (1440px), mobile (390px), a final-inspection phase and a recruiter mobile pass:
+**81 functional assertions** across desktop (1440px), mobile (390px), a final-inspection phase and a recruiter mobile pass:
 
 - Boot integrity (Byte instances, 75 gallery records incl. the Paytm set, skill pills, repo cards, ticker)
 - Byte: click ladder → excited → dizzy → **dance**, petting → love, guide menu
@@ -270,7 +270,7 @@ A custom headless-Chrome test harness (raw Chrome DevTools Protocol — **zero t
 - Mobile: zero horizontal overflow, Byte dock appears after scroll, hamburger menu
 
 ```bash
-node local-only/test.cjs        # → 73/73 · test-report.json
+node local-only/test.cjs        # → 81/81 · test-report.json
 node local-only/serve.cjs       # → http://localhost:8137
 node local-only/overflow.cjs    # → mobile overflow diagnostic
 ```
@@ -338,8 +338,7 @@ This portfolio has a **hard no-fabrication policy**, because recruiters verify:
 
 - The hackathon result is a **team result** — 4th overall, top-10 finalist, Team UrbanSync
 - AWS Cloud Practitioner Essentials is a **training credential**, never "certified"
-- IT Vedant Java Full Stack stays **in progress** until it isn't
-- No invented metrics, dates, roles, testimonials, or star counts — repo stats appear
+- IT Vedant Java Full Stack stays **in progress** until it isn't- No invented metrics, dates, roles, testimonials, or star counts — repo stats appear
   only from a verified sync, and social figures only with a snapshot date
 - Camera frames never leave the device · sound never plays before opt-in ·
   no trackers, no cookies, no analytics

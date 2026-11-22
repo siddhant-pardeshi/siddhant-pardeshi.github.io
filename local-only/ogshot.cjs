@@ -4,7 +4,7 @@ const fs = require("fs"), os = require("os"), path = require("path");
 const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), "sp-og-"));
 const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--no-first-run",
-  "--remote-debugging-port=9357", "--user-data-dir=" + profile, "about:blank"], { stdio: "ignore" });
+  "--remote-debugging-port=9359", "--user-data-dir=" + profile, "about:blank"], { stdio: "ignore" });
 let id = 0; const pending = new Map(); let ws;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const send = (m, p = {}) => new Promise((res, rej) => {
@@ -15,7 +15,7 @@ const send = (m, p = {}) => new Promise((res, rej) => {
   let list;
   for (let i = 0; i < 30; i++) {
     await sleep(250);
-    try { list = await (await fetch("http://127.0.0.1:9357/json/list")).json(); if (list.length) break; } catch (e) {}
+    try { list = await (await fetch("http://127.0.0.1:9359/json/list")).json(); if (list.length) break; } catch (e) {}
   }
   ws = new WebSocket(list.find(t => t.type === "page").webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });

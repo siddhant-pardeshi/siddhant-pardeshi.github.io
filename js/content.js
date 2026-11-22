@@ -37,7 +37,7 @@ window.CONTENT = (function () {
     },
     availability: {
       enabled: true, // edit to false to hide the availability chip
-      text: "Available to join immediately"
+      text: "Available to join immediately — full-time roles"
     },
     aboutPortrait: "assets/portrait/formal-03-art-wall.jpg",
     emailSubject: "Role discussion - Siddhant Pardeshi",
@@ -311,13 +311,6 @@ window.CONTENT = (function () {
       status: "Training completed", // named training credential - NOT an exam pass
       date: null,
       evidence: [{ label: "Certificate", href: "https://drive.google.com/file/d/1uMvNAIeQBrxGk954_5tUb48BuX_xMQOr/view?usp=sharing" }]
-    },
-    {
-      name: "Java Full Stack Development",
-      issuer: "IT Vedant - Java, Spring Boot, MySQL, HTML/CSS/JavaScript, React",
-      status: "In progress",
-      date: null,
-      evidence: []
     },
     {
       name: "Programming in Java - NPTEL, IIT Kharagpur",
