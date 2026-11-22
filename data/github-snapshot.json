@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-21T19:08:11.096Z",
+  "fetchedAt": "2026-11-22T19:03:43.782Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -24,11 +24,27 @@
       "forks": 0,
       "language": "TypeScript",
       "description": "🏆 4th Place · Top-10 Finalist — OpenAI DevDay Exchange Metro Hackathon Pune. MetroMind — AI commute copilot and civic toolkit for the Pune Metro (Urban Mobility track, Codex Dayline)",
-      "pushedAt": "2026-11-21T13:06:54Z",
+      "pushedAt": "2026-11-22T12:54:50Z",
       "htmlUrl": "https://github.com/siddhant-pardeshi/MetroMind"
     }
   },
   "more": [
+    {
+      "name": "cinetray",
+      "url": "https://github.com/siddhant-pardeshi/cinetray",
+      "description": "Press and drag any YouTube video into a floating dock to file it under Watch Later or a playlist. Local-only storage, no account access, no build step.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-22T18:51:23Z"
+    },
+    {
+      "name": "LeadScout",
+      "url": "https://github.com/siddhant-pardeshi/LeadScout",
+      "description": "LeadScout — bulk LinkedIn decision-maker finder Chrome extension. 50–100 companies → verified current roles, emails, Excel-ready TSV. Bing-powered, AI-optional, 100% local.",
+      "stars": 0,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-22T16:47:07Z"
+    },
     {
       "name": "merchant-saathi",
       "url": "https://github.com/siddhant-pardeshi/merchant-saathi",
@@ -76,22 +92,6 @@
       "stars": 0,
       "language": "JavaScript",
       "pushedAt": "2026-11-05T16:54:51Z"
-    },
-    {
-      "name": "metro-dash",
-      "url": "https://github.com/siddhant-pardeshi/metro-dash",
-      "description": "Endless rooftop runner — three lanes over the metro yards at dusk: jump the gaps, slide the gantries, dodge drones, clear three missions, and learn scam-radar smarts from the rooftop debrief. Free browser game, phone + desktop.",
-      "stars": 0,
-      "language": "JavaScript",
-      "pushedAt": "2026-11-05T16:54:49Z"
-    },
-    {
-      "name": "ripcurrent-surf",
-      "url": "https://github.com/siddhant-pardeshi/ripcurrent-surf",
-      "description": "Side-view arcade surfing - carve a living sunset wave, launch lip tricks, survive the tube before the light goes, and pick up Git survival moves from board briefings between sets. Free browser game, phone + desktop.",
-      "stars": 0,
-      "language": "JavaScript",
-      "pushedAt": "2026-11-05T16:54:46Z"
     }
   ]
 }
