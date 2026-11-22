@@ -191,6 +191,15 @@ evals.push(["more builds: 7 project cards render", `document.querySelectorAll('.
 evals.push(["more builds: links valid + noopener", `[...document.querySelectorAll('.more-build-card a.mb-name')].length === 7 && [...document.querySelectorAll('.more-build-card a.mb-name')].every(a => (a.rel || '').includes('noopener'))`]);
 evals.push(["builds: dedicated shelf section after work", `!!document.getElementById('builds') && document.querySelectorAll('#builds .more-build-card').length === 7`]);
 evals.push(["sound: engine present and ON by default (mute-only-off)", `window.Byte && window.Byte.SoundFX && typeof window.Byte.SoundFX.play === 'function' && window.Byte.SoundFX.enabled === true`]);
+evals.push(["handfx: nav button opens the particle lab", `(async () => {
+  const b = document.querySelector('.site-nav [data-handfx-open]');
+  if (!b) return 'no btn';
+  b.click();
+  await new Promise(r => setTimeout(r, 400));
+  const open = document.getElementById('handfx-overlay').open;
+  document.getElementById('handfx-overlay').close();
+  return open;
+})()`]);
 evals.push(["sound: nav quick toggle works + persists state", `(async () => {
   const btn = document.querySelector('.site-nav [data-sound-quick]');
   if (!btn) return 'no btn';
@@ -364,7 +373,7 @@ async function runFinalInspection() {
   })()`, true);
   record("handfx: demo opens, tracks, closes cleanly", h1 === "tracking|true|true|true", h1);
 
-  /* 8 modes: picker chips + keyboard switching */
+  /* 5 modes: picker chips + keyboard switching */
   await send("Page.navigate", { url: BASE + "/index.html?handfx-test=1" });
   await sleep(1800);
   const hm1 = await evaluate(`(async () => {
@@ -374,7 +383,7 @@ async function runFinalInspection() {
     document.querySelector('#handfx-overlay [data-mode="thunder"]').click();
     await new Promise(r => setTimeout(r, 150));
     const afterClick = window.HandFX._engine.stats().mode;
-    document.getElementById('handfx-overlay').dispatchEvent(new KeyboardEvent('keydown', { key: '7', bubbles: true }));
+    document.getElementById('handfx-overlay').dispatchEvent(new KeyboardEvent('keydown', { key: '4', bubbles: true }));
     await new Promise(r => setTimeout(r, 150));
     const afterKey = window.HandFX._engine.stats().mode;
     const thunderPressed = document.querySelector('#handfx-overlay [data-mode="thunder"]').getAttribute('aria-pressed');
@@ -384,7 +393,7 @@ async function runFinalInspection() {
     return JSON.stringify({ chips: chips, afterClick: afterClick, afterKey: afterKey, thunderPressed: thunderPressed, firefliesPressed: firefliesPressed, count: count });
   })()`, true);
   const hmj = JSON.parse(hm1);
-  record("handfx: 8 modes, chip click + keyboard switch, per-mode budget", hmj.chips === 8 && hmj.afterClick === "thunder" && hmj.afterKey === "fireflies" && hmj.thunderPressed === "false" && hmj.firefliesPressed === "true" && hmj.count > 500, hm1);
+  record("handfx: 5 modes, chip click + keyboard switch, per-mode budget", hmj.chips === 5 && hmj.afterClick === "thunder" && hmj.afterKey === "fireflies" && hmj.thunderPressed === "false" && hmj.firefliesPressed === "true" && hmj.count > 500, hm1);
 
   /* hash deep link */
   await send("Page.navigate", { url: BASE + "/index.html#banknest-case" });

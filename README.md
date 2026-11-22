@@ -111,22 +111,21 @@ sound is **on by default** — the nav 🔊 mutes it.
 <img src="readme/handfx.svg" alt="Animation of a hand skeleton with tracking landmarks moving across a dark stage, an orbiting ring of lime particles following it, with mode labels cycling through thunder bolt strike, heart fountain, firefly flock, and comet launch." width="100%">
 
 A full-screen particle laboratory where **MediaPipe hand tracking (WASM) turns your hand into a controller** —
-with **eight modes** you switch from chips in the overlay or keys **1–8**. The same four gestures drive every
-mode, so the controls take seconds to learn and each mode plays differently:
+open it from the **✋ button in the nav** (or Byte's menu), and switch between **five modes** with the chips
+or keys **1–5**. The same four gestures drive every mode, so the controls take seconds to learn and each
+mode plays differently:
 
 | # | Mode | Hold (🤚) | Fist (✊) | Open (✋) | Victory (✌️) |
 |---|---|---|---|---|---|
 | 1 | 🌀 **Portal** | ring follows your palm | spins into a 3D sphere | detonate & scatter | jets from fingertips |
-| 2 | 🛰️ **Stream** | emitter orbits you | trails pull home | scatter | aim the signal stream |
-| 3 | 🔮 **Sphere** | loose orbit | spinning sphere | blow it apart | flare |
-| 4 | 💥 **Burst** | tight orbit | collapse | **detonate** | mini-fireworks |
-| 5 | ⚡ **Thunder** | charge the clouds | **bolt strike** — sky-splitting bolt, flash, screen shake, crackle | spark-scatter | forked mini-bolts |
-| 6 | 💗 **Hearts** | hearts orbit & flutter upward | implode & pop | heart burst | fountain from your palm |
-| 7 | ✨ **Fireflies** | the flock drifts to your palm | capture the swarm | release | swarm stream |
-| 8 | ☄️ **Comet** | comet orbits you | call it home | shatter to stardust | **aim & launch** — it flies, explodes at the edge, respawns |
+| 2 | ⚡ **Thunder** | charge the crackling clouds | **bolt strike** — sky-splitting bolt, flash, screen shake, synthesized crackle | **storm ring** — six bolts crash in a circle | **finger lightning** whipping from your fingertips |
+| 3 | 💗 **Hearts** | hearts orbit & flutter upward — a fast hand whips them into a breeze | implode & pop | heart burst | **fountain trail** pouring from your fingertips |
+| 4 | ✨ **Fireflies** | the flock drifts to your palm (a fast sweep scatters it) | **capture** — the swarm compresses into your fist | release | **rotating ring** circling your fingertip |
+| 5 | ☄️ **Comet** | the comet orbits you | call it home | shatter to stardust | **aim & launch** — it flies, explodes at the edge, respawns |
 
-Thunder's fist strike comes with a synthesized crackle, a sub-bass thump, a white flash and a screen shake —
-no audio files, no video files, all generated in the browser.
+Fingertip work is precise — the victory gestures track your index finger directly. Thunder's fist strike
+comes with a synthesized crackle, a sub-bass thump, a white flash and a screen shake — no audio files,
+no video files, all generated in the browser.
 
 **Privacy is the feature:** the camera is requested *only* when you open the experience, every frame is
 processed **on-device** by WebAssembly, nothing is ever recorded or uploaded — and closing the overlay

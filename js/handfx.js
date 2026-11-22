@@ -27,16 +27,13 @@
   var WASM_PATH = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@" + MP_VERSION + "/wasm";
   var MODEL_URL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
 
-  /* ---- mode table: palette + per-mode particle budget + hint ---- */
+  /* ---- mode table: five worlds, one per gesture family ---- */
   var MODES = [
-    { id: "portal",    label: "Portal",    icon: "🌀", colors: ["#D9FF43", "#D9FF43", "#7C85FF", "#7C85FF", "#FFA86B"], count: 1600, hint: "Hold to ride the ring · ✊ collapse · ✋ scatter · ✌️ jets" },
-    { id: "stream",    label: "Stream",    icon: "🛰️", colors: ["#D9FF43", "#7C85FF", "#7C85FF", "#F2EFE6", "#FFA86B"], count: 1500, hint: "✌️ aim the jet from your fingertips · ✊ pull it back" },
-    { id: "sphere",    label: "Sphere",    icon: "🔮", colors: ["#7C85FF", "#7C85FF", "#D9FF43", "#F2EFE6", "#FF7A6B"], count: 1600, hint: "✊ spin the sphere · ✋ blow it apart · 🤚 loose orbit" },
-    { id: "burst",     label: "Burst",     icon: "💥", colors: ["#FFA86B", "#FF7A6B", "#D9FF43", "#7C85FF", "#F2EFE6"], count: 1600, hint: "✋ open to detonate · 🤚 regroup · ✌️ fireworks" },
-    { id: "thunder",   label: "Thunder",   icon: "⚡", colors: ["#F2EFE6", "#BFD4FF", "#7C85FF", "#F2EFE6", "#D9FF43"], count: 1400, hint: "🤚 charge the clouds · ✊ fist = bolt strike" },
-    { id: "hearts",    label: "Hearts",    icon: "💗", colors: ["#FF6B8F", "#FF7A6B", "#FF9EB5", "#FFD1DC", "#D9FF43"], count: 900,  hint: "🤚 hearts orbit you · ✌️ fountain · ✊ implode & pop" },
-    { id: "fireflies", label: "Fireflies", icon: "✨", colors: ["#D9FF43", "#C6E86B", "#FFD97A", "#9FE870", "#F2EFE6"], count: 1100, hint: "🤚 they flock to your palm · ✊ capture · ✋ release" },
-    { id: "comet",     label: "Comet",     icon: "☄️", colors: ["#8FE8FF", "#F2EFE6", "#7C85FF", "#BFD4FF", "#D9FF43"], count: 1400, hint: "🤚 the comet orbits you · ✌️ aim & launch · ✊ call it home" }
+    { id: "portal",    label: "Portal",    icon: "🌀", colors: ["#D9FF43", "#D9FF43", "#7C85FF", "#7C85FF", "#FFA86B"], count: 1600, hint: "🤚 ride the ring · ✊ sphere · ✋ scatter · ✌️ jets" },
+    { id: "thunder",   label: "Thunder",   icon: "⚡", colors: ["#F2EFE6", "#BFD4FF", "#7C85FF", "#F2EFE6", "#D9FF43"], count: 1400, hint: "🤚 charge · ✊ bolt strike · ✋ storm ring · ✌️ finger lightning" },
+    { id: "hearts",    label: "Hearts",    icon: "💗", colors: ["#FF6B8F", "#FF7A6B", "#FF9EB5", "#FFD1DC", "#D9FF43"], count: 900,  hint: "🤚 orbit & flutter · ✊ implode & pop · ✋ burst · ✌️ fountain trail" },
+    { id: "fireflies", label: "Fireflies", icon: "✨", colors: ["#D9FF43", "#C6E86B", "#FFD97A", "#9FE870", "#F2EFE6"], count: 1100, hint: "🤚 flock to your palm · ✊ capture · ✋ release · ✌️ fingertip ring" },
+    { id: "comet",     label: "Comet",     icon: "☄️", colors: ["#8FE8FF", "#F2EFE6", "#7C85FF", "#BFD4FF", "#D9FF43"], count: 1400, hint: "🤚 comet orbits you · ✊ call it home · ✌️ aim & launch" }
   ];
 
   var FADE = "rgba(13, 14, 17, 0.34)";
@@ -50,6 +47,7 @@
   var stream = null;
   var rafId = 0, lastTs = 0, lastVideoTime = -1, lastSeen = 0;
   var hand = null;            // smoothed hand state
+  var prevHX = 0, prevHY = 0; // previous smoothed position (speed calc)
   var rawGesture = "", rawStreak = 0, appliedGesture = "";
   var map = { ox: 0, oy: 0, s: 1 }; // video -> canvas cover mapping
   var testMode = false;
@@ -66,6 +64,7 @@
   var bolts = [];             // thunder bolt polylines
   var flash = 0;              // thunder screen flash 0..1
   var shakeT = 0;             // thunder screen shake timer (s)
+  var whipT = 0;              // finger-lightning throttle (s)
   var comet = null;           // comet entity { x, y, vx, vy }
   var sparks = [];            // tiny bright sparks (thunder/comet bursts)
 
@@ -322,8 +321,16 @@
         if (g === "idle") {
           if (p.y < -20) { p.x = Math.random() * w; p.y = h + 20; p.vx = 0; p.vy = 0; }
           p.vy -= 14 * dtSec;                            /* buoyancy */
-          p.vx += Math.sin(tSec * 1.6 + p.ph) * 26 * dtSec; /* flutter */
+          /* a fast hand whips the flutter into a breeze */
+          p.vx += Math.sin(tSec * 1.6 + p.ph) * (26 + Math.min(70, (hand ? hand.spd : 0) * 0.02)) * dtSec;
           p.vx *= 0.985; p.vy = Math.max(-6, p.vy * 0.99);
+        } else if (g === "stream" && hd && hd.emitter) {
+          /* victory: a fountain trail pours from your fingertips */
+          p.tx = hd.emitter.x + (p.rr - 0.5) * 64;
+          p.ty = hd.emitter.y + (p.rr - 0.5) * 42;
+          p.vx += (p.tx - p.x) * 4.2 * dtSec;
+          p.vy += (p.ty - p.y) * 4.2 * dtSec - 46 * dtSec;
+          p.vx *= 0.95; p.vy *= 0.96;
         } else {
           var hb = R * (0.4 + p.rr * 1.1);
           var ha = p.ph + rot * p.sp * 1.4;
@@ -341,20 +348,44 @@
         p.wa = wa;
         p.vx += Math.cos(wa) * 30 * dtSec;
         p.vy += Math.sin(wa) * 30 * dtSec;
-        if (g !== "idle") {
+        if (g === "stream" && hd && hd.emitter) {
+          /* victory: the swarm forms a rotating ring around your fingertip */
+          var ra = p.ph + tSec * 1.1;
+          p.tx = hd.emitter.x + Math.cos(ra) * R * 0.42;
+          p.ty = hd.emitter.y + Math.sin(ra) * R * 0.42;
+          p.vx += (p.tx - p.x) * 6.5 * dtSec;
+          p.vy += (p.ty - p.y) * 6.5 * dtSec;
+          p.vx *= 0.9; p.vy *= 0.9;
+        } else if (g === "fist") {
+          /* capture: tight pull */
+          p.vx += (cx - p.x) * 5.5 * dtSec;
+          p.vy += (cy - p.y) * 5.5 * dtSec;
+          p.vx *= 0.93; p.vy *= 0.93;
+        } else if (g === "open") {
           var fd = Math.sqrt((p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy)) || 1;
-          if (g === "fist") { /* capture: tight pull */
-            p.vx += (cx - p.x) * 5.5 * dtSec;
-            p.vy += (cy - p.y) * 5.5 * dtSec;
-          } else if (g === "open" && fd < R * 2.2) {
+          if (fd < R * 2.2) {
             var ff = (1 - fd / (R * 2.2)) * 34 * dtSec;
             p.vx += ((p.x - cx) / fd) * ff; p.vy += ((p.y - cy) / fd) * ff;
-          } else if (fd > R * 1.6) { /* flock toward the palm */
-            p.vx += (cx - p.x) * 1.7 * dtSec;
-            p.vy += (cy - p.y) * 1.7 * dtSec;
           }
+          p.vx *= 0.965; p.vy *= 0.965;
+        } else {
+          if (hd) { /* flock toward the palm */
+            var fd2 = Math.sqrt((p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy)) || 1;
+            if (fd2 > R * 1.6) {
+              p.vx += (cx - p.x) * 1.7 * dtSec;
+              p.vy += (cy - p.y) * 1.7 * dtSec;
+            }
+          }
+          /* a fast hand sweep scatters the flock */
+          if ((hand && hand.spd || 0) > 650) {
+            var fd3 = Math.sqrt((p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy)) || 1;
+            if (fd3 < R * 2) {
+              var fs2 = (1 - fd3 / (R * 2)) * 22 * dtSec;
+              p.vx += ((p.x - cx) / fd3) * fs2; p.vy += ((p.y - cy) / fd3) * fs2;
+            }
+          }
+          p.vx *= 0.965; p.vy *= 0.965;
         }
-        p.vx *= 0.965; p.vy *= 0.965;
 
       } else if (mid === "comet") {
         /* stardust trails the comet; the palm is home base */
@@ -374,77 +405,6 @@
           p.vy += (Math.random() - 0.5) * 40 * dtSec + pw * 0.2;
         }
         p.vx *= 0.955; p.vy *= 0.955;
-
-      } else if (mid === "stream" && g === "stream" && hd && hd.emitter) {
-        var ex2 = hd.emitter.x, ey2 = hd.emitter.y;
-        var dx4 = p.x - ex2, dy4 = p.y - ey2;
-        var d4 = Math.sqrt(dx4 * dx4 + dy4 * dy4) || 1;
-        if (d4 > 46) {
-          p.vx += (ex2 - p.x) * 3.4 * dtSec;
-          p.vy += (ey2 - p.y) * 3.4 * dtSec;
-          p.vx *= 0.92; p.vy *= 0.92;
-        }
-        if (d4 < 90) {
-          var pw2 = (1 - d4 / 90) * (130 + p.rr * 150) * dtSec;
-          p.vx += hd.dir.x * pw2 + (Math.random() - 0.5) * 80 * dtSec;
-          p.vy += hd.dir.y * pw2 + (Math.random() - 0.5) * 80 * dtSec;
-        }
-        p.vx *= 0.965; p.vy *= 0.965;
-
-      } else if (mid === "sphere") {
-        if (g === "fist" || g === "idle") {
-          var a2 = tSec * p.sp * 1.2 + p.ph;
-          var ca2 = Math.cos(a2), sa2 = Math.sin(a2);
-          var rx2 = p.sx * ca2 + p.sz2 * sa2;
-          var rz2 = -p.sx * sa2 + p.sz2 * ca2;
-          var tilt2 = 0.55;
-          var ty3 = p.sy * Math.cos(tilt2) - rz2 * Math.sin(tilt2);
-          var tz3 = p.sy * Math.sin(tilt2) + rz2 * Math.cos(tilt2);
-          var cxx = g === "idle" ? w / 2 : cx, cyy = g === "idle" ? h * 0.42 : cy;
-          p.tx = cxx + rx2 * R * 1.02;
-          p.ty = cyy + ty3 * R * 1.02;
-          var k4 = 4.2;
-          p.vx += (p.tx - p.x) * k4 * dtSec;
-          p.vy += (p.ty - p.y) * k4 * dtSec;
-          p.vx *= 0.87; p.vy *= 0.87;
-        } else {
-          var dx5 = p.x - cx, dy5 = p.y - cy;
-          var d5 = Math.sqrt(dx5 * dx5 + dy5 * dy5) || 1;
-          if (d5 < R * 2.4) {
-            var f2 = (1 - d5 / (R * 2.4)) * 30 * dtSec;
-            p.vx += (dx5 / d5) * f2; p.vy += (dy5 / d5) * f2;
-          }
-          p.vx *= 0.972; p.vy *= 0.972;
-          if (p.x < -40 || p.x > w + 40 || p.y < -40 || p.y > h + 40) {
-            p.vx += (w / 2 - p.x) * 0.004; p.vy += (h / 2 - p.y) * 0.004;
-          }
-        }
-
-      } else if (mid === "burst") {
-        if (g === "idle" || g === "ring" || g === "stream") {
-          var ang3 = p.ph + rot * p.sp * 1.1;
-          var band3 = R * (0.62 + p.rr * 0.5);
-          p.tx = cx + Math.cos(ang3) * band3;
-          p.ty = cy + Math.sin(ang3) * band3;
-          p.vx += (p.tx - p.x) * 3 * dtSec;
-          p.vy += (p.ty - p.y) * 3 * dtSec;
-          p.vx *= 0.9; p.vy *= 0.9;
-        } else if (g === "fist") {
-          p.vx += (cx - p.x) * 4.6 * dtSec;
-          p.vy += (cy - p.y) * 4.6 * dtSec;
-          p.vx *= 0.86; p.vy *= 0.86;
-        } else {
-          var dx6 = p.x - cx, dy6 = p.y - cy;
-          var d6 = Math.sqrt(dx6 * dx6 + dy6 * dy6) || 1;
-          if (d6 < R * 2.6) {
-            var f3 = (1 - d6 / (R * 2.6)) * 30 * dtSec;
-            p.vx += (dx6 / d6) * f3; p.vy += (dy6 / d6) * f3;
-          }
-          p.vx *= 0.972; p.vy *= 0.972;
-          if (p.x < -40 || p.x > w + 40 || p.y < -40 || p.y > h + 40) {
-            p.vx += (w / 2 - p.x) * 0.004; p.vy += (h / 2 - p.y) * 0.004;
-          }
-        }
       }
     }
 
@@ -480,6 +440,16 @@
       flash *= Math.pow(0.02, dtSec);
       if (shakeT > 0) shakeT -= dtSec;
       if (hd && hd.emitter && Math.random() < dtSec * 6) spawnSparks(hd.emitter.x, hd.emitter.y, 2, "#BFD4FF");
+      /* ✌️ held: continuous finger lightning whipping along the point direction */
+      if (hd && hd.gesture === "stream" && hd.emitter && hd.dir) {
+        whipT -= dtSec;
+        if (whipT <= 0) {
+          whipT = 0.1;
+          var wx = hd.emitter.x, wy = hd.emitter.y;
+          bolts.push(makeBolt(wx, wy, wx + hd.dir.x * 130, wy + hd.dir.y * 130));
+          spawnSparks(wx + hd.dir.x * 40, wy + hd.dir.y * 40, 3, "#BFD4FF");
+        }
+      }
     }
     for (var si = sparks.length - 1; si >= 0; si--) {
       var sk = sparks[si];
@@ -639,7 +609,14 @@
       }
       window.SoundPop && window.SoundPop();
       if (window.Byte && window.Byte.SoundFX) window.Byte.SoundFX.play(mid === "hearts" ? "sparkle" : "chime");
-      if (mid === "thunder") strike(fx, fy, false);
+      if (mid === "thunder") {
+        /* storm ring: six bolts crash in a circle around the palm */
+        for (var sri = 0; sri < 6; sri++) {
+          var sa2 = (sri / 6) * Math.PI * 2;
+          strike(fx + Math.cos(sa2) * 150, fy + Math.sin(sa2) * 110, false);
+        }
+        spawnSparks(fx, fy, 30, "#BFD4FF");
+      }
     } else if (next === "fist") {
       for (var j = 0; j < count; j++) {
         var q = P[j];
@@ -724,13 +701,13 @@
       if (next.emitter) hand.emitter = { x: next.emitter.x, y: next.emitter.y };
       return;
     }
-    hand.x = lerp(hand.x, next.x, 0.4);
-    hand.y = lerp(hand.y, next.y, 0.4);
-    hand.r = lerp(hand.r, next.r, 0.2);
+    hand.x = lerp(hand.x, next.x, 0.42);
+    hand.y = lerp(hand.y, next.y, 0.42);
+    hand.r = lerp(hand.r, next.r, 0.24);
     hand.gesture = next.gesture;
     if (next.emitter && hand.emitter) {
-      hand.emitter.x = lerp(hand.emitter.x, next.emitter.x, 0.4);
-      hand.emitter.y = lerp(hand.emitter.y, next.emitter.y, 0.4);
+      hand.emitter.x = lerp(hand.emitter.x, next.emitter.x, 0.55); /* fingertip work wants a tighter follow */
+      hand.emitter.y = lerp(hand.emitter.y, next.emitter.y, 0.55);
     } else if (next.emitter) hand.emitter = next.emitter;
     hand.dir = next.dir || hand.dir;
   }
@@ -793,6 +770,14 @@
         appliedGesture = candidate;
       }
       smoothHand(mapped);
+      /* hand speed (px/s) — fast moves make hearts flutter and fireflies scatter */
+      var spd = 0;
+      if (hand) {
+        var hx = hand.x, hy = hand.y;
+        spd = Math.sqrt((hx - (prevHX || hx)) * (hx - (prevHX || hx)) + (hy - (prevHY || hy)) * (hy - (prevHY || hy))) / Math.max(0.008, dtSec);
+        prevHX = hx; prevHY = hy;
+      }
+      hand.spd = lerp(hand.spd || 0, Math.min(spd, 4000), 0.25);
     }
 
     computeTargets(dtSec, ts / 1000, (detected || (ts - lastSeen < 1700)) ? hand : null);

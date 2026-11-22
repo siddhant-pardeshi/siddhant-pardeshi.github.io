@@ -73,7 +73,7 @@
     {
       "name": "byte: click hero → reacts",
       "pass": true,
-      "info": "byte-instance byte--breath byte--celebrate"
+      "info": "byte-instance byte--breath byte--happy"
     },
     {
       "name": "byte: petting → love state",
@@ -177,6 +177,11 @@
     },
     {
       "name": "sound: engine present and ON by default (mute-only-off)",
+      "pass": true,
+      "info": "true"
+    },
+    {
+      "name": "handfx: nav button opens the particle lab",
       "pass": true,
       "info": "true"
     },
@@ -316,9 +321,9 @@
       "info": "tracking|true|true|true"
     },
     {
-      "name": "handfx: 8 modes, chip click + keyboard switch, per-mode budget",
+      "name": "handfx: 5 modes, chip click + keyboard switch, per-mode budget",
       "pass": true,
-      "info": "{\"chips\":8,\"afterClick\":\"thunder\",\"afterKey\":\"fireflies\",\"thunderPressed\":\"false\",\"firefliesPressed\":\"true\",\"count\":1100}"
+      "info": "{\"chips\":5,\"afterClick\":\"thunder\",\"afterKey\":\"fireflies\",\"thunderPressed\":\"false\",\"firefliesPressed\":\"true\",\"count\":1100}"
     },
     {
       "name": "deep link: #banknest-case opens the case study",

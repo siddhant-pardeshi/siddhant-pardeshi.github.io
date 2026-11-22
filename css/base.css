@@ -256,8 +256,9 @@ button { font: inherit; color: inherit; }
   .nav-icon-btn { width: 36px; height: 36px; }
 }
 @media (max-width: 480px) {
-  /* Settings stays reachable via Byte's menu and the mobile menu */
-  .site-nav__actions [data-open-settings] { display: none; }
+  /* Settings + palette stay reachable via Byte's menu and the mobile menu */
+  .site-nav__actions [data-open-settings],
+  .site-nav__actions [data-open-palette] { display: none; }
 }
 @media (max-width: 370px) {
   /* Keep just the monogram — the name stays in the hero and mobile menu */
