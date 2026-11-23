@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-23T00:14:53.838Z",
+  "fetchedAt": "2026-11-23T07:55:55.380Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -30,20 +30,20 @@
   },
   "more": [
     {
+      "name": "LeadScout",
+      "url": "https://github.com/siddhant-pardeshi/LeadScout",
+      "description": "LeadScout — bulk LinkedIn decision-maker finder Chrome extension. 50–100 companies → verified current roles, emails, Excel-ready TSV. Bing-powered, AI-optional, 100% local.",
+      "stars": 1,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-23T06:45:15Z"
+    },
+    {
       "name": "cinetray",
       "url": "https://github.com/siddhant-pardeshi/cinetray",
       "description": "Press and drag any YouTube video into a floating dock to file it under Watch Later or a playlist. Local-only storage, no account access, no build step.",
       "stars": 0,
       "language": "JavaScript",
       "pushedAt": "2026-11-22T20:16:51Z"
-    },
-    {
-      "name": "LeadScout",
-      "url": "https://github.com/siddhant-pardeshi/LeadScout",
-      "description": "LeadScout — bulk LinkedIn decision-maker finder Chrome extension. 50–100 companies → verified current roles, emails, Excel-ready TSV. Bing-powered, AI-optional, 100% local.",
-      "stars": 0,
-      "language": "JavaScript",
-      "pushedAt": "2026-11-22T16:47:07Z"
     },
     {
       "name": "merchant-saathi",
