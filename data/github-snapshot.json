@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-24T15:06:46.233Z",
+  "fetchedAt": "2026-11-24T23:51:57.395Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -24,7 +24,7 @@
       "forks": 0,
       "language": "TypeScript",
       "description": "🏆 4th Place · Top-10 Finalist — OpenAI DevDay Exchange Metro Hackathon Pune. MetroMind — AI commute copilot and civic toolkit for the Pune Metro (Urban Mobility track, Codex Dayline)",
-      "pushedAt": "2026-11-23T15:28:59Z",
+      "pushedAt": "2026-11-24T15:23:02Z",
       "htmlUrl": "https://github.com/siddhant-pardeshi/MetroMind"
     }
   },
@@ -32,10 +32,10 @@
     {
       "name": "LeadScout",
       "url": "https://github.com/siddhant-pardeshi/LeadScout",
-      "description": "LeadScout — bulk LinkedIn decision-maker finder Chrome extension. 50–100 companies → verified current roles, emails, Excel-ready TSV. Bing-powered, AI-optional, 100% local.",
+      "description": "Find decision-makers at any company and export them to a clean 10-column CSV — Chrome/Edge extension for B2B prospecting.",
       "stars": 1,
       "language": "JavaScript",
-      "pushedAt": "2026-11-24T12:56:34Z"
+      "pushedAt": "2026-11-24T20:38:23Z"
     },
     {
       "name": "cinetray",
