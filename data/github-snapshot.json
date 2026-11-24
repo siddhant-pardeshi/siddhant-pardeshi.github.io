@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-23T19:42:51.569Z",
+  "fetchedAt": "2026-11-24T15:06:46.233Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -35,7 +35,7 @@
       "description": "LeadScout — bulk LinkedIn decision-maker finder Chrome extension. 50–100 companies → verified current roles, emails, Excel-ready TSV. Bing-powered, AI-optional, 100% local.",
       "stars": 1,
       "language": "JavaScript",
-      "pushedAt": "2026-11-23T11:23:59Z"
+      "pushedAt": "2026-11-24T12:56:34Z"
     },
     {
       "name": "cinetray",
