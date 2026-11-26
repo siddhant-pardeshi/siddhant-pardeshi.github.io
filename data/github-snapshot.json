@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-25T16:07:22.914Z",
+  "fetchedAt": "2026-11-26T08:39:39.878Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -35,7 +35,7 @@
       "description": "Find decision-makers at any company and export them to a clean 10-column CSV — Chrome/Edge extension for B2B prospecting.",
       "stars": 1,
       "language": "JavaScript",
-      "pushedAt": "2026-11-25T13:22:29Z"
+      "pushedAt": "2026-11-26T05:32:09Z"
     },
     {
       "name": "cinetray",
