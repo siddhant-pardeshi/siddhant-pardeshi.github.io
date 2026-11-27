@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-26T18:38:39.576Z",
+  "fetchedAt": "2026-11-27T10:19:58.220Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -35,7 +35,7 @@
       "description": "Chrome/Edge MV3 extension that resolves bulk company names or people to evidence-backed LinkedIn company and profile URLs. Deterministic matching, human review, resumable jobs, CSV/JSON export, and optional BYOK AI query assist (Gemini, Grok, OpenRouter).",
       "stars": 0,
       "language": "TypeScript",
-      "pushedAt": "2026-11-26T09:32:35Z"
+      "pushedAt": "2026-11-27T05:11:19Z"
     },
     {
       "name": "LeadScout",
