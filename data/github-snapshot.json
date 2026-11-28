@@ -1,7 +1,7 @@
 {
   "source": "github-api",
   "owner": "siddhant-pardeshi",
-  "fetchedAt": "2026-11-27T19:31:50.210Z",
+  "fetchedAt": "2026-11-28T10:17:47.579Z",
   "repos": {
     "BankNest": {
       "stars": 0,
@@ -29,6 +29,14 @@
     }
   },
   "more": [
+    {
+      "name": "IDCPUNE26",
+      "url": "https://github.com/siddhant-pardeshi/IDCPUNE26",
+      "description": "Build Your First AI Agent - IDC Pune Community Connect (Gemini support-ticket agent)",
+      "stars": 0,
+      "language": "Python",
+      "pushedAt": "2026-11-28T07:17:34Z"
+    },
     {
       "name": "company-linkedin-url-finder",
       "url": "https://github.com/siddhant-pardeshi/company-linkedin-url-finder",
@@ -84,14 +92,6 @@
       "stars": 0,
       "language": "TypeScript",
       "pushedAt": "2026-11-05T18:02:37Z"
-    },
-    {
-      "name": "game-deck",
-      "url": "https://github.com/siddhant-pardeshi/game-deck",
-      "description": "Catalog hub for Siddhant Pardeshi's handcrafted browser games — one shared game kit (mascot engine, synth audio, responsive shell), six worlds, and the factory recipe for more.",
-      "stars": 0,
-      "language": "JavaScript",
-      "pushedAt": "2026-11-05T16:54:54Z"
     }
   ]
 }
